@@ -14,9 +14,9 @@ const router = Router();
 //     ]),createRecipeCard
 // )
 
-router.route("/").post(upload.single("image"), createRecipeCard)
+router.route("/cards").post(upload.single("image"), createRecipeCard)
 
-router.route("/").get(getRecipeCards);
+router.route("/cards").get(getRecipeCards);
 
 
 export default router;
