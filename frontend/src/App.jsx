@@ -12,6 +12,7 @@ import { Provider } from 'react-redux'
 import store from '../redux/store.js'
 import Hero from "./components/Hero.jsx";
 import Cards from "./components/Cards";
+import Recipe from "./components/Recipe";
 const App=()=>{
 return (
   <>
@@ -28,6 +29,7 @@ return (
 
 <Hero/>
 <Cards/>
+<Recipe/>
 <Home/>
 
 

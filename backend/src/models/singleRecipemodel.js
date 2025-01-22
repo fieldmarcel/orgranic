@@ -66,11 +66,11 @@ const recipeSchema=  new mongoose.Schema(
         steps:{
           type: String,
           index: true
-        }
-        // image: {
-        //   type: String, // Changed to String for storing the Cloudinary URL
-        //   required: true,
-        // },
+        },
+        image: {
+          type: String, // Changed to String for storing the Cloudinary URL
+          required: true,
+        },
       },
       { timestamps: true })
 

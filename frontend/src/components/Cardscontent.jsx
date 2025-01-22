@@ -9,7 +9,7 @@ const Cardscontent = ({image, title, rating} ) => {
       <div className="relative">
       
         <img
-          src={image ? image : "/abc.jpg"}
+          src={image ? image : "/cookie.jpg"}
           
           alt={title}
           className="w-full h-40 object-cover object-top"

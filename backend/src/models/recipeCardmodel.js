@@ -16,7 +16,8 @@ const RecipeCardSchema = new mongoose.Schema(
     subCategory: { type: String },
 
     // subCategory: { type: mongoose.Schema.Types.ObjectId, ref: "SubCategory" },
-    image: { type: String, required: true }, // Change to String
+    image: { type: mongoose.Schema.Types.ObjectId,
+      ref: "Recipe", required: true }, // Change to String
   },
   { timestamps: true }
 );

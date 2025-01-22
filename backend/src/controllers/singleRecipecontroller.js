@@ -38,15 +38,25 @@ const createSingleRecipePage = async (req, res) => {
       !nutrition ||
       !cuisine ||
       !mealType ||
-      !steps
+      !steps 
+      || !req.file
     ) {
       res.status(500).json({ error: "All fields are required" });
       console.log("all fields are required ");
     }
+    const imageUpload = await uploadOnCloudinary(req.file.path);
+    if (!imageUpload || !imageUpload.url) {
+        return res.status(500).json({ error: "Image upload failed" });
+    }
+
+    console.log("Image uploaded successfully:", imageUpload);
+    console.log("File path being uploaded:", req.file.path);
 
     //creating for db
 
     const recipe = await Recipe.create({
+
+    image: imageUpload.url,
       recipeId,
       subCategory,
       title,
