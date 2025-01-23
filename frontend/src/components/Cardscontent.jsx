@@ -32,7 +32,7 @@ const Cardscontent = ({image, title, rating} ) => {
       <div className="flex-1 p-4 flex flex-col justify-between bg-teal-600 text-white">
         <h3 className="text-lg font-semibold">{title}</h3>
         <div className="flex justify-between items-center mt-2">
-          <span className="text-sm">Rating:</span>
+          <span className="text-sm">raing i s:</span>
           <span className="text-lg font-bold">{rating} ⭐</span>
         </div>
       </div>
