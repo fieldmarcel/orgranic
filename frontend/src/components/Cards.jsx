@@ -22,7 +22,7 @@ const Cards = () => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <h1 className="text-4xl font-bold text-center sm:mt-10 mb-4">Become a true chef <br/>with our recipes</h1>
+      <h1 className="text-4xl font-bold text-center sm:mt-10 mb-4">Become a true chef of organic  <br/>with our recipes</h1>
 
       <div className="flex flex-wrap justify-center items-center sm:mt-10 space-x-4">
         {recipe.length > 0 ? (
