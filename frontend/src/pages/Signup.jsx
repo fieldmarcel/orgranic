@@ -38,7 +38,7 @@ const Signup = () => {
       console.log(error);
       toast.error("Something went wrong during signup", error.message);
       console.error(
-        "Error during signup:",
+        "ther's error during signup :",
         error.response?.data?.message || error.message
       );
     }
