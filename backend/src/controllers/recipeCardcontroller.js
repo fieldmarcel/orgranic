@@ -2,7 +2,7 @@ import { uploadOnCloudinary } from '../utils/cloudinary.js';
 import { RecipeCard } from '../models/recipeCardmodel.js';
 import {Recipe} from '../models/singleRecipemodel.js';
 const createRecipeCard = async (req, res) => {
-    const { title, rating, recipeId, category } = req.body;
+    const { title, rating, category } = req.body;
 
     console.log("Request body for recipe cards:", req.body);
 
@@ -10,7 +10,7 @@ const createRecipeCard = async (req, res) => {
     // 
     try {
         // Validate required fields
-        if (!title || !rating || !req.file  || !recipeId || !category ) {
+        if (!title || !rating || !req.file ) {
             return res.status(400).json({ error: "All fields are required, including an image" });
         }
 
@@ -26,7 +26,7 @@ const createRecipeCard = async (req, res) => {
         console.log("File path being uploaded:", req.file.path);
 
 
-const recipeExists= await Recipe.findById(recipeId)
+const recipeExists= await Recipe.findById(title._id)
 
  if(!recipeExists){
     return res.status(404).json({ error: "Referenced recipe not found" });
@@ -35,8 +35,7 @@ const recipeExists= await Recipe.findById(recipeId)
         const recipeCard = await RecipeCard.create({
             title,
             rating,
-            recipeId,
-            category,
+          
             image: imageUpload.url, // Correctly assign the Cloudinary image URL
 
         });
@@ -66,7 +65,7 @@ const getRecipeCards = async (req, res) => {
 //for this purpose we use populate to get all data from that 
 // ref id req in recipe cards 
 try {
-    const recipes= await RecipeCard.find({}).populate("recipeId");
+    const recipes= await RecipeCard.find({}).populate("title._id");
     return res.status(200).json({recipes})
 } catch (error) {
     return res.status(500).json({error: "Error in fetching recipe cards"})

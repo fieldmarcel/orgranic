@@ -14,7 +14,8 @@ const router = Router();
 //     ]),createRecipeCard
 // )
 
-router.route("/cards").post(upload.single("image"), createRecipeCard)
+// router.route("/cards").post(upload.single("image"), createRecipeCard)
+router.route("/cards").post( createRecipeCard)
 
 router.route("/cards").get(getRecipeCards);
 

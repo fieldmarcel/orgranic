@@ -2,11 +2,7 @@ import mongoose from 'mongoose';
 
 const recipeSchema=  new mongoose.Schema(
     {
-        recipeId: {
-          type: String,
-          unique: true,
-          index: true,
-        },
+     
         subCategory: {
           type: String,
           index: true
@@ -27,10 +23,7 @@ const recipeSchema=  new mongoose.Schema(
           type: String,
           index: true
         },
-        price: {
-          type: Number,
-          index: true
-        },
+       
         cookTime: {
           type: Number,
           required: true,
