@@ -10,7 +10,7 @@ const Cards = () => {
   // const handleGetRecipe = async () => {
   //   try {
   //     const response = await axios.get(
-  //       "http://localhost:8080/api/v1/recipes/cards"
+  //       "http://localhost:8080/api/v1/recipes"
   //     );
   //     setrecipe(response.data.recipes);
   //     console.log("Fetched recipes are:", response.data.recipes);
@@ -25,8 +25,7 @@ const Cards = () => {
   const dispatch = useDispatch();
 
 const {isLoading,recipe,error}=useSelector((state)=> state.RecipeCard)
-const state= useSelector((state)=>state);
-console.log(state);
+
 useEffect(() => {
   dispatch(fetchRecipeCards())
 }, [dispatch])
@@ -46,7 +45,7 @@ if(error){
       </h1>
 
       <div className="flex flex-wrap justify-center items-center sm:mt-10 space-x-4">
-        {recipe.length > 0 ? (
+        {recipe.length >0 ?(
           recipe.map((item, index) => {
             return (
               <Cardscontent
@@ -57,9 +56,11 @@ if(error){
               />
             );
           })
-        ) : (
-          <p>Loading recipes...</p>
-        )}
+        ):(
+<p>error in loading </p>        
+        )
+        
+}
       </div>
     </div>
   );

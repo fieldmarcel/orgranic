@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchRecipeCards = createAsyncThunk(
   "fetchRecipeCards",
   async () => {
-    const response = await fetch("http://localhost:8080/api/v1/recipes/cards");
+    const response = await fetch("http://localhost:8080/api/v1/recipes");
     return response.json();
   }
 );
@@ -21,14 +21,13 @@ const recipeCardSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(fetchRecipeCards.fulfilled, (state, action) => {
-      (state.isLoading = false),
-       (state.recipe = action.payload.recipes);
-       // Assuming the API returns { recipes: [...] }
+      (state.isLoading = false), (state.recipe = action.payload);
+      // Assuming the API returns { recipes: [...] }
     });
-    builder.addCase(fetchRecipeCards.rejected, (state,action) => {
-        (state.error = true),
-(state.isLoading=false),
-        console.log("error", action.payload)
+    builder.addCase(fetchRecipeCards.rejected, (state, action) => {
+      (state.error = true),
+        (state.isLoading = false),
+        console.log("error", action.payload);
     });
   },
 });

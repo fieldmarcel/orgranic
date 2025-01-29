@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { createSingleRecipePage, getRecipe,searchRecipes,getAllRecipes } from "../controllers/singleRecipecontroller.js";
-// import { upload } from "../middlewares/multer.middleware.js";
+import { upload } from "../middlewares/multer.middleware.js";
 
 const router = Router();
 // router.post("/", upload.single("image"), createRecipe);
 
-router.post("/",createSingleRecipePage)
+router.post("/", upload.single("image"),createSingleRecipePage)
 
 router.get("/",getAllRecipes)
 router.get("/:id",getRecipe)
