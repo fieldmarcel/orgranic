@@ -22,7 +22,6 @@ import userRouter from './routes/user.routes.js'
 import recipeCardRouter from './routes/recipeCard.routes.js'
 import recipeRouter from './routes/singleRecipe.routes.js'
 app.use("/api/v1/users",userRouter)
-app.use("/api/v1/recipes",recipeCardRouter)
 app.use("/api/v1/recipes",recipeRouter)
 
 export {app}

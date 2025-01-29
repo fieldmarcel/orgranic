@@ -33,17 +33,14 @@ const createSingleRecipePage = async (req, res) => {
       !steps ||
       !image
     ) {
-      return res.status(400).json({ error: "Missing required fields." });
+      return res.status(400).json({ error: "All fields are required" });
     }
 
-    // Save recipe to the database
     const recipe = await Recipe.create({
-      image,
       subCategory,
       title,
       rating,
       description,
-      steps,
       cookTime,
       readyIn,
       serving,
@@ -51,6 +48,8 @@ const createSingleRecipePage = async (req, res) => {
       nutrition,
       cuisine,
       mealType,
+      steps,
+      image,
     });
 
     return res.status(201).json({
@@ -59,24 +58,56 @@ const createSingleRecipePage = async (req, res) => {
     });
   } catch (error) {
     console.error("Error creating recipe:", error.message);
-    return res.status(500).json({ error: "Error creating recipe." });
+    return res.status(500).json({
+      message: "Error creating recipe",
+      error: error.message,
+    });
   }
 };
+
 
 const getRecipe = async (req, res) => {
   try {
-    const { title } = req.params; // Fetch recipe by title
-    const recipe = await Recipe.findOne({ title });
-
-    if (!recipe) {
-      return res.status(404).json({ error: "Recipe not found." });
-    }
-
-    return res.status(200).json({ recipe });
+   const {id}= req.params;
+   const recipe = await Recipe.findById(id)
+   if (!recipe) {
+    return res.status(404).json({ error: "Recipe not found" });
+  }
+ return res.status(200).json(recipe);
   } catch (error) {
-    console.error("Error fetching recipe:", error.message);
-    return res.status(500).json({ error: "Error fetching recipe." });
+    res.status(500).json({ error: "Failed to fetch recipe" });
+
   }
 };
 
-export { createSingleRecipePage, getRecipe };
+const getAllRecipes= async(req,res)=>{
+  try {
+    const recipes= await Recipe.find({},"title image rating");
+    return res.status(200).json(recipes);
+
+  } catch (error) {
+    res.status(500).json({error:"Failed to fetch recipes"})
+  }
+}
+
+// Search recipes
+// The $or operator is used to search either the title or ingredients
+//  fields. The $regex with $options: 'i' makes the search
+//  case-insensitive. If there's an error, it sends a 500 status
+//  with an error message.
+const searchRecipes = async (req, res) => {
+  try {
+    const { query } = req.query;
+    const recipes = await Recipe.find({
+      $or: [
+        { title: { $regex: query, $options: "i" } },
+        { ingredients: { $regex: query, $options: "i" } },
+      ],
+    });
+    res.status(200).json(recipes);
+  } catch (error) {
+    res.status(500).json({ error: "Search failed" });
+  }
+};
+
+export { createSingleRecipePage, getRecipe,getAllRecipes ,searchRecipes};

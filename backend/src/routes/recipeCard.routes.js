@@ -1,23 +1,16 @@
-import { Router } from "express";
-import {createRecipeCard} from "../controllers/recipeCardcontroller.js";
-import { upload } from "../middlewares/multer.middleware.js";
-import { getRecipeCards } from "../controllers/recipeCardcontroller.js";
+// import { Router } from "express";
+// import { createRecipeCard, getRecipeCards } from "../controllers/recipeCardcontroller.js";
+// import { getSingleRecipe } from "../controllers/recipeCardcontroller.js";  // Import the controller for single recipe
 
-const router = Router();
+// const router = Router();
 
-// router.route("/").post(
-//     upload.fields([
-//         {
-//             name:"image",
-//             maxCount:1
-//         }
-//     ]),createRecipeCard
-// )
+// // Create a recipe card (without file upload as you are directly using image URL)
+// router.route("/cards").post(createRecipeCard);
 
-// router.route("/cards").post(upload.single("image"), createRecipeCard)
-router.route("/cards").post( createRecipeCard)
+// // Get all recipe cards
+// router.route("/cards").get(getRecipeCards);
 
-router.route("/cards").get(getRecipeCards);
+// // Get details of a single recipe card based on recipeId
+// router.route("/cards/:recipeId").get(getSingleRecipe);  // Route to fetch a single recipe by its ID
 
-
-export default router;
+// export default router;

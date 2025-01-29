@@ -1,12 +1,17 @@
-import { createSingleRecipePage, getRecipe } from "../controllers/singleRecipecontroller.js";
 import { Router } from "express";
+import { createSingleRecipePage, getRecipe,searchRecipes,getAllRecipes } from "../controllers/singleRecipecontroller.js";
+// import { upload } from "../middlewares/multer.middleware.js";
 
 const router = Router();
+// router.post("/", upload.single("image"), createRecipe);
 
-// POST route for creating a recipe
-router.post("/recipe", createSingleRecipePage);
+router.post("/",createSingleRecipePage)
 
-// GET route for fetching a recipe by title
-router.get("/recipe/:title", getRecipe);
+router.get("/",getAllRecipes)
+router.get("/:id",getRecipe)
+
+router.get("/search",searchRecipes)
+
+// router.get("/filters", getRecipeFilters);
 
 export default router;

@@ -1,44 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const Recipe = () => {
+  const { id } = useParams(); // Get recipe ID from URL
+  const [recipe, setRecipe] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchRecipeData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/v1/recipes/${id}`);
+        setRecipe(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError("Error fetching recipe.");
+        setLoading(false);
+      }
+    };
+
+    fetchRecipeData();
+  }, [id]); // Fetch new data if the recipe ID changes
+
+  if (loading) return <p>Loading recipe...</p>;
+  if (error) return <p>{error}</p>;
+
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 flex justify-center items-start py-10 px-4">
       <div className="max-w-6xl w-full bg-white shadow-lg rounded-lg p-6">
         {/* Recipe Image */}
         <div className="w-full mb-6">
           <img
-            src="https://via.placeholder.com/600x400"
-            alt="Recipe"
+            src={recipe.image || "https://via.placeholder.com/600x400"}  // Fallback to placeholder
+            alt={recipe.title}
             className="w-full h-auto rounded-lg shadow-md object-cover"
           />
         </div>
 
         {/* Recipe Details */}
         <div className="flex flex-col gap-6 text-center">
-          <h2 className="text-3xl font-bold text-gray-900">
-            Recipe Name Here
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-900">{recipe.title}</h2>
           <p className="text-gray-700 text-lg leading-relaxed">
-            A brief description of the recipe. Highlight its key flavors,
-            ingredients, and unique preparation style.
+            {recipe.description}
           </p>
 
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
               <p className="font-bold text-gray-800">Preparation Time</p>
-              <p>20 mins</p>
+              <p>{recipe.preparationTime}</p>
             </div>
             <div>
               <p className="font-bold text-gray-800">Cooking Time</p>
-              <p>30 mins</p>
+              <p>{recipe.cookingTime}</p>
             </div>
             <div>
               <p className="font-bold text-gray-800">Servings</p>
-              <p>4 people</p>
+              <p>{recipe.servings}</p>
             </div>
             <div>
               <p className="font-bold text-gray-800">Difficulty</p>
-              <p>Easy</p>
+              <p>{recipe.difficulty}</p>
             </div>
           </div>
         </div>
@@ -49,21 +71,11 @@ const Recipe = () => {
             Ingredients
           </h3>
           <ul className="list-none flex flex-wrap justify-center gap-4 text-gray-700">
-            <li className="bg-gray-100 px-4 py-2 rounded-lg shadow-md">
-              1 cup of flour
-            </li>
-            <li className="bg-gray-100 px-4 py-2 rounded-lg shadow-md">
-              2 eggs
-            </li>
-            <li className="bg-gray-100 px-4 py-2 rounded-lg shadow-md">
-              1/2 cup of sugar
-            </li>
-            <li className="bg-gray-100 px-4 py-2 rounded-lg shadow-md">
-              1 tsp vanilla essence
-            </li>
-            <li className="bg-gray-100 px-4 py-2 rounded-lg shadow-md">
-              1/2 cup of milk
-            </li>
+            {recipe.ingredients.map((ingredient, index) => (
+              <li key={index} className="bg-gray-100 px-4 py-2 rounded-lg shadow-md">
+                {ingredient}
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -73,12 +85,9 @@ const Recipe = () => {
             Directions
           </h3>
           <ol className="list-decimal space-y-4 text-gray-700 text-lg pl-6">
-            <li>Preheat the oven to 180°C (350°F).</li>
-            <li>Mix the dry ingredients in a bowl.</li>
-            <li>Whisk the eggs and milk together in another bowl.</li>
-            <li>Combine the wet and dry ingredients.</li>
-            <li>Pour the mixture into a greased baking dish.</li>
-            <li>Bake for 25-30 minutes or until golden brown.</li>
+            {recipe.directions.map((direction, index) => (
+              <li key={index}>{direction}</li>
+            ))}
           </ol>
         </div>
 
