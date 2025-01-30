@@ -50,6 +50,7 @@ if(error){
             return (
               <Cardscontent
                 key={index}
+                id= {item._id}
                 image={item.image}
                 title={item.title}
                 rating={item.rating}

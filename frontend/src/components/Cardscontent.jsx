@@ -1,15 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Cardscontent = ({image, title, rating} ) => {
-  console.log("Image URL in Cardscontent:", image);
+const Cardscontent = ({id,image, title, rating} ) => {
 
   return (
-    <div className="relative w-64 h-80 bg-orange-400 rounded-lg shadow-lg overflow-hidden flex flex-col">
+    <Link
+    to={`/recipe/${id}`} 
+    className="block transition-transform duration-300 hover:scale-105" >
+    <div
+    className="relative w-64 h-80 bg-orange-400 rounded-lg shadow-lg overflow-hidden flex flex-col">
       {/* Image Section */}
       <div className="relative">
       
         <img
-          src={image ? image : "/cookie.jpg"}
+          src={image ? image : "/abc.jpg"}
           
           alt={title}
           className="w-full h-40 object-cover object-top"
@@ -37,6 +41,7 @@ const Cardscontent = ({image, title, rating} ) => {
         </div>
       </div>
     </div>
+    </Link>
   );
 };
 
