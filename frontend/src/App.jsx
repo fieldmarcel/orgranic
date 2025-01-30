@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Home from "./pages/Home";
+// import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
-import RecipeDetail from "./pages/RecipeDetail";
+// import RecipeDetail from "./pages/RecipeDetail";
 import { Toaster } from "react-hot-toast";
 import Favourites from "./pages/Favourites";
 import Signup from "./pages/Signup";
@@ -29,8 +29,8 @@ const App = () => {
                 <>
                   <Hero />
                   <Cards />
-                  <RecipeDetail/>
-                  <Home />
+                  {/* <RecipeDetail/> */}
+                  {/* <Home /> */}
                 </>
               }
             />
