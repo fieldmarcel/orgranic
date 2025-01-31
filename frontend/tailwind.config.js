@@ -9,16 +9,10 @@ module.exports = {
   darkMode: ["class", "class"], // Enables dark mode
   theme: {
   	extend: {
-		
-		zIndex: {
-			'50': '50', // Ensures navbar stays on top
-		  },
-			  
+  		zIndex: {
+  			'50': '50'
+  		},
   		fontFamily: {
-			
-				sans: ['Inter', 'sans-serif'],
-				serif: ['Libre Baskerville', 'serif'],
-			  
   			sans: [
   				'Graphik',
   				'sans-serif'
@@ -81,6 +75,16 @@ module.exports = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
+  			}
+  		},
+  		animation: {
+  			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear'
+  		},
+  		keyframes: {
+  			'border-beam': {
+  				'100%': {
+  					'offset-distance': '100%'
+  				}
   			}
   		}
   	}

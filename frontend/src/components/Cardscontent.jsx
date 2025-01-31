@@ -1,13 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { BorderBeam } from "../components/ui/border-beam";
 
 const Cardscontent = ({ id, image, title, rating }) => {
   return (
     <Link
       to={`/recipe/${id}`}
-      className="block group relative w-full h-96 sm:h-96 max-w-xs mx-auto transition-transform duration-300 hover:-translate-y-2"
+      className=" sm:h-[32rem] sm:w-[20rem] block  relative w-full h-96  max-w-xs mx-auto transition-transform duration-300 hover:-translate-y-2"
     >
-      <div className="relative w-full h-full rounded-3xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+ <BorderBeam 
+        size={500}
+        duration={10}
+        delay={0}
+        borderWidth={3.5}
+        className="rounded-3xl -inset-[2px]"
+        colorFrom="#FF6600"
+        colorTo="#FF885B"
+      />
+      <div className="relative w-full h-full rounded-3xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 z-10">
         {/* Image Container */}
         <img
           src={image || "/placeholder-food.jpg"}

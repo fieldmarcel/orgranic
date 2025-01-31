@@ -13,6 +13,7 @@ import store from "../redux/store.js";
 import Hero from "./components/Hero.jsx";
 import Cards from "./components/Cards";
 import Recipe from "./components/Recipe";
+import Review from "./components/Review";
 const App = () => {
   return (
     <>
@@ -29,6 +30,8 @@ const App = () => {
                 <>
                   <Hero />
                   <Cards />
+                  <Review />
+
                   {/* <RecipeDetail/> */}
                   {/* <Home /> */}
                 </>

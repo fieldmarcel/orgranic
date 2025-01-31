@@ -69,6 +69,7 @@ const createSingleRecipePage = async (req, res) => {
 const getRecipe = async (req, res) => {
   try {
    const {id}= req.params;
+ 
    const recipe = await Recipe.findById(id)
    if (!recipe) {
     return res.status(404).json({ error: "Recipe not found" });
@@ -82,7 +83,8 @@ const getRecipe = async (req, res) => {
 
 const getAllRecipes= async(req,res)=>{
   try {
-    const recipes= await Recipe.find({},"title image rating");
+    const limit = parseInt(req.query.limit) ||3;
+    const recipes= await Recipe.find({},"title image rating").limit(limit);
     return res.status(200).json(recipes);
 
   } catch (error) {

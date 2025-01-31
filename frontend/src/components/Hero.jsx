@@ -18,7 +18,7 @@ const Hero = () => {
         <img
           src="/Group 15.svg" 
           alt="Desktop Hero"
-          className="h-auto  w-full h-full hidden sm:block"
+          className="h-auto  w-full h-full hidden lg:block"
            style={{
             objectFit: 'contain',
            objectPosition: 'right',
