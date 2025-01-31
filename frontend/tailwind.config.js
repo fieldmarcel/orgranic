@@ -15,6 +15,10 @@ module.exports = {
 		  },
 			  
   		fontFamily: {
+			
+				sans: ['Inter', 'sans-serif'],
+				serif: ['Libre Baskerville', 'serif'],
+			  
   			sans: [
   				'Graphik',
   				'sans-serif'

@@ -24,7 +24,7 @@ const recipeSchema = new mongoose.Schema(
     },
     cuisine: { type: String, index: true },
     mealType: { type: String, index: true },
-    steps: { type: String, index: true },
+    steps: { type: [String], index: true },
     image: { type: String, required: true }, // Cloudinary URL or static image URL
   },
   { timestamps: true }

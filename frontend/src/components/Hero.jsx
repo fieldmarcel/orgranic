@@ -16,28 +16,28 @@ const Hero = () => {
         />
         {/* Desktop view */}
         <img
-          src="/hero3.svg" 
+          src="/Group 15.svg" 
           alt="Desktop Hero"
-          className="w-full h-full  hidden lg:block"
-          style={{
-            objectFit: 'cover',
-           objectPosition: 'center',
+          className="h-auto  w-full h-full hidden sm:block"
+           style={{
+            objectFit: 'contain',
+           objectPosition: 'right',
           }}
         />
       </div>
 
       {/* Hero Content */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-center text-white w-full px-4">
+      {/* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-center text-white w-full px-4"> */}
         {/* Search Box for Mobile */}
        
        
-        <div className="flex flex-row justify-start items-center mt-4">
+        {/* <div className="flex flex-row justify-start items-center mt-4">
           <AnimatedTooltip items={People} />
-        </div>
+        </div> */}
 
         
       
-      </div>
+      {/* </div> */}
     </div>
   );
 };
