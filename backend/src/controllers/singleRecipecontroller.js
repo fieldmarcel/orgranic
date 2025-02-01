@@ -83,6 +83,16 @@ const getRecipe = async (req, res) => {
 
 const getAllRecipes= async(req,res)=>{
   try {
+   
+    const recipes= await Recipe.find({},"title image rating")
+    return res.status(200).json(recipes);
+
+  } catch (error) {
+    res.status(500).json({error:"Failed to fetch recipes"})
+  }
+}
+const getFixedRecipes= async(req,res)=>{
+  try {
     const limit = parseInt(req.query.limit) ||3;
     const recipes= await Recipe.find({},"title image rating").limit(limit);
     return res.status(200).json(recipes);
@@ -112,4 +122,4 @@ const searchRecipes = async (req, res) => {
   }
 };
 
-export { createSingleRecipePage, getRecipe,getAllRecipes ,searchRecipes};
+export { createSingleRecipePage, getRecipe,getAllRecipes,getFixedRecipes ,searchRecipes};

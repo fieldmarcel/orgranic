@@ -14,6 +14,8 @@ import Hero from "./components/Hero.jsx";
 import Cards from "./components/Cards";
 import Recipe from "./components/Recipe";
 import Review from "./components/Review";
+import Footer from "./components/Footer";
+import Searchpage from "./components/Search";
 const App = () => {
   return (
     <>
@@ -31,6 +33,8 @@ const App = () => {
                   <Hero />
                   <Cards />
                   <Review />
+                  <Footer />
+
 
                   {/* <RecipeDetail/> */}
                   {/* <Home /> */}
@@ -45,6 +49,8 @@ const App = () => {
             {/* <Route path="/recipe/:id" element={<RecipeDetail />} /> */}
             <Route path="/favourites" element={<Favourites />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/search" element={<Searchpage />} />
+
           </Routes>
         </BrowserRouter>
       </Provider>

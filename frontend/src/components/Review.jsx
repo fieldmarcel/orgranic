@@ -37,18 +37,18 @@ const reviews = [
     
 const Review = () => {
   const plugin = useRef(
-    Autoplay({ delay: 1000, stopOnInteraction: true, loop: true })
+    Autoplay({ delay: 5000, stopOnInteraction: true, loop: true })
   );
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">
+      <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">
         What Our Foodies Say
       </h2>
-{/*        */}
-      {/* <Carousel
+      
+      <Carousel
         plugins={[plugin.current]}
-        className="w-full mx-auto"
+        className="w-full "
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.reset}
       >
@@ -99,12 +99,12 @@ const Review = () => {
               </div>
             </CarouselItem>
           ))}
-        </CarouselContent> */}
+        </CarouselContent>
 
         {/* Improved Navigation Buttons */}
         {/* <CarouselPrevious className="absolute bottom-0 right-12 bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 hover:text-gray-900 rounded-full shadow-md w-10 h-10 transform translate-y-1/2 hover:scale-105 transition-all" />
         <CarouselNext className="absolute bottom-0 right-0 bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 hover:text-gray-900 rounded-full shadow-md w-10 h-10 transform translate-y-1/2 hover:scale-105 transition-all" /> */}
-      {/* </Carousel> */} 
+      </Carousel>
     </div>
   );
 };

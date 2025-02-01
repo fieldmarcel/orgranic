@@ -10,12 +10,12 @@ const Cardscontent = ({ id, image, title, rating }) => {
     >
  <BorderBeam 
         size={500}
-        duration={10}
+        duration={6}
         delay={0}
         borderWidth={3.5}
         className="rounded-3xl -inset-[2px]"
-        colorFrom="#FF6600"
-        colorTo="#FF885B"
+        colorFrom="#F93827"
+        colorTo="#F7DCB9"
       />
       <div className="relative w-full h-full rounded-3xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 z-10">
         {/* Image Container */}
@@ -54,8 +54,8 @@ const Cardscontent = ({ id, image, title, rating }) => {
           </div>
 
           {/* View Button */}
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <button className="w-full py-2 bg-white/90 text-gray-900 rounded-3xl font-semibold hover:bg-white transition-colors duration-200">
+          <div className=" ">
+            <button className="opacity-0 hover:opacity-100 transition-opacity-colors duration-300 w-full py-2 bg-white/90 text-gray-900 rounded-3xl font-semibold hover:bg-white ">
               View Recipe
             </button>
           </div>

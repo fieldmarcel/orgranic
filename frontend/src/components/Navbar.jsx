@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import { Search, ChevronDown, Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const isAuth = useSelector((state) => state.auth.isAuth);
   const [searchOpen, setSearchOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState({ recipes: false, cuisines: false, healthy: false });
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Added state for mobile menu
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleDropdown = (menu) => {
     setDropdownOpen((prev) => ({
+      
       [menu]: !prev[menu],
     }));
   };
@@ -19,135 +21,186 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex flex-wrap sm:flex-nowrap justify-around items-center sm:rounded-full sm:mt-2 sm:w-5/6 sm:ml-32 bg-white shadow-md sm:fixed sticky z-50 px-6 sm:py-3">
-      {/* Logo */}
-      <div className="flex items-center justify-between w-full sm:w-auto">
-        <Link to="/" className="font-bold text-green-400">
-          <img src="/logo.svg" alt="logo" className="w-30 h-12" />
-        </Link>
-      </div>
+    <nav className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/" className="flex-shrink-0">
+            <img src="/logo.svg" alt="logo" className="h-10 w-auto" />
+          </Link>
 
-      {/* Hamburger Menu for Mobile */}
-      <div className="sm:hidden flex items-center">
-        <button onClick={toggleMobileMenu} className="text-gray-600 hover:text-green-500">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
-
-      {/* Middle Links */}
-      <div className={` sm:flex flex-grow justify-center gap-8 ${mobileMenuOpen ? 'block' : 'hidden'}`}>
-        {/* Recipes Dropdown */}
-        <div className="relative">
-          <button
-            onClick={() => toggleDropdown('recipes')}
-            className="text-sm text-gray-600 hover:text-green-500"
-          >
-            Recipes
-          </button>
-          {dropdownOpen.recipes && (
-            <div className="absolute top-full left-0 mt-1 bg-amber-500 border-8 border-white shadow-lg rounded-3xl w-64">
-              {['Breakfast & Brunch Recipes', 'Lunch Recipes', 'Appetizers & Snack Recipes', 'Dinner Recipes', 'Dessert Recipes'].map((item, index) => (
-                <Link
-                  key={index}
-                  to={`/recipes/${item.toLowerCase().replace(/ & | /g, '-')}`}
-                  className="block px-4 py-2 text-slate-50 hover:text-black hover:bg-gray-100 "
+          {/* Desktop Navigation */}
+          <div className="hidden sm:flex items-center space-x-8">
+            {/* Dropdown Menus */}
+            <div className="flex space-x-6">
+              {/* Recipes Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => toggleDropdown('recipes')}
+                  className="flex items-center text-gray-700 hover:text-green-500 transition-colors"
                 >
-                  {item}
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
+                  Recipes <ChevronDown className="ml-1 h-4 w-4" />
+                </button>
+                {dropdownOpen.recipes && (
+                  <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg w-64 py-2">
+                    {['Breakfast & Brunch', 'Lunch', 'Appetizers & Snacks', 'Dinner', 'Dessert'].map((item, index) => (
+                      <Link
+                        key={index}
+                        to={`/recipes/${item.toLowerCase().replace(/ & | /g, '-')}`}
+                        className="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600"
+                      >
+                        {item} Recipes
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
 
-        {/* Cuisines Dropdown */}
-        <div className="relative">
-          <button
-            onClick={() => toggleDropdown('cuisines')}
-            className="text-sm text-gray-600 hover:text-green-500"
-          >
-            Cuisines
-          </button>
-          {dropdownOpen.cuisines && (
-            <div className="absolute top-full left-0 mt-1 bg-amber-500 border-8 border-white shadow-lg rounded-3xl w-64">
-              {['Indian', 'Mexican', 'Italian', 'Thai', 'Korean', 'French', 'Chinese', 'Japanese'].map((cuisine, index) => (
-                <Link
-                  key={index}
-                  to={`/cuisines/${cuisine.toLowerCase()}`}
-                  className="block px-4 py-2 text-slate-50 hover:text-black hover:bg-gray-100 "
+              {/* Cuisines Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => toggleDropdown('cuisines')}
+                  className="flex items-center text-gray-700 hover:text-green-500 transition-colors"
                 >
-                  {cuisine} Recipes
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
+                  Cuisines <ChevronDown className="ml-1 h-4 w-4" />
+                </button>
+                {dropdownOpen.cuisines && (
+                  <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg w-64 py-2">
+                    {['Indian', 'Mexican', 'Italian', 'Thai', 'Korean', 'French', 'Chinese', 'Japanese'].map((cuisine) => (
+                      <Link
+                        key={cuisine}
+                        to={`/cuisines/${cuisine.toLowerCase()}`}
+                        className="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600"
+                      >
+                        {cuisine} Recipes
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
 
-        {/* Healthy & Diet Dropdown */}
-        <div className="relative">
-          <button
-            onClick={() => toggleDropdown('healthy')}
-            className="text-sm text-gray-600 hover:text-green-500"
-          >
-            Healthy
-          </button>
-          {dropdownOpen.healthy && (
-            <div className="absolute top-full left-0 mt-1 bg-amber-500 border-8 border-white shadow-lg rounded-3xl w-64 z-99">
-              {['Keto', 'Healthy', 'Vegetarian', 'Vegan', 'Mediterranean', 'Weight Watchers', 'Low-Carb'].map((diet, index) => (
-                <Link
-                  key={index}
-                  to={`/diet/${diet.toLowerCase().replace(' ', '-')}`}
-                  className="block px-4 py-2 text-slate-50 hover:text-black hover:bg-gray-100 "
+              {/* Healthy Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => toggleDropdown('healthy')}
+                  className="flex items-center text-gray-700 hover:text-green-500 transition-colors"
                 >
-                  {diet} Recipes
-                </Link>
-              ))}
+                  Healthy <ChevronDown className="ml-1 h-4 w-4" />
+                </button>
+                {dropdownOpen.healthy && (
+                  <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg w-64 py-2">
+                    {['Keto', 'Vegetarian', 'Vegan', 'Mediterranean', 'Low-Carb'].map((diet) => (
+                      <Link
+                        key={diet}
+                        to={`/diet/${diet.toLowerCase()}`}
+                        className="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600"
+                      >
+                        {diet} Recipes
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-          )}
-        </div>
 
-        <Link to="/features" className="text-sm text-gray-600 hover:text-green-500">
-          Features
-        </Link>
-        <Link to="/about" className="text-sm text-gray-600 hover:text-green-500">
-          About
-        </Link>
-      </div>
-      <div className="relative mx-4">
-          <button
-            onClick={() => setSearchOpen(!searchOpen)}
-            className="text-gray-600 hover:text-green-500"
-          >
-            Search
-          </button>
-          {searchOpen && (
-            <div className="absolute mt-2 right-0 shadow-lg bg-amber-500 rounded-full w-56 sm:w-96 p-2">
-              <input
-                type="text"
-                placeholder="I want to make"
-                className="w-full p-2 bg-white outline-none text-black rounded-full"
-              />
-            </div>
-          )}
-        </div>
-
-      {/* Login and Search */}
-      <div className="flex items-center gap-4 mt-3 sm:mt-0">
-        <div>
-          {isAuth ? (
-            <Link to="/logout" className="text-gray-600 hover:text-green-500">
-              Logout
+            {/* Regular Links */}
+            <Link to="/features" className="text-gray-700 hover:text-green-500 transition-colors">
+              Features
             </Link>
-          ) : (
-            <Link to="/login" className="text-gray-600 hover:text-green-500">
-              Login
+            <Link to="/about" className="text-gray-700 hover:text-green-500 transition-colors">
+              About
             </Link>
-          )}
+          </div>
+
+          {/* Right Section */}
+          <div className="flex items-center space-x-4">
+            {/* Search Icon */}
+            <Link 
+              to="/search" 
+              className="p-2 text-gray-600 hover:text-green-500 transition-colors"
+              onClick={() => setSearchOpen(true)}
+            >
+              <Search className="h-5 w-5" />
+            </Link>
+
+            {/* Auth Button */}
+            {isAuth ? (
+              <Link 
+                to="/logout" 
+                className="px-4 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors"
+              >
+                Logout
+              </Link>
+            ) : (
+              <Link 
+                to="/login" 
+                className="px-4 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors"
+              >
+                Login
+              </Link>
+            )}
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={toggleMobileMenu}
+              className="sm:hidden p-2 text-gray-600 hover:text-green-500"
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
 
-        
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="sm:hidden py-4 space-y-4 border-t border-gray-100 mt-2">
+            {/* Mobile Dropdowns */}
+            <div className="space-y-4 px-4">
+              <div className="border-b border-gray-100 pb-4">
+                <button
+                  onClick={() => toggleDropdown('recipes')}
+                  className="flex items-center justify-between w-full text-gray-700"
+                >
+                  Recipes <ChevronDown className={`h-4 w-4 transition-transform ${dropdownOpen.recipes ? 'rotate-180' : ''}`} />
+                </button>
+                {dropdownOpen.recipes && (
+                  <div className="mt-2 space-y-2">
+                    {['Breakfast', 'Lunch', 'Dinner', 'Dessert'].map((item) => (
+                      <Link
+                        key={item}
+                        to={`/recipes/${item.toLowerCase()}`}
+                        className="block pl-4 py-2 text-gray-600 hover:text-green-500"
+                      >
+                        {item} Recipes
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Repeat similar structure for other dropdowns */}
+            </div>
+          </div>
+        )}
       </div>
+
+      {/* {searchOpen && (
+        <div className="absolute top-full left-0 right-0 bg-white border-b border-gray-100 py-4 px-4">
+          <div className="max-w-3xl mx-auto flex items-center">
+            <Search className="h-5 w-5 text-gray-400 mr-3" />
+            <input
+              type="text"
+              placeholder="Search recipes, ingredients, cuisines..."
+              className="w-full py-2 outline-none text-gray-700 placeholder-gray-400"
+            />
+            <button 
+              onClick={() => setSearchOpen(false)}
+              className="ml-4 text-gray-500 hover:text-gray-700"
+            >
+              <X className="h-15 w-15" />
+            </button>
+          </div>
+        </div> */}
+      {/* )} */}
     </nav>
   );
 };
