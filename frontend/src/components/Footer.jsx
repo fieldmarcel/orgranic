@@ -7,7 +7,6 @@ import { BorderBeam } from './ui/border-beam';
 const Footer = () => {
   return (
     <footer className="relative bg-green-500/20 border-t border-green-100 mt-24 overflow-hidden">
-      {/* Animated background elements */}
       <motion.div 
         className="absolute -top-24 left-10 opacity-20"
         animate={{ y: [0, -20, 0] }}
@@ -17,7 +16,6 @@ const Footer = () => {
       </motion.div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-        {/* Animated Search Bar */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -58,9 +56,7 @@ const Footer = () => {
           </div>
         </motion.div>
 
-        {/* Content Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
-          {/* Brand Section */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -90,7 +86,6 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Quick Links */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -117,7 +112,6 @@ const Footer = () => {
             </ul>
           </motion.div>
 
-          {/* Contact */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

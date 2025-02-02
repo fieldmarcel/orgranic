@@ -15,7 +15,8 @@ import Cards from "./components/Cards";
 import Recipe from "./components/Recipe";
 import Review from "./components/Review";
 import Footer from "./components/Footer";
-import Searchpage from "./components/Search";
+import Searchpage from "./components/SearchPage";
+import Searchcontent from "./components/Searchcontent";
 const App = () => {
   return (
     <>
@@ -50,6 +51,7 @@ const App = () => {
             <Route path="/favourites" element={<Favourites />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/search" element={<Searchpage />} />
+            {/* <Route path="/search" element={<Searchcontent />} /> */}
 
           </Routes>
         </BrowserRouter>
