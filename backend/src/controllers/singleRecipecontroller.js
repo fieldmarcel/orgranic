@@ -118,7 +118,7 @@ const searchRecipes = async (req, res) => {
     });
     res.status(200).json(recipes);
   } catch (error) {
-    res.status(500).json({ error: "Search is failed" });
+    res.status(500).json({ error: "Search is failed yrr " });
   }
 };
 
