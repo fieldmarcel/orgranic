@@ -32,7 +32,7 @@ const Signup = () => {
         toast.success(data.message);
         navigate("/login");
       } else {
-        toast.error(data.message || "Signup failed");
+        toast.error(data.message || "Signup  has  failed");
       }
     } catch (error) {
       console.log(error);
