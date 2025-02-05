@@ -3,10 +3,13 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Search, ChevronDown, Menu, X } from "lucide-react";
-import { fetchRecipeCards } from "../../redux/slices/allCards";
+import { fetchRecipeCards } from "../../redux/slices/allCardSlice";
 import Searchcontent from "./Searchcontent";
 
 const Searchpage = () => {
+
+const [searchTerm, setsearchTerm] = useState("")
+
 const  dispatch = useDispatch()
 
 const {isLoading, recipe, error}= useSelector((state) => state.RecipeCard)
@@ -32,6 +35,8 @@ if (isLoading) return <p className="text-center">Loading recipes...</p>;
             type="text"
             placeholder="Search recipes, ingredients, cuisines..."
             className="w-full py-2 outline-none text-gray-700 placeholder-gray-400"
+          
+          value={searchTerm}
           />
           <button
             className="ml-4 text-gray-500 hover:text-gray-700"

@@ -110,6 +110,9 @@ const getFixedRecipes= async(req,res)=>{
 const searchRecipes = async (req, res) => {
   try {
     const { query } = req.query;
+    if (!query?.trim()) {
+      return res.status(400).json({ error: "Query is required" });
+    }
     const recipes = await Recipe.find({
       $or: [
         { title: { $regex: query, $options: "i" } },
@@ -118,7 +121,9 @@ const searchRecipes = async (req, res) => {
     });
     res.status(200).json(recipes);
   } catch (error) {
-    res.status(500).json({ error: "Search is failed yrr " });
+    console.error("Search Error:", error); 
+
+    res.status(500).json({ error: "Search is failed  " });
   }
 };
 

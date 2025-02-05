@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import Cardscontent from "./Cardscontent";
-import { fetchRecipeCards } from "../../redux/slices/allCards";
+import { fetchRecipeCards } from "../../redux/slices/allCardSlice";
 import { useDispatch, useSelector } from "react-redux";
 // import { BorderBeam } from "../components/ui/border-beam";
 import axios from "axios";

@@ -11,8 +11,11 @@ export const fetchRecipeCards = createAsyncThunk(
 
 const recipeCardSlice = createSlice({
   name: "RecipeCard",
+  //The initial state represents the state before any API call happens.
+
   initialState: {
     isLoading: false,
+    // The request is not in progress initially.
     recipe: [],
     error: false,
   },
@@ -21,12 +24,13 @@ const recipeCardSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(fetchRecipeCards.fulfilled, (state, action) => {
-      (state.isLoading = false), (state.recipe = action.payload);
+      (state.isLoading = false);
+      (state.recipe = action.payload);
       // Assuming the API returns { recipes: [...] }
     });
     builder.addCase(fetchRecipeCards.rejected, (state, action) => {
-      (state.error = true),
-        (state.isLoading = false),
+      (state.error = true);
+        (state.isLoading = false);
         console.log("error", action.payload);
     });
   },
