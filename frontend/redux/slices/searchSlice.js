@@ -30,3 +30,5 @@ builder.addCase(fetchSearchRecipe.rejected,(state)=>{
     console.log("error", action.payload);})
     }
 })
+
+export default searchRecipeSlice.reducer
