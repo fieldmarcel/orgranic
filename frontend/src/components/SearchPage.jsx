@@ -21,6 +21,8 @@ useEffect(() => {
 
 }, [dispatch])
 
+
+
 if (isLoading) return <p className="text-center">Loading recipes...</p>;
    if (error) return <p className="text-center text-red-500">Error fetching recipes. Please try again later.</p>;
 

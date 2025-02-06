@@ -109,7 +109,7 @@ const getFixedRecipes= async(req,res)=>{
 //  with an error message.
 const searchRecipes = async (req, res) => {
   try {
-    const { query } = req.query;
+    const { query } = req.params.query;
     if (!query?.trim()) {
       return res.status(400).json({ error: "Query is required" });
     }
