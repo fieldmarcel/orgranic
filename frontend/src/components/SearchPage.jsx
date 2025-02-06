@@ -12,7 +12,7 @@ const [searchTerm, setsearchTerm] = useState("")
 
 const  dispatch = useDispatch()
 
-const {isLoading, recipe, error}= useSelector((state) => state.RecipeCard)
+const {isLoading, recipe, searchRecipe,error}= useSelector((state) => state.RecipeCard)
 
 
 useEffect(() => {

@@ -9,6 +9,14 @@ export const fetchRecipeCards = createAsyncThunk(
   }
 );
 
+export const fetchSearchRecipe= createAsyncThunk("fetchSearchRecipe",
+  async () =>{
+    const response = await fetch ("http://localhost:8080/api/v1/recipes/search")
+    return response.json();
+  }
+)
+
+
 const recipeCardSlice = createSlice({
   name: "RecipeCard",
   //The initial state represents the state before any API call happens.
@@ -17,8 +25,10 @@ const recipeCardSlice = createSlice({
     isLoading: false,
     // The request is not in progress initially.
     recipe: [],
+    searchRecipe: [],
     error: false,
   },
+
   extraReducers: (builder) => {
     builder.addCase(fetchRecipeCards.pending, (state) => {
       state.isLoading = true;
@@ -34,6 +44,27 @@ const recipeCardSlice = createSlice({
         console.log("error", action.payload);
     });
   },
-});
+
+
+
+
+  extraReducers :(builder)=>{
+    builder.addCase(fetchSearchRecipe.pending,(state)=>{
+        state.isLoading = true;
+    })
+    builder.addCase(fetchSearchRecipe.fulfilled,(state,action)=>{
+    (state.isLoading = true);
+    (state.recipe= action.payload);
+    
+    
+    })
+    builder.addCase(fetchSearchRecipe.rejected,(state)=>{
+        (state.error= true);
+        (state.isLoading = false);
+        console.log("error", action.payload);})
+        }
+    });
+
+
 
 export default recipeCardSlice.reducer;
