@@ -1,115 +1,165 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { Search, ChevronDown, Menu, X } from "lucide-react";
+import { Search, Filter, Grid, List } from "lucide-react";
 import { fetchRecipeCards, fetchSearchRecipe } from "../../redux/slices/allCardSlice";
 import Searchcontent from "./Searchcontent";
-import Recipe from "./Recipe";
 
-const Searchpage = () => {
+const SearchPage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [viewMode, setViewMode] = useState("grid");
+  const [filterOpen, setFilterOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { isLoading, recipe, searchRecipe, error } = useSelector((state) => state.RecipeCard);
 
-const [searchTerm, setsearchTerm] = useState("")
+  // Filters and Sort
+  const [activeFilters, setActiveFilters] = useState({
+    cuisine: [],
+    dietaryRestrictions: [],
+    cookTime: null
+  });
 
-const  dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchRecipeCards());
+  }, [dispatch]);
 
-const {isLoading, recipe, searchRecipe,error}= useSelector((state) => state.RecipeCard)
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      dispatch(fetchSearchRecipe(searchTerm));
+    } else {
+      dispatch(fetchRecipeCards());
+    }
+  };
 
+  // Loading and Error States
+  if (isLoading) return (
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-green-50 to-green-100">
+      <div className="animate-pulse">
+        <div className="w-16 h-16 border-4 border-green-500 rounded-full"></div>
+      </div>
+    </div>
+  );
 
-useEffect(() => {
- dispatch(fetchRecipeCards())
-// dispatch(fetchSearchRecipe())
-
-}, [dispatch])
-
-useEffect(() => {
-  dispatch(fetchRecipeCards());
-}, []);
-
-const handleSearch= (e)=>{
-  e.preventDefault();
-  if(searchTerm.trim()){
-    dispatch(fetchSearchRecipe(searchTerm))
-  }else {
-    dispatch(fetchRecipeCards())
-  }
-}
-if (isLoading) return <p className="text-center">Loading recipes...</p>;
-   if (error) return <p className="text-center text-red-500">{error}</p>;
-
-
+  if (error) return (
+    <div className="min-h-screen bg-green-50 flex items-center justify-center">
+      <div className="bg-white p-8 rounded-2xl shadow-lg text-center">
+        <p className="text-red-500 text-2xl font-bold">{error}</p>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="flex flex-col">
-      <form className=" bg-white border-b border-gray-100 py-4 px-4"  onSubmit={handleSearch}>
-        <div className="max-w-3xl mx-auto flex items-center">
-          <Search className="h-5 w-5 text-gray-400 mr-3" />
-          <input
-            type="text"
-            placeholder="Search recipes, ingredients, cuisines..."
-            className="w-full py-2 outline-none text-gray-700 placeholder-gray-400"
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 py-8">
+      {/* Search and Filter Container */}
+      <div className="max-w-6xl mx-auto px-4">
+        <form onSubmit={handleSearch} className="mb-8">
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div className="flex items-center px-6 py-4">
+              <Search className="h-6 w-6 text-green-600" />
+              <input 
+                type="text" 
+                placeholder="Find your perfect recipe..." 
+                className="flex-1 ml-4 text-lg text-gray-800 outline-none placeholder-gray-400"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <div className="flex items-center space-x-2">
+                <button 
+                  type="button" 
+                  onClick={() => setFilterOpen(!filterOpen)}
+                  className="p-2 hover:bg-green-50 rounded-full"
+                >
+                  <Filter className={`h-5 w-5 ${filterOpen ? 'text-green-600' : 'text-gray-500'}`} />
+                </button>
+                <button 
+                  type="submit" 
+                  disabled={!searchTerm.trim()}
+                  className={`px-6 py-2 rounded-full transition-colors ${
+                    searchTerm.trim() 
+                      ? "bg-green-600 text-white hover:bg-green-700" 
+                      : "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  }`}
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+            
+            {/* Advanced Filters */}
+            {filterOpen && (
+              <div className="bg-green-50 p-4 border-t">
+                <div className="grid grid-cols-3 gap-4">
+                  {/* Cuisine Filter */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Cuisine</label>
+                    {/* Add cuisine filter checkboxes */}
+                  </div>
+                  
+                  {/* Dietary Restrictions */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Diet</label>
+                    {/* Add diet filter checkboxes */}
+                  </div>
+                  
+                  {/* Cook Time */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Cook Time</label>
+                    {/* Add cook time slider or select */}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </form>
+
+        {/* Results Header */}
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl font-bold text-gray-800">
+            {searchTerm.trim() 
+              ? `${searchRecipe.length} result${searchRecipe.length !== 1 ? 's' : ''} for "${searchTerm}"` 
+              : `${recipe.length} Recipes`}
+          </h2>
           
-          value={searchTerm}
-          onChange={(e)=>setsearchTerm(e.target.value)}
-          />
-          <button
-          type="submit"
-            className="ml-4 text-gray-500 hover:text-gray-700"
-          >
-            Search
-          </button>
+          {/* View Mode Toggle */}
+          <div className="flex items-center space-x-2">
+            <button 
+              onClick={() => setViewMode('grid')}
+              className={`p-2 rounded-full ${viewMode === 'grid' ? 'bg-green-100' : 'hover:bg-green-50'}`}
+            >
+              <Grid className={`h-5 w-5 ${viewMode === 'grid' ? 'text-green-600' : 'text-gray-500'}`} />
+            </button>
+            <button 
+              onClick={() => setViewMode('list')}
+              className={`p-2 rounded-full ${viewMode === 'list' ? 'bg-green-100' : 'hover:bg-green-50'}`}
+            >
+              <List className={`h-5 w-5 ${viewMode === 'list' ? 'text-green-600' : 'text-gray-500'}`} />
+            </button>
+          </div>
         </div>
-      </form>
-<div className=" " >
-{searchTerm.trim().length >0 ? (<p>{searchRecipe.length} results</p>) : (<p>{recipe.length} results</p>)
-}
 
-
-</div>
-<div className="flex flex-wrap justify-center  sm:flex  items-center sm:mt-10 space-x-4">
-{
-
-
-
-  searchTerm.trim() && searchRecipe.length > 0
-      ? searchRecipe.map((item) => {
-        
-        return   <Searchcontent
-            key={item._id}
-            id={item._id}
-            title={item.title}
-            rating={item.rating}
-            image={item.image}
-            readyIn={item.readyIn}
-
-             description={item.description}
-          />
-          
-})
-      : searchTerm.trim() && searchRecipe.length === 0 ?(<p>No search recipes found</p>)
-    : recipe.length > 0
-    ? recipe.map((item) => {
-     return   <Searchcontent
-        
-          key={item._id}
-          id={item._id}
-          title={item.title}
-          rating={item.rating}
-         readyIn={item.readyIn}
-          image={item.image}
-        />
-})
-    : <p>No recipes available</p>
-    
-}
-
-
-
-    
-</div>
-
+        {/* Results Grid/List */}
+        {searchTerm.trim() && searchRecipe.length === 0 ? (
+          <div className="text-center py-12 bg-white rounded-2xl shadow-lg">
+            <p className="text-gray-500 text-xl">No recipes found. Try different keywords!</p>
+          </div>
+        ) : (
+          <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
+            {(searchTerm.trim() ? searchRecipe : recipe).map((item) => (
+              <Searchcontent 
+                key={item._id}
+                id={item._id}
+                title={item.title}
+                rating={item.rating}
+                image={item.image}
+                readyIn={item.readyIn}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
-export default Searchpage;
+export default SearchPage;

@@ -8,6 +8,7 @@ const recipeSchema = new mongoose.Schema(
       unique: true,
       index: true,
     },
+    
     subCategory: { type: String, index: true },
     title: { type: String, required: true, index: true },
     rating: { type: Number, required: true, min: 0, max: 5, index: true },

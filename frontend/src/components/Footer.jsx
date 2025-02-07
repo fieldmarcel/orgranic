@@ -6,7 +6,7 @@ import { BorderBeam } from './ui/border-beam';
 
 const Footer = () => {
   return (
-    <footer className="relative bg-green-500/20 border-t border-green-100 mt-24 overflow-hidden">
+    <footer className="relative bg-green-500/20 border-t border-green-100  overflow-hidden">
       <motion.div 
         className="absolute -top-24 left-10 opacity-20"
         animate={{ y: [0, -20, 0] }}
