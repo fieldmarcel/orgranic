@@ -54,6 +54,8 @@ const App = () => {
             {/* <Route path="/search" element={<Searchcontent />} /> */}
 
           </Routes>
+          <Footer />
+
         </BrowserRouter>
       </Provider>
     </>

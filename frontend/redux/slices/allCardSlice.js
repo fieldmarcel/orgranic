@@ -10,9 +10,12 @@ export const fetchRecipeCards = createAsyncThunk(
 );
 
 export const fetchSearchRecipe= createAsyncThunk("fetchSearchRecipe",
-  async () =>{
-    const response = await fetch ("http://localhost:8080/api/v1/recipes/search")
-    return response.json();
+  async (searchTerm) =>{
+    const response = await fetch (`http://localhost:8080/api/v1/recipes/search?query=${encodeURIComponent(searchTerm)}`)
+
+    const data = await response.json();
+    console.log("API Response:", data); // ✅ Debug
+    return data;
   }
 )
 
@@ -34,6 +37,8 @@ const recipeCardSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(fetchRecipeCards.fulfilled, (state, action) => {
+      console.log("API Response Received:", action.payload); 
+
       (state.isLoading = false);
       (state.recipe = action.payload);
       // Assuming the API returns { recipes: [...] }
@@ -43,26 +48,26 @@ const recipeCardSlice = createSlice({
         (state.isLoading = false);
         console.log("error", action.payload);
     });
-  },
+  
 
 
 
 
-  extraReducers :(builder)=>{
     builder.addCase(fetchSearchRecipe.pending,(state)=>{
         state.isLoading = true;
     })
     builder.addCase(fetchSearchRecipe.fulfilled,(state,action)=>{
-    (state.isLoading = true);
-    (state.recipe= action.payload);
+    (state.isLoading = false);
+    (state.searchRecipe= action.payload);
     
     
     })
-    builder.addCase(fetchSearchRecipe.rejected,(state)=>{
-        (state.error= true);
+    builder.addCase(fetchSearchRecipe.rejected,(state,action)=>{
+        (state.error= action.error.message);
         (state.isLoading = false);
-        console.log("error", action.payload);})
-        }
+        console.log("error",  error.message ,action.payload)
+      })
+    }
     });
 
 

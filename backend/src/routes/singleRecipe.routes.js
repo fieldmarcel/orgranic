@@ -9,10 +9,10 @@ router.post("/", upload.single("image"),createSingleRecipePage)
 
 router.get("/",getAllRecipes)
 router.get("/fixed",getFixedRecipes)
+router.get("/search",searchRecipes)
 
 router.get("/:id",getRecipe)
 
-router.get("/search",searchRecipes)
 
 // router.get("/filters", getRecipeFilters);
 

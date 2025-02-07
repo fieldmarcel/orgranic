@@ -109,14 +109,18 @@ const getFixedRecipes= async(req,res)=>{
 //  with an error message.
 const searchRecipes = async (req, res) => {
   try {
-    const { query } = req.params.query;
+const query = String(req.query.query || "").trim();
     if (!query?.trim()) {
       return res.status(400).json({ error: "Query is required" });
     }
     const recipes = await Recipe.find({
       $or: [
         { title: { $regex: query, $options: "i" } },
-        { ingredients: { $regex: query, $options: "i" } },
+        { subCategory: { $regex: query, $options: "i" } },
+        {cuisine: { $regex:query, $options:"i"}},
+        {mealType: { $regex:query, $options:"i"}},
+
+
       ],
     });
     res.status(200).json(recipes);

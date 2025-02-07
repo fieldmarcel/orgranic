@@ -20,6 +20,41 @@ const reviews = [
       rating: 5,
     },
     {
+      name: "Sarah Johnson",
+      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
+      rating: 5,
+    },
+    {
+      name: "Sarah Johnson",
+      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
+      rating: 5,
+    },
+    {
+      name: "Sarah Johnson",
+      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
+      rating: 5,
+    },
+    {
+      name: "Sarah Johnson",
+      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
+      rating: 5,
+    },
+    {
+      name: "Sarah Johnson",
+      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
+      rating: 5,
+    },
+    {
+      name: "Sarah Johnson",
+      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
+      rating: 5,
+    },
+    {
+      name: "Sarah Johnson",
+      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
+      rating: 5,
+    },
+    {
       name: "Mike Chen",
       text: "A great weeknight meal option. The instructions were clear and the result was restaurant-quality. Highly recommend!",
       rating: 4,
@@ -41,22 +76,22 @@ const Review = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 ">
       <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">
         What Our Foodies Say
       </h2>
       
       <Carousel
         plugins={[plugin.current]}
-        className="w-full "
+        className="w-full overflow-hidden "
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.reset}
       >
         <CarouselContent>
           {reviews.map((review, index) => (
-            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 ">
               <div className="p-4">
-                <Card className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+                <Card className="bg-white rounded-xl   shadow-md hover:shadow-lg transition-all duration-300 h-full flex flex-col">
                          
                     
                   <CardContent className="p-6 flex flex-col flex-grow">
@@ -70,7 +105,7 @@ const Review = () => {
                       <div>
                         <h3 className="font-semibold text-lg text-gray-900">{review.name}</h3>
                         <div className="flex gap-1 mt-1">
-                          {[...Array(10)].map((_, i) => (
+                          {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
                               className={`w-5 h-5 ${
@@ -101,7 +136,6 @@ const Review = () => {
           ))}
         </CarouselContent>
 
-        {/* Improved Navigation Buttons */}
         {/* <CarouselPrevious className="absolute bottom-0 right-12 bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 hover:text-gray-900 rounded-full shadow-md w-10 h-10 transform translate-y-1/2 hover:scale-105 transition-all" />
         <CarouselNext className="absolute bottom-0 right-0 bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 hover:text-gray-900 rounded-full shadow-md w-10 h-10 transform translate-y-1/2 hover:scale-105 transition-all" /> */}
       </Carousel>
