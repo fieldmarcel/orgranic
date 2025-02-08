@@ -34,7 +34,6 @@ const App = () => {
                   <Hero />
                   <Cards />
                   <Review />
-                  <Footer />
 
 
                   {/* <RecipeDetail/> */}
