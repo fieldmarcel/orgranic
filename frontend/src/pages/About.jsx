@@ -8,7 +8,7 @@ const About = () => {
         <div>
           
           <img src={img} alt="img"  className=" image w-full h-[500px] "/>
-          <h3 className="font-cursive absolute font-bold  inset-0 flex items-center justify-center  text-white text-5xl bg-black bg-opacity-50 p-4 rounded " >Welcome to Home Chef</h3>
+          <h3 className="font-cursive absolute font-margarine  inset-0 flex items-center justify-center  text-white text-5xl bg-black bg-opacity-50 p-4 rounded " >Welcome to Home Chef</h3>
 
         </div>
       </div>
