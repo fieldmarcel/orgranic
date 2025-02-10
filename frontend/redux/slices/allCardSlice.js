@@ -4,14 +4,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchRecipeCards = createAsyncThunk(
   "fetchRecipeCards",
   async () => {
-    const response = await fetch("http://localhost:8080/api/v1/recipes");
+    const response = await fetch("http://localhost:8081/api/v1/recipes");
     return response.json();
   }
 );
 
 export const fetchSearchRecipe= createAsyncThunk("fetchSearchRecipe",
   async (searchTerm) =>{
-    const response = await fetch (`http://localhost:8080/api/v1/recipes/search?query=${encodeURIComponent(searchTerm)}`)
+    const response = await fetch (`http://localhost:8081/api/v1/recipes/search?query=${encodeURIComponent(searchTerm)}`)
 
     const data = await response.json();
     console.log("API Response:", data); // ✅ Debug

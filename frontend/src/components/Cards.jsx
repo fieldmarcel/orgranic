@@ -23,7 +23,7 @@ const Cards = () => {
 const featuredrecipes= async()=>{
   setLoading(true)
   try {
-    const recipes= await axios.get(`http://localhost:8080/api/v1/recipes/fixed?limit=3`)
+    const recipes= await axios.get(`http://localhost:8081/api/v1/recipes/fixed?limit=3`)
     console.log("API Response:", recipes.data);
     setrecipe(recipes.data);
      return recipes.data;

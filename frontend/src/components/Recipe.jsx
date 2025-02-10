@@ -12,7 +12,7 @@ const Recipe = () => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:8080/api/v1/recipes/${id}?limit=3`
+          `http://localhost:8081/api/v1/recipes/${id}?limit=3`
         );
         setRecipe(data);
         setLoading(false);

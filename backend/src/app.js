@@ -1,6 +1,7 @@
 import express from "express";
  import cors from "cors"
  import cookieParser from "cookie-parser";
+
  const app= express();
 
  app.use(
@@ -20,9 +21,18 @@ app.use(cookieParser())
 // route import here
 import userRouter from './routes/user.routes.js'
 import recipeRouter from './routes/singleRecipe.routes.js'
+import { generateRecipe } from "../src/utils/generateRecipe.js";
+
 app.use("/api/v1/users",userRouter)
 app.use("/api/v1/recipes",recipeRouter)
-
+app.get("/generate-recipes", async (req, res) => {
+  try {
+      const recipes = await generateRecipe();
+      res.json({ success: true, data: recipes });
+  } catch (error) {
+      res.status(500).json({ success: false, message: "Failed to generate recipes" });
+  }
+});
 export {app}
 
 

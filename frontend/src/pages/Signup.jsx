@@ -15,7 +15,7 @@ const Signup = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/v1/users/register",
+        "http://localhost:8081/api/v1/users/register",
         {
           userName,
           email,
