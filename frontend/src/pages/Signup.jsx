@@ -11,7 +11,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
 
   const handleSignup = async (e) => {
-    e.preventDefault(); // Prevent form submission and page reload
+    e.preventDefault();
 
     try {
       const res = await axios.post(
@@ -32,128 +32,136 @@ const Signup = () => {
         toast.success(data.message);
         navigate("/login");
       } else {
-        toast.error(data.message || "Signup  has  failed");
+        toast.error(data.message || "Signup has failed");
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong during signup", error.message);
+      toast.error("Something went wrong during signup");
       console.error(
-        "ther's error during signup :",
+        "There's an error during signup:",
         error.response?.data?.message || error.message
       );
     }
   };
 
   return (
-    <div className="relative w-full h-screen">
+    <div className="flex min-h-screen overflow-hidden">
       {/* Image Section */}
-      <img
-        src="/abc.jpg" // Directly using the public folder image
-        className="object-cover w-full h-full absolute inset-0"
-        alt="Signup visual"
-      />
+      <div className="relative flex-1 hidden lg:block">
+        <img
+          src="/abc.jpg"
+          alt="Signup visual"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
+      </div>
 
       {/* Form Section */}
-      <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-          <form onSubmit={handleSignup}>
-            <div className="text-gray-800 text-2xl text-center font-semibold mb-6">
-              Create your Account
-            </div>
-
+      <div className="flex-1 flex items-center justify-center px-6 py-12 bg-gray-50">
+        <div className="w-full max-w-md">
+          <div className="text-center mb-8">
+            <h2 className="text-4xl font-bold text-gray-800">Create Your Account</h2>
+            <p className="mt-2 text-md text-gray-600">
+              Join HomeChef and start your culinary journey.
+            </p>
+          </div>
+          <form onSubmit={handleSignup} className="bg-white rounded-lg shadow p-8 space-y-6">
             {/* Full Name Input */}
-            <div className="mb-4">
+            <div>
               <label
-                className="block text-gray-700 text-sm font-medium mb-2"
-                htmlFor="fullname"
+                htmlFor="fullName"
+                className="block text-sm font-medium text-gray-700"
               >
                 Full Name
               </label>
               <input
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                id="fullName"
                 type="text"
                 value={fullName}
                 onChange={(e) => setFullname(e.target.value)}
-                placeholder="Enter your full name"
+                placeholder="Your full name"
                 required
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
               />
             </div>
 
             {/* Username Input */}
-            <div className="mb-4">
+            <div>
               <label
-                className="block text-gray-700 text-sm font-medium mb-2"
-                htmlFor="username"
+                htmlFor="userName"
+                className="block text-sm font-medium text-gray-700"
               >
                 Username
               </label>
               <input
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                id="userName"
                 type="text"
                 value={userName}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Choose a username"
                 required
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
               />
             </div>
 
             {/* Email Input */}
-            <div className="mb-4">
+            <div>
               <label
-                className="block text-gray-700 text-sm font-medium mb-2"
                 htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
               >
-                Email
+                Email Address
               </label>
               <input
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
+                placeholder="you@example.com"
                 required
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
               />
             </div>
 
             {/* Password Input */}
-            <div className="mb-6">
+            <div>
               <label
-                className="block text-gray-700 text-sm font-medium mb-2"
                 htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
               >
                 Password
               </label>
               <input
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
+                placeholder="Create a password"
                 required
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
               />
             </div>
 
             {/* Signup Button */}
-            <div className="flex items-center justify-between mb-6">
+            <div>
               <button
-                className="w-full p-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition-all"
                 type="submit"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 font-medium"
               >
                 Sign Up
               </button>
             </div>
-
-            {/* Link to Login */}
-            <div className="text-center text-sm">
-              <span>Already have an account? </span>
-              <Link
-                to="/login"
-                className="text-green-500 hover:underline font-semibold"
-              >
-                Login here
-              </Link>
-            </div>
           </form>
+          {/* Link to Login */}
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+              Sign in
+            </Link>
+          </p>
+          <p className="mt-8 text-xs text-center text-gray-400">
+            &copy; {new Date().getFullYear()} HomeChef. All rights reserved.
+          </p>
         </div>
       </div>
     </div>

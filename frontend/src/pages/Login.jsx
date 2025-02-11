@@ -14,45 +14,52 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const res = await axios.post(
-      "http://localhost:8081/api/v1/users/login",
-      {
-        email,
-        password,
-      },
-      {
-        withCredentials: true,
-      }
-    );
+    try {
+      const res = await axios.post(
+        "http://localhost:8081/api/v1/users/login",
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
-    const data = await res.data;
-    if (data.success) {
-      toast.success(data.message);
-      dispatch(login(true));
-      dispatch(setUser(data.user));
-      navigate("/");
+      const data = await res.data;
+      if (data.success) {
+        toast.success(data.message);
+        dispatch(login(true));
+        dispatch(setUser(data.user));
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error("Login failed. Please check your credentials.");
     }
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
+    <div className="flex min-h-screen">
       {/* Image Section */}
-      <div className="hidden md:block h-full">
-        <img
-          src="/abc.jpg"
-          className="object-fill object-center h-screen w-full"
-          alt="Login visual"
-        />
+      <div className="hidden lg:flex w-full lg:w-1/2 login_bg">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: "url('/abc.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        ></div>
       </div>
 
       {/* Form Section */}
-      <div className="flex items-center justify-center bg-gray-100">
-        <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
-          <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
-            Welcome Back
+      <div className="flex w-full lg:w-1/2 justify-center items-center bg-white">
+        <div className="w-full max-w-md px-8">
+          <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
+            Sign In to HomeChef
           </h2>
-          <form >
-            <div className="mb-4">
+          <form onSubmit={handleLogin}>
+            <div className="mb-6">
               <label
                 className="block text-sm font-medium text-gray-700 mb-2"
                 htmlFor="email"
@@ -60,12 +67,12 @@ const Login = () => {
                 Email Address
               </label>
               <input
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                 type="email"
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter the email"
+                placeholder="you@company.com"
                 required
               />
             </div>
@@ -78,38 +85,64 @@ const Login = () => {
                 Password
               </label>
               <input
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                 type="password"
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
+                placeholder="********"
                 required
               />
             </div>
 
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center">
+                <input
+                  id="remember_me"
+                  name="remember_me"
+                  type="checkbox"
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <label
+                  htmlFor="remember_me"
+                  className="ml-2 block text-sm text-gray-800"
+                >
+                  Remember me
+                </label>
+              </div>
+
+              <div className="text-sm">
+                <Link
+                  to="#"
+                  className="font-medium text-blue-600 hover:text-blue-500"
+                >
+                  Forgot your password?
+                </Link>
+              </div>
+            </div>
+
             <button
               type="submit"
-              onClick={handleLogin}
-              className="w-full py-2 text-white bg-green-500 rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition duration-200"
             >
               Sign In
             </button>
           </form>
 
-          <div className="flex justify-between items-center mt-6">
-            <span className="text-sm text-gray-600">
-              Don't have an account?
-            </span>
-            <Link
-              to="/signup"
-              className="text-sm text-green-500 hover:underline"
-            >
-              Sign Up
-            </Link>
+          <div className="mt-6 text-center">
+            <p className="text-gray-600 text-sm">
+              Don't have an account?{" "}
+              <Link
+                to="/signup"
+                className="text-blue-600 font-medium hover:text-blue-500"
+              >
+                Sign Up
+              </Link>
+            </p>
           </div>
+
           <p className="text-center text-xs text-gray-400 mt-8">
-            &copy; 2023 Homechef. All rights reserved.
+            &copy; {new Date().getFullYear()} HomeChef. All rights reserved.
           </p>
         </div>
       </div>
