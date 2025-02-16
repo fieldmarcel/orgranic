@@ -104,8 +104,8 @@ const Navbar = () => {
             </div>
 
             {/* Regular Links */}
-            <Link to="/features" className="text-gray-700 hover:text-green-500 transition-colors">
-              Features
+            <Link to="/favourites" className="text-gray-700 hover:text-green-500 transition-colors">
+              Favourites
             </Link>
             <Link to="/about" className="text-gray-700 hover:text-green-500 transition-colors">
               About

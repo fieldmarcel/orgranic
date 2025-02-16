@@ -25,6 +25,7 @@ import { generateRecipe } from "../src/utils/generateRecipe.js";
 
 app.use("/api/v1/users",userRouter)
 app.use("/api/v1/recipes",recipeRouter)
+
 app.get("/generate-recipes", async (req, res) => {
   try {
       const recipes = await generateRecipe();

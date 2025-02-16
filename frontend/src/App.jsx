@@ -16,7 +16,6 @@ import Recipe from "./components/Recipe";
 import Review from "./components/Review";
 import Footer from "./components/Footer";
 import Searchpage from "./components/SearchPage";
-import Searchcontent from "./components/Searchcontent";
 const App = () => {
   return (
     <>

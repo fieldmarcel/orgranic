@@ -1,8 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BorderBeam } from "../components/ui/border-beam";
-
+import { useDispatch,useSelector } from 'react-redux';
+import { addToFavourites, removeFromFavourites } from '../../redux/slices/favourites';
 const Cardscontent = ({ id, image, title, rating }) => {
+
+const dispatch= useDispatch()
+const {favourites}= useSelector(state=>state.favourites)
+const isFavourite = favourites.some((item)=>item.id === id)
+
+const handleFavclick =()=>{
+ if(isFavourite){
+   dispatch(removeFromFavourites(id))
+}else {dispatch(addToFavourites({id,image,title,rating}))}};
   return (
     <Link
       to={`/recipe/${id}`}
@@ -30,16 +40,13 @@ const Cardscontent = ({ id, image, title, rating }) => {
 
         {/* Top Icons */}
         <div className="absolute top-3 right-3 flex gap-2">
-          <button className="p-2 bg-white/90 backdrop-blur rounded-full shadow-sm hover:bg-white transition-colors duration-200">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-red-500"
-              fill="currentColor"
-              viewBox="0 0 24 24"
+        <button
+                className={`absolute top-3 right-3 p-2 rounded-full shadow-sm transition-colors duration-200 
+                    ${isFavourite ? "bg-red-500 text-white" : "bg-white text-red-500"}`}
+                onClick={handleFavclick}
             >
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6.42 3.42 5 5.5 5c1.74 0 3.41.81 4.5 2.09C11.09 5.81 12.76 5 14.5 5 16.58 5 18 6.42 18 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-            </svg>
-          </button>
+                {isFavourite ? "❤️" : "🤍"}
+            </button>
         </div>
 
         {/* Bottom Content */}
