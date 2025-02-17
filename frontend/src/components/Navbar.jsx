@@ -10,12 +10,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useNavigate } from 'react-router-dom';
-const Navbar = () => {
+import Signup from '@/pages/Signup';
+const Navbar = ({userName}) => {
   const isAuth = useSelector((state) => state.auth.isAuth);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-const [login, setlogin] = useState(false)
-  const navigate = useNavigate();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -71,7 +69,7 @@ const [login, setlogin] = useState(false)
 
             <DropdownMenu>
               <DropdownMenuTrigger className="p-2 text-gray-600 hover:text-green-500">
-                <button > <User className="h-6 w-6" /></button>
+                <button > {userName}</button>
                
               </DropdownMenuTrigger>
               <DropdownMenuContent>
