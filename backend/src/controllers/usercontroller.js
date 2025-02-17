@@ -89,10 +89,8 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const verifiedUser = await User.findOne({
-      $or: [{ userName }, { email }],
-    });
-    console.log(verifiedUser);
+    const verifiedUser = await User.findOne({ email });
+    console.log("Verified User:", verifiedUser);
 
     if (!verifiedUser) {
       return res
@@ -123,8 +121,8 @@ const loginUser = async (req, res) => {
     const options = {
         refreshToken,
       httpOnly: true,
-      secure: true, // Ensure data transfer over HTTPS
-      sameSite: "strict", // Protect against CSRF
+      secure: process.env.NODE_ENV === "production",  // Ensure data transfer over HTTPS
+      sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax", // Protect against CSRF
       maxAge: 7 * 24 * 60 * 60 * 1000,
     };
 
@@ -134,7 +132,12 @@ const loginUser = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "User logged in successfully",
-      data: userWithoutPassword,
+      data: {
+        id: userWithoutPassword._id,
+        userName: userWithoutPassword.userName, 
+        email: userWithoutPassword.email,
+        fullName: userWithoutPassword.fullName,
+      },
       accessToken,
     //   refreshToken,  it should not be provided in response ..only to https cookie
     });
@@ -156,8 +159,8 @@ const logoutUser= async (req,res)=>{
         
         res.cookie("refreshToken", "",{
 httpOnly: true,
-secure:true,
-sameSite:"strict",
+secure: process.env.NODE_ENV === "production",  // Ensure data transfer over HTTPS
+      sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
 expiresIn: new Date(0)
 
         } );

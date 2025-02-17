@@ -29,13 +29,35 @@ const Login = () => {
       const data = await res.data;
       if (data.success) {
         toast.success(data.message);
-        dispatch(login(true));
-        dispatch(setUser(data.user));
+
+        if (data.data) {
+        dispatch(login()); 
+        dispatch(setUser(data.data));
+        localStorage.setItem("data", JSON.stringify(data.data)); //  Ensure user is valid
+        localStorage.setItem("token", data.accessToken); // Save token
+        localStorage.setItem("userName", JSON.stringify(data.data.userName));
+        console.log(localStorage.getItem("userName"));  // Check the saved value
+
         navigate("/");
+      }else {
+        console.error("User data is missing in API response");
       }
-    } catch (error) {
-      toast.error("Login failed. Please check your credentials.");
+    } else {
+      console.error("Login failed:", data.message);
+    
     }
+
+      
+    } catch (error) {
+      console.error("Login error: ", error);
+    
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.message || "Login failed.");
+      } else {
+        toast.error("An unexpected error occurred. Please try again.");
+      }
+    }
+    
   };
 
   return (
@@ -122,6 +144,7 @@ const Login = () => {
             </div>
 
             <button
+            
               type="submit"
               className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition duration-200"
             >
