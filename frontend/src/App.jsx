@@ -15,6 +15,7 @@ import Cards from "./components/Cards";
 import Recipe from "./components/Recipe";
 import Review from "./components/Review";
 import Footer from "./components/Footer";
+import Profile from "./pages/Profile";
 import Searchpage from "./components/SearchPage";
 const App = () => {
   return (
@@ -50,6 +51,7 @@ const App = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/search" element={<Searchpage />} />
             {/* <Route path="/search" element={<Searchcontent />} /> */}
+            <Route path="/profile" element={<Profile />} />
 
           </Routes>
           <Footer />
