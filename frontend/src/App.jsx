@@ -17,12 +17,14 @@ import Review from "./components/Review";
 import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
 import Searchpage from "./components/SearchPage";
+import AddRecipe from "./pages/AddRecipe";
+import UserSettings from "./pages/UserSettings";
 const App = () => {
   return (
-    <>
+    <div className="">
       <Provider store={store}>
         <BrowserRouter>
-          {/*   if i want  to show navbar on ont op of each page then make it here upper of routes */}
+          {/* If I want to show the navbar on top of each page, I can place it here above routes */}
           <Navbar />
           <Toaster />
 
@@ -34,31 +36,23 @@ const App = () => {
                   <Hero />
                   <Cards />
                   <Review />
-
-
-                  {/* <RecipeDetail/> */}
-                  {/* <Home /> */}
                 </>
               }
             />
-            {/* <Route path="/" element={<Home />} /> */}
             <Route path="/login" element={<Login />} />
             <Route path="/about" element={<About />} />
             <Route path="/recipe/:id" element={<Recipe />} />
-
-            {/* <Route path="/recipe/:id" element={<RecipeDetail />} /> */}
             <Route path="/favourites" element={<Favourites />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/search" element={<Searchpage />} />
-            {/* <Route path="/search" element={<Searchcontent />} /> */}
             <Route path="/profile" element={<Profile />} />
-
+            <Route path="/addRecipe" element={<AddRecipe />} />
+            <Route path="/userSettings" element={<UserSettings />} />
           </Routes>
           <Footer />
-
         </BrowserRouter>
       </Provider>
-    </>
+    </div>
   );
 };
 

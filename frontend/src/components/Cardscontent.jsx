@@ -52,7 +52,7 @@ const handleFavclick =()=>{
         {/* Bottom Content */}
         <div className="absolute bottom-0 left-0 right-0 p-4 space-y-2 text-white">
           <div className="flex justify-between items-start">
-            <h3 className="text-xl font-bold font-[Poppins] line-clamp-2 leading-tight">
+            <h3 className="text-xl font-bold  line-clamp-2 leading-tight">
               {title}
             </h3>
             <span className="flex items-center bg-white/20 rounded-full px-3 py-1 text-sm backdrop-blur">
