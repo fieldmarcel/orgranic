@@ -16,7 +16,7 @@ const createSingleRecipePage = async (req, res) => {
     steps,
     image,
   } = req.body;
-
+const userId= req.user ? req.user._id :null
   try {
     // Validate required fields
     if (
@@ -50,6 +50,8 @@ const createSingleRecipePage = async (req, res) => {
       mealType,
       steps,
       image,
+      userId,
+      isPrePopulated: !userId,
     });
 
     return res.status(201).json({
