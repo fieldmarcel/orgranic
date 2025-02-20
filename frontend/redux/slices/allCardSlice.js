@@ -14,7 +14,7 @@ export const fetchSearchRecipe= createAsyncThunk("fetchSearchRecipe",
     const response = await fetch (`http://localhost:8081/api/v1/recipes/search?query=${encodeURIComponent(searchTerm)}`)
 
     const data = await response.json();
-    console.log("API Response:", data); // ✅ Debug
+    console.log("API Response:", data); 
     return data;
   }
 )

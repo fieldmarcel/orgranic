@@ -16,7 +16,11 @@ const createSingleRecipePage = async (req, res) => {
     steps,
     image,
   } = req.body;
-const userId= req.user ? req.user._id :null
+  const userId = req.user ? req.user.userId : null; 
+
+  console.log("User ID:",userId)
+  console.log("req.body :",req.body)
+
   try {
     // Validate required fields
     if (
@@ -72,10 +76,11 @@ const getRecipe = async (req, res) => {
   try {
    const {id}= req.params;
  
-   const recipe = await Recipe.findById(id)
+   const recipe = await Recipe.findById(id).populate("userId", "userName"); // Populate userId and select username
    if (!recipe) {
     return res.status(404).json({ error: "Recipe not found" });
   }
+
  return res.status(200).json(recipe);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch recipe" });

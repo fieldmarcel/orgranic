@@ -51,7 +51,7 @@ const SearchPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 py-8">
-      {/* Search and Filter Container */}
+
       <div className="max-w-6xl mx-auto px-4">
         <form onSubmit={handleSearch} className="mb-8">
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden">

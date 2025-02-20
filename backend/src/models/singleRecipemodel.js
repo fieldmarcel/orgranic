@@ -4,11 +4,23 @@ const recipeSchema = new mongoose.Schema(
   {
     recipeId: {
       type: String,
-      default: () => new mongoose.Types.ObjectId().toString(), // Auto-generate unique ID
+      default: () => new mongoose.Types.ObjectId().toString(), 
       unique: true,
       index: true,
     },
-    
+    userId:{
+type:mongoose.Schema.Types.ObjectId,
+ref:'User',
+default:null,
+index:true
+
+    },
+    isPrePopulated: { 
+      type: Boolean, 
+      default: false, 
+      index: true ,
+    },
+
     subCategory: { type: String, index: true },
     title: { type: String, required: true, index: true },
     rating: { type: Number, required: true, min: 0, max: 5, index: true },
@@ -22,6 +34,9 @@ const recipeSchema = new mongoose.Schema(
       fat: { type: Number, required: true },
       carbs: { type: Number, required: true },
       protein: { type: Number, required: true },
+      
+
+      
     },
     cuisine: { type: String, index: true },
     mealType: { type: String, index: true },
