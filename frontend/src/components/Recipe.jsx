@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Clock, Users, Star, ChefHat, Check } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import axios from "axios";
+import Comments from "./Comments";
 
 const Recipe = () => {
   const { id } = useParams();
@@ -49,6 +50,7 @@ const Recipe = () => {
   const userName = recipe.userId ? recipe.userId.userName : "admin";
 
   return (
+    <div>
     <div className="max-w-6xl mx-auto p-4 md:p-8 bg-gray-50 min-h-screen">
       {/* Hero Section */}
       <div className="relative mb-8 rounded-xl overflow-hidden shadow-lg">
@@ -217,7 +219,11 @@ const Recipe = () => {
             </div>
           </div>
         </CardContent>
+        
       </Card>
+    </div>
+    <Comments/>
+
     </div>
   );
 };
