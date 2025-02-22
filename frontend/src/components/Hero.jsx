@@ -114,8 +114,10 @@ const Hero = () => {
                 whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(74, 222, 128, 0.4)" }}
                 whileTap={{ scale: 0.95 }}
               >
+                <Link to={'/search'} className="flex items-center gap-2">
                 <BiSearch className="text-lg" />
                 Explore Recipes
+                </Link>
               </motion.button>
               
               <motion.button
@@ -180,7 +182,7 @@ const Hero = () => {
       
       {/* Bottom Featured Section - Positioned so it's partially overlapping */}
       <motion.div 
-        className=" sm:block hidden w-full max-w-7xl mx-auto -mt-24 bg-white rounded-3xl p-6 lg:p-8 shadow-xl z-20"
+        className=" sm:block hidden w-full max-w-7xl mx-auto -mt-16 bg-white rounded-3xl p-6 lg:p-8 shadow-xl z-20"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.2 }}

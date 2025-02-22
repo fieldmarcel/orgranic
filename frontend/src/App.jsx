@@ -19,6 +19,7 @@ import Profile from "./pages/Profile";
 import Searchpage from "./components/SearchPage";
 import AddRecipe from "./pages/AddRecipe";
 import UserSettings from "./pages/UserSettings";
+import { Search } from "lucide-react";
 const App = () => {
   return (
     <div className="">
@@ -31,25 +32,27 @@ const App = () => {
           <Routes>
             <Route
               path="/"
+              
               element={
                 <>
                   <Hero />
                   <Cards />
                   <Review />
+                  <Footer/>
                 </>
               }
             />
-            <Route path="/login" element={<Login />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/recipe/:id" element={<Recipe />} />
-            <Route path="/favourites" element={<Favourites />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/search" element={<Searchpage />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/addRecipe" element={<AddRecipe />} />
-            <Route path="/userSettings" element={<UserSettings />} />
+            <Route path="/login" element={<><Login /><Footer /></>} />
+            <Route path="/about" element={<><About /><Footer /></>} />
+            <Route path="/recipe/:id" element={<><Recipe /><Footer /></>} />
+            <Route path="/favourites" element={<><Favourites /><Footer /></>} />
+            <Route path="/signup" element={<><Signup /><Footer /></>} />
+            <Route path="/search" element={<><Searchpage /><Footer /></>} />
+            <Route path="/profile" element={<><Profile /><Footer /></>} />
+            <Route path="/addRecipe" element={<><AddRecipe /><Footer /></>} />
+            <Route path="/userSettings" element={<><UserSettings /><Footer /></>} />
+
           </Routes>
-          <Footer />
         </BrowserRouter>
       </Provider>
     </div>

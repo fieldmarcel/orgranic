@@ -1,16 +1,13 @@
-import express from 'express';
-
-import {  createComment }  from '../controllers/commentController.js';
-
+import express from "express";
+import { createComment, getCommentsByRecipe,deleteComment } from "../controllers/commentController.js";
+import { authenticateToken } from "../middlewares/auth.middleware.js";
 const router = express.Router();
 
-// Route to get all comments
-// router.get('/', getComments);
+// Route to create a comment (POST)
+router.post("/:id",createComment);
 
-// Route to add a new comment
-router.post('/:id', createComment);
-
-// Route to delete a comment by ID
-// router.delete('/:id', deleteComment);
+// Route to get comments by recipe ID (GET)
+router.get("/:id", getCommentsByRecipe);
+router.delete("/:commentId",deleteComment);
 
 export default router;

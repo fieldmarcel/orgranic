@@ -20,7 +20,7 @@ const Navbar = () => {
   return (
     <nav className="sticky top-1 ml-5 mr-5 rounded-full  bg-white/55 backdrop-blur-xl border-b border-gray-100 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0 hover:opacity-90 transition-opacity">
             <img src="/Group 22 (6).svg" alt="logo" className="h-12 w-auto text-emerald-600" />

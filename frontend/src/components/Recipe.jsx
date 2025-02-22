@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Clock, Users, Star, ChefHat, Check } from "lucide-react";
+import { 
+  Clock, Users, Star, ChefHat, Check, Download, Share2, 
+  Bookmark, MoreVertical, User, Heart
+} from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import axios from "axios";
 import Comments from "./Comments";
+import { Link } from "react-router-dom";
 
 const Recipe = () => {
   const { id } = useParams();
@@ -12,6 +22,7 @@ const Recipe = () => {
   const [error, setError] = useState(null);
   const [checkedIngredients, setCheckedIngredients] = useState([]);
   const [checkedSteps, setCheckedSteps] = useState([]);
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,19 +39,15 @@ const Recipe = () => {
   }, [id]);
 
   const toggleIngredient = (index) => {
-    if (checkedIngredients.includes(index)) {
-      setCheckedIngredients(checkedIngredients.filter((i) => i !== index));
-    } else {
-      setCheckedIngredients([...checkedIngredients, index]);
-    }
+    setCheckedIngredients(prev => 
+      prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
+    );
   };
 
   const toggleStep = (index) => {
-    if (checkedSteps.includes(index)) {
-      setCheckedSteps(checkedSteps.filter((i) => i !== index));
-    } else {
-      setCheckedSteps([...checkedSteps, index]);
-    }
+    setCheckedSteps(prev => 
+      prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
+    );
   };
 
   if (loading) return <div className="text-center mt-10 animate-pulse">Loading...</div>;
@@ -50,180 +57,205 @@ const Recipe = () => {
   const userName = recipe.userId ? recipe.userId.userName : "admin";
 
   return (
-    <div>
-    <div className="max-w-6xl mx-auto p-4 md:p-8 bg-gray-50 min-h-screen">
-      {/* Hero Section */}
-      <div className="relative mb-8 rounded-xl overflow-hidden shadow-lg">
-        <img
-          src={recipe.image}
-          alt={recipe.title}
-          className="w-full h-[400px] object-cover transform hover:scale-105 transition-transform duration-300"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 p-6 text-white">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">{recipe.title}</h1>
-          <p className="text-sm md:text-base opacity-90">By {userName}</p>
+    <div className="max-w-6xl mx-auto p-2 md:p-4 bg-white/90">
+      <div className="flex flex-col md:flex-row gap-4 mb-6">
+        {/* Left column with image and quick actions */}
+        <div className="md:w-1/3">
+          <Card className="overflow-hidden">
+            <img
+              src={recipe.image}
+              alt={recipe.title}
+              className="w-full h-48 object-cover transform hover:scale-105 transition-transform duration-300"
+            />
+            <CardContent className="p-3">
+              <div className="flex justify-between items-center mb-2">
+                <button className="text-blue-500 hover:text-blue-600 flex items-center gap-1">
+                  <Download size={18} /> Download
+                </button>
+                <button className="text-blue-500 hover:text-blue-600 flex items-center gap-1">
+                  <Share2 size={18} /> Share
+                </button>
+                <button 
+                  className={`${isBookmarked ? 'text-yellow-500' : 'text-gray-500'} hover:text-yellow-600`}
+                  onClick={() => setIsBookmarked(!isBookmarked)}
+                >
+                  <Bookmark size={18} />
+                </button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <MoreVertical size={18} className="text-gray-500 hover:text-gray-600" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>
+                      <User className="mr-2 h-4 w-4" /> View Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Heart className="mr-2 h-4 w-4" /> Follow
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Right column with title and quick info */}
+        <div className="md:w-2/3">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2">{recipe.title}</h1>
+          <div className="flex items-center gap-2 mb-4">
+            <User size={18} className="text-gray-500" />
+            <span className="text-lg text-gray-600">Submitted by <Link to={"/profile"} className="text-xl font-semibold text-orange-400">{userName}</Link></span>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <Card className="bg-blue-50 hover:bg-blue-100 transition-colors">
+              <CardContent className="p-2 flex items-center">
+                <Clock className="w-4 h-4 mr-2 text-blue-500" />
+                <span>{recipe.cookTime} min</span>
+              </CardContent>
+            </Card>
+            <Card className="bg-green-50 hover:bg-green-100 transition-colors">
+              <CardContent className="p-2 flex items-center">
+                <Users className="w-4 h-4 mr-2 text-green-500" />
+                <span>{recipe.serving} servings</span>
+              </CardContent>
+            </Card>
+            <Card className="bg-yellow-50 hover:bg-yellow-100 transition-colors">
+              <CardContent className="p-2 flex items-center">
+                <Star className="w-4 h-4 mr-2 text-yellow-500" />
+                <span>{recipe.rating} ⭐</span>
+              </CardContent>
+            </Card>
+            <Card className="bg-purple-50 hover:bg-purple-100 transition-colors">
+              <CardContent className="p-2 flex items-center">
+                <ChefHat className="w-4 h-4 mr-2 text-purple-500" />
+                <span>{recipe.cuisine}</span>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
 
-      {/* Quick Info Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      {/* Description */}
+      <Card className="mb-4 hover:shadow-md transition-shadow">
+        <CardContent className="p-4">
+          <h2 className="text-xl font-semibold mb-3 flex items-center"></h2>
+            <span className="w-1 h-6 font-sans font-bold text-3xl rounded mr-2"> Description</span>
+          <p className="text-gray-700">{recipe.description}</p>
+        </CardContent>
+      </Card>
+
+      {/* Ingredients and Instructions side by side */}
+      <div className="grid md:grid-cols-2 gap-4 mb-4">
+        {/* Ingredients */}
         <Card className="hover:shadow-md transition-shadow">
-          <CardContent className="flex items-center p-4">
-            <Clock className="w-5 h-5 mr-2 text-blue-500" />
-            <div>
-              <p className="text-sm text-gray-500">Cook Time</p>
-              <p className="font-semibold">{recipe.cookTime} min</p>
-            </div>
+          <CardContent className="p-4">
+            <h2 className="text-xl font-semibold mb-3 flex items-center">
+              <span className="w-1 h-6 bg-blue-500 rounded mr-2"></span>
+              Ingredients
+            </h2>
+            <ul className="space-y-2">
+              {recipe.ingredients.map((ingredient, index) => (
+                <li
+                  key={index}
+                  className="flex items-center cursor-pointer animate-fadeIn"
+                  onClick={() => toggleIngredient(index)}
+                >
+                  <div
+                    className={`w-4 h-4 border-2 rounded mr-2 flex items-center justify-center transition-colors ${
+                      checkedIngredients.includes(index)
+                        ? "bg-blue-500 border-blue-500"
+                        : "border-gray-300"
+                    }`}
+                  >
+                    {checkedIngredients.includes(index) && (
+                      <Check className="w-3 h-3 text-white" />
+                    )}
+                  </div>
+                  <span
+                    className={`${
+                      checkedIngredients.includes(index) ? "line-through text-gray-400" : "text-gray-700"
+                    } transition-all`}
+                  >
+                    {ingredient}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </CardContent>
         </Card>
+
+        {/* Instructions */}
         <Card className="hover:shadow-md transition-shadow">
-          <CardContent className="flex items-center p-4">
-            <Users className="w-5 h-5 mr-2 text-green-500" />
-            <div>
-              <p className="text-sm text-gray-500">Serving</p>
-              <p className="font-semibold">{recipe.serving} people</p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="hover:shadow-md transition-shadow">
-          <CardContent className="flex items-center p-4">
-            <Star className="w-5 h-5 mr-2 text-yellow-500" />
-            <div>
-              <p className="text-sm text-gray-500">Rating</p>
-              <p className="font-semibold">{recipe.rating} ⭐</p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="hover:shadow-md transition-shadow">
-          <CardContent className="flex items-center p-4">
-            <ChefHat className="w-5 h-5 mr-2 text-purple-500" />
-            <div>
-              <p className="text-sm text-gray-500">Cuisine</p>
-              <p className="font-semibold">{recipe.cuisine}</p>
-            </div>
+          <CardContent className="p-4">
+            <h2 className="text-xl font-semibold mb-3 flex items-center">
+              <span className="w-1 h-6 bg-green-500 rounded mr-2"></span>
+              Instructions
+            </h2>
+            <ol className="space-y-2">
+              {recipe.steps.map((step, index) => (
+                <li
+                  key={index}
+                  className="flex items-start cursor-pointer animate-fadeIn"
+                  onClick={() => toggleStep(index)}
+                >
+                  <div
+                    className={`w-4 h-4 border-2 rounded mr-2 flex items-center justify-center mt-1 transition-colors ${
+                      checkedSteps.includes(index)
+                        ? "bg-green-500 border-green-500"
+                        : "border-gray-300"
+                    }`}
+                  >
+                    {checkedSteps.includes(index) && (
+                      <Check className="w-3 h-3 text-white" />
+                    )}
+                  </div>
+                  <span
+                    className={`${
+                      checkedSteps.includes(index) ? "line-through text-gray-400" : "text-gray-700"
+                    } transition-all`}
+                  >
+                    {step}
+                  </span>
+                </li>
+              ))}
+            </ol>
           </CardContent>
         </Card>
       </div>
 
-      {/* Description */}
-      <Card className="mb-8 hover:shadow-md transition-shadow">
-        <CardContent className="p-6">
-          <p className="text-gray-700 leading-relaxed">{recipe.description}</p>
-        </CardContent>
-      </Card>
-
-      {/* Ingredients */}
-      <Card className="mb-8 hover:shadow-md transition-shadow">
-        <CardContent className="p-6">
-          <h2 className="text-2xl font-semibold mb-4 flex items-center">
-            <span className="w-1 h-8 bg-blue-500 rounded mr-3"></span>
-            Ingredients
-          </h2>
-          <ul className="space-y-2">
-            {recipe.ingredients.map((ingredient, index) => (
-              <li
-                key={index}
-                className="flex items-center cursor-pointer"
-                onClick={() => toggleIngredient(index)}
-              >
-                <div
-                  className={`w-5 h-5 border-2 rounded-md mr-3 flex items-center justify-center ${
-                    checkedIngredients.includes(index)
-                      ? "bg-blue-500 border-blue-500"
-                      : "border-gray-300"
-                  }`}
-                >
-                  {checkedIngredients.includes(index) && (
-                    <Check className="w-4 h-4 text-white" />
-                  )}
-                </div>
-                <span
-                  className={`${
-                    checkedIngredients.includes(index) ? "line-through text-gray-400" : "text-gray-700"
-                  }`}
-                >
-                  {ingredient}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
-
-      {/* Steps */}
-      <Card className="mb-8 hover:shadow-md transition-shadow">
-        <CardContent className="p-6">
-          <h2 className="text-2xl font-semibold mb-4 flex items-center">
-            <span className="w-1 h-8 bg-green-500 rounded mr-3"></span>
-            Instructions
-          </h2>
-          <ol className="space-y-4">
-            {recipe.steps.map((step, index) => (
-              <li
-                key={index}
-                className="flex items-start cursor-pointer"
-                onClick={() => toggleStep(index)}
-              >
-                <div
-                  className={`w-5 h-5 border-2 rounded-md mr-3 flex items-center justify-center mt-1 ${
-                    checkedSteps.includes(index)
-                      ? "bg-green-500 border-green-500"
-                      : "border-gray-300"
-                  }`}
-                >
-                  {checkedSteps.includes(index) && (
-                    <Check className="w-4 h-4 text-white" />
-                  )}
-                </div>
-                <span
-                  className={`${
-                    checkedSteps.includes(index) ? "line-through text-gray-400" : "text-gray-700"
-                  }`}
-                >
-                  {step}
-                </span>
-              </li>
-            ))}
-          </ol>
-        </CardContent>
-      </Card>
-
-      {/* Nutrition */}
-      <Card className="hover:shadow-md transition-shadow">
-        <CardContent className="p-6">
-          <h2 className="text-2xl font-semibold mb-4 flex items-center">
-            <span className="w-1 h-8 bg-purple-500 rounded mr-3"></span>
+      {/* Nutrition Facts */}
+      <Card className="mb-4 hover:shadow-md transition-shadow">
+        <CardContent className="p-4">
+          <h2 className="text-xl font-semibold mb-3 flex items-center">
+            <span className="w-1 h-6 bg-purple-500 rounded mr-2"></span>
             Nutrition Facts
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-4 bg-gray-50 rounded-lg text-center hover:bg-gray-100 transition-colors">
-              <p className="text-gray-500 text-sm">Calories</p>
-              <p className="text-xl font-bold">{recipe.nutrition.calories}</p>
-              <p className="text-gray-500 text-sm">kcal</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <div className="p-2 bg-green-50 rounded-lg text-center hover:bg-green-100 transition-colors">
+              <p className="text-sm text-gray-500">Calories</p>
+              <p className="text-lg font-bold">{recipe.nutrition.calories}</p>
+              <p className="text-xs text-gray-500">kcal</p>
             </div>
-            <div className="p-4 bg-gray-50 rounded-lg text-center hover:bg-gray-100 transition-colors">
-              <p className="text-gray-500 text-sm">Protein</p>
-              <p className="text-xl font-bold">{recipe.nutrition.protein}</p>
-              <p className="text-gray-500 text-sm">g</p>
+            <div className="p-2 bg-green-100 rounded-lg text-center hover:bg-green-150 transition-colors">
+              <p className="text-sm text-gray-500">Protein</p>
+              <p className="text-lg font-bold">{recipe.nutrition.protein}</p>
+              <p className="text-xs text-gray-500">g</p>
             </div>
-            <div className="p-4 bg-gray-50 rounded-lg text-center hover:bg-gray-100 transition-colors">
-              <p className="text-gray-500 text-sm">Carbs</p>
-              <p className="text-xl font-bold">{recipe.nutrition.carbs}</p>
-              <p className="text-gray-500 text-sm">g</p>
+            <div className="p-2 bg-green-50 rounded-lg text-center hover:bg-green-100 transition-colors">
+              <p className="text-sm text-gray-500">Carbs</p>
+              <p className="text-lg font-bold">{recipe.nutrition.carbs}</p>
+              <p className="text-xs text-gray-500">g</p>
             </div>
-            <div className="p-4 bg-gray-50 rounded-lg text-center hover:bg-gray-100 transition-colors">
-              <p className="text-gray-500 text-sm">Fat</p>
-              <p className="text-xl font-bold">{recipe.nutrition.fat}</p>
-              <p className="text-gray-500 text-sm">g</p>
+            <div className="p-2 bg-green-100 rounded-lg text-center hover:bg-green-150 transition-colors">
+              <p className="text-sm text-gray-500">Fat</p>
+              <p className="text-lg font-bold">{recipe.nutrition.fat}</p>
+              <p className="text-xs text-gray-500">g</p>
             </div>
           </div>
         </CardContent>
-        
       </Card>
-    </div>
-    <Comments/>
 
+      <Comments />
     </div>
   );
 };
