@@ -19,7 +19,9 @@ import Profile from "./pages/Profile";
 import Searchpage from "./components/SearchPage";
 import AddRecipe from "./pages/AddRecipe";
 import UserSettings from "./pages/UserSettings";
-import { Search } from "lucide-react";
+import SubCategory from "./pages/SubCategory";
+import Cuisine from "./pages/Cuisine";
+
 const App = () => {
   return (
     <div className="">
@@ -51,6 +53,8 @@ const App = () => {
             <Route path="/profile" element={<><Profile /><Footer /></>} />
             <Route path="/addRecipe" element={<><AddRecipe /><Footer /></>} />
             <Route path="/userSettings" element={<><UserSettings /><Footer /></>} />
+            <Route path="/subCategory/:subCategory" element={<><SubCategory /><Footer /></>} />
+            <Route path="/cuisine/:cuisine" element={<><Cuisine /><Footer /></>} />
 
           </Routes>
         </BrowserRouter>

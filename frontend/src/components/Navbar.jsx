@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Search, ChevronDown, Menu, X, User, Utensils, Globe, Heart, Info, LogOut, Settings, Plus } from "lucide-react";
+import { Search, ChevronDown, Menu, X, User, Utensils, Globe, Info, LogOut, Settings, Plus, Bookmark } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { logout } from "../../redux/slices/authSlice";
 
@@ -31,15 +31,16 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 text-gray-600 hover:text-emerald-600 transition-colors group">
                 <Utensils className="h-5 w-5 text-emerald-500" />
-                <span className="font-medium">Recipes</span>
+                <span className="font-medium">Recipes </span>
                 <ChevronDown className="h-4 w-4 mt-0.5 text-emerald-500 group-hover:rotate-180 transition-transform" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="min-w-[240px] border border-emerald-50 bg-white shadow-xl rounded-xl p-3 mt-3">
-                {["Breakfast", "Lunch", "Dinner", "Dessert"].map((item) => (
-                  <DropdownMenuItem key={item} className="p-0 hover:bg-emerald-50 rounded-lg">
-                    <Link to={`/recipes/${item.toLowerCase()}`} className="flex items-center gap-3 w-full px-4 py-2.5 text-gray-700">
+
+                {["Breakfast", "Lunch", "Dinner","Snack","Dessert"].map((subCategory) => (
+                  <DropdownMenuItem key={subCategory} className="p-0 hover:bg-emerald-50 rounded-lg">
+                    <Link to={`/subCategory/${subCategory}`}  className="flex items-center gap-3 w-full px-4 py-2.5 text-gray-700">
                       <div className="h-2 w-2 bg-emerald-400 rounded-full" />
-                      <span className="font-medium">{item} Recipes</span>
+                      <span className="font-medium">{subCategory} Recipes</span>
                     </Link>
                   </DropdownMenuItem>
                 ))}
@@ -49,13 +50,13 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 text-gray-600 hover:text-emerald-600 transition-colors group">
                 <Globe className="h-5 w-5 text-emerald-500" />
-                <span className="font-medium">Cuisines</span>
+                <span className=" ">Cuisines</span>
                 <ChevronDown className="h-4 w-4 mt-0.5 text-emerald-500 group-hover:rotate-180 transition-transform" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="min-w-[240px] border border-emerald-50 bg-white shadow-xl rounded-xl p-3 mt-3">
                 {["Indian", "Mexican", "Italian", "Thai"].map((cuisine) => (
                   <DropdownMenuItem key={cuisine} className="p-0 hover:bg-emerald-50 rounded-lg">
-                    <Link to={`/cuisines/${cuisine.toLowerCase()}`} className="flex items-center gap-3 w-full px-4 py-2.5 text-gray-700">
+                    <Link to={`/cuisine/${cuisine}`} className="flex items-center gap-3 w-full px-4 py-2.5 text-gray-700">
                       <span className="text-lg">{cuisine === 'Indian' ? '🇮🇳' : cuisine === 'Mexican' ? '🇲🇽' : cuisine === 'Italian' ? '🇮🇹' : '🇹🇭'}</span>
                       <span className="font-medium">{cuisine} Cuisine</span>
                     </Link>
@@ -65,13 +66,13 @@ const Navbar = () => {
             </DropdownMenu>
 
             <Link to="/favourites" className="flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors">
-              <Heart className="h-5 w-5 text-emerald-500" />
-              <span className="font-medium">Favourites</span>
+              <Bookmark className="h-5 w-5 text-emerald-500" />
+              <span className="">Bookmark</span>
             </Link>
 
             <Link to="/about" className="flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors">
               <Info className="h-5 w-5 text-emerald-500" />
-              <span className="font-medium">About</span>
+              <span className="">About</span>
             </Link>
           </div>
 

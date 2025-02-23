@@ -84,10 +84,10 @@ const SearchPage = () => {
                   Search
                 </button>
               </div>
-            </div>
+             </div>
             
-            {/* Advanced Filters */}
-            {filterOpen && (
+             {/* Advanced Filters */}
+             {filterOpen && (
               <div className="bg-green-50 p-4 border-t">
                 <div className="grid grid-cols-3 gap-4">
                   {/* Cuisine Filter */}

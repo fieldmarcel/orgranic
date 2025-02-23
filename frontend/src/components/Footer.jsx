@@ -56,7 +56,7 @@ const Footer = () => {
     {/* Description and Button Section */}
     <div className="flex flex-col md:flex-row items-center justify-between gap-4">
       <p className="text-gray-600 text-lg md:text-base md:max-w-[70%]">
-        Explore a world of flavors and recipes. Just click the button below to start your journey!
+        Explore a world of flavors and recipes. Just click the button right to start your journey!
       </p>
 
       {/* Search Button */}

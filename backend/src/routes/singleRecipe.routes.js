@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createSingleRecipePage, getRecipe,searchRecipes,getAllRecipes,getFixedRecipes } from "../controllers/singleRecipecontroller.js";
+import { createSingleRecipePage, getRecipe,searchRecipes,getAllRecipes,getFixedRecipes ,getCategoryRecipes,getCuisineRecipes} from "../controllers/singleRecipecontroller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { authenticateToken } from "../middlewares/auth.middleware.js"
 
@@ -15,7 +15,10 @@ router.get("/",getAllRecipes)
 router.get("/fixed",getFixedRecipes)
 router.get("/search",searchRecipes)
 
-router.get("/:id",getRecipe)
+router.get("/subCategory/:subCategory",getCategoryRecipes)
+router.get("/cuisine/:cuisine", getCuisineRecipes); 
+
+router.get("/:id", getRecipe); 
 
 router.post("/favourites", addfavourites);
 router.post("/favourites/remove", removefavourites);

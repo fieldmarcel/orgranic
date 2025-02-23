@@ -6,7 +6,7 @@ import express from "express";
 
  app.use(
    cors({
-     origin: "http://localhost:5173", // Allow React frontend to access the backend
+     origin: "http://localhost:5173",
      credentials: true,
    })
  );
