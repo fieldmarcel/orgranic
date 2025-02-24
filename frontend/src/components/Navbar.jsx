@@ -79,7 +79,7 @@ const Navbar = () => {
           {/* Right Section */}
           <div className="flex items-center gap-6">
             <Link to="/search" className="p-2.5 hover:bg-emerald-50 rounded-full transition-colors">
-              <Search className="h-6 w-6 text-gray-600" />
+              <Search className="h-6 w-6 text-brown-600" />
             </Link>
 
             {isAuth ? (
