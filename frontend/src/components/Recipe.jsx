@@ -55,7 +55,7 @@ const Recipe = () => {
   if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
 
   const userName = recipe.userId ? recipe.userId.userName : "admin";
-
+  const userId = localStorage.getItem("userName")?.replace(/"/g, ""); 
   return (
     <div className="max-w-6xl mx-auto p-2 md:p-4 bg-white/90">
       <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -87,7 +87,8 @@ const Recipe = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <DropdownMenuItem>
-                      <User className="mr-2 h-4 w-4" /> View Profile
+                      <Link to={`/profile/${userName}`}><User className="mr-2 h-4 w-4" /> View Profile</Link>
+                     
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                       <Heart className="mr-2 h-4 w-4" /> Follow
@@ -104,7 +105,7 @@ const Recipe = () => {
           <h1 className="text-2xl md:text-3xl font-bold mb-2">{recipe.title}</h1>
           <div className="flex items-center gap-2 mb-4">
             <User size={18} className="text-gray-500" />
-            <span className="text-lg text-gray-600">Submitted by <Link to={"/profile"} className="text-xl font-semibold text-orange-400">{userName}</Link></span>
+            <span className="text-lg text-gray-600">Submitted by <Link to={`/profile/${userName}`} className="text-xl font-semibold text-orange-400">{userName}</Link></span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             <Card className="bg-blue-50 hover:bg-blue-100 transition-colors">

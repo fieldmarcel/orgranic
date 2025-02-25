@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate  } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Search, ChevronDown, Menu, X, User, Utensils, Globe, Info, LogOut, Settings, Plus, Bookmark } from "lucide-react";
+import { Search, ChevronDown, Menu, X, User, Utensils, Globe, Info, LogOut, Settings, Plus, Heart,Bookmark } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { logout } from "../../redux/slices/authSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const navigate= useNavigate()
   const isAuth = useSelector((state) => state.auth.isAuth);
   const username = localStorage.getItem("userName")?.replace(/"/g, "") ?? "Guest";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,10 +16,11 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("data");
     dispatch(logout());
+    navigate("/login")
   };
-
+  const userId = localStorage.getItem("userName")?.replace(/"/g, ""); 
   return (
-    <nav className="sticky top-1 ml-5 mr-5 rounded-full  bg-white/55 backdrop-blur-xl border-b border-gray-100 z-50 shadow-sm">
+    <nav className="sticky top-0 ml-5 mr-5 rounded-full  bg-white/55 backdrop-blur-xl border-b border-gray-100 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -95,7 +97,7 @@ const Navbar = () => {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-gray-100" />
                   <DropdownMenuItem className="p-0 hover:bg-emerald-50 rounded-lg">
-                    <Link to="/profile" className="flex items-center gap-3 w-full px-4 py-2.5 text-gray-700">
+                    <Link to={`/profile/${userId}`} className="flex items-center gap-3 w-full px-4 py-2.5 text-gray-700">
                       <User className="h-5 w-5 text-emerald-500" />
                       <span>Profile</span>
                     </Link>
@@ -186,8 +188,8 @@ const Navbar = () => {
                 </DropdownMenu>
 
                 <Link to="/favourites" className="flex items-center gap-3 px-4 py-3 hover:bg-emerald-50 rounded-xl">
-                  <Heart className="h-5 w-5 text-emerald-500" />
-                  <span className="font-medium text-gray-700">Favourites</span>
+                  <Bookmark className="h-5 w-5 text-emerald-500" />
+                  <span className="font-medium text-gray-700">Bookmarks</span>
                 </Link>
 
                 <Link to="/about" className="flex items-center gap-3 px-4 py-3 hover:bg-emerald-50 rounded-xl">
