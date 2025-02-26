@@ -156,7 +156,7 @@ const Recipe = () => {
             </h2>
             <ul className="space-y-2">
               {recipe.ingredients.map((ingredient, index) => (
-                <li
+                <ol
                   key={index}
                   className="flex items-center cursor-pointer animate-fadeIn"
                   onClick={() => toggleIngredient(index)}
@@ -179,7 +179,7 @@ const Recipe = () => {
                   >
                     {ingredient}
                   </span>
-                </li>
+                </ol>
               ))}
             </ul>
           </CardContent>

@@ -21,7 +21,8 @@ import AddRecipe from "./pages/AddRecipe";
 import UserSettings from "./pages/UserSettings";
 import SubCategory from "./pages/SubCategory";
 import Cuisine from "./pages/Cuisine";
-
+import Explore from "./components/Explore";
+import MoreIdeas from "./components/MoreIdeas";
 const App = () => {
   return (
     <div className="">
@@ -39,7 +40,10 @@ const App = () => {
                 <>
                   <Hero />
                   <Cards />
+
+                  <Explore/>
                   <Review />
+                  <MoreIdeas/>
                   <Footer/>
                 </>
               }
@@ -48,6 +52,7 @@ const App = () => {
             <Route path="/about" element={<><About /><Footer /></>} />
             <Route path="/recipe/:id" element={<><Recipe /><Footer /></>} />
             <Route path="/favourites" element={<><Favourites /><Footer /></>} />
+
             <Route path="/signup" element={<><Signup /><Footer /></>} />
             <Route path="/search" element={<><Searchpage /><Footer /></>} />
             <Route path="/profile/:userName" element={<><Profile /><Footer /></>} />

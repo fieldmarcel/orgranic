@@ -15,14 +15,18 @@ import {
   BiUserVoice,
 } from "react-icons/bi";
 import axios from "axios";
-import FollowButton from "@/components/FollowButton";
 import { useParams } from "react-router-dom";
+
 const Profile = () => {
   const [activeTab, setActiveTab] = useState("recipes");
   const { userName } = useParams();
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
+  const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]); // State for bookmarked recipes
+  const [recipes, setRecipes] = useState([]); // State for user's recipes
+  const [savedRecipes, setSavedRecipes] = useState([]); // State for saved recipes
 
+  // Fetch user data
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -30,7 +34,6 @@ const Profile = () => {
           `http://localhost:8081/api/v1/users/${userName}`
         );
         setUser(response.data.user);
-        console.log(response.data);
         setLoading(false);
       } catch (error) {
         console.error("Failed to fetch user data:", error.message);
@@ -39,7 +42,44 @@ const Profile = () => {
     };
 
     fetchUserData();
-  }, [userName]); // Dependency on userName
+  }, [userName]);
+
+  // Fetch bookmarked recipes when the "saved" tab is active
+  useEffect(() => {
+    if (activeTab === "saved") {
+      const fetchBookmarkedRecipes = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:8081/api/v1/users/${userName}/bookmarks`
+          );
+          setBookmarkedRecipes(response.data.bookmarkedRecipes || []); // Fallback to empty array if no data
+        } catch (error) {
+          if (error.response && error.response.status === 404) {
+            console.log("No bookmarked recipes found.");
+            setBookmarkedRecipes([]); // Set to empty array if 404
+          } else {
+            console.error("Failed to fetch bookmarked recipes:", error.message);
+          }
+        }
+      };
+
+      fetchBookmarkedRecipes();
+    }
+  }, [activeTab, userName]);
+
+  useEffect(() => {
+    if (activeTab === "recipes") {
+      const fetchUserRecipes = async () => {
+      try {
+        const res= await axios.get( ``)
+      } catch (error) {
+        console.error(error.message)
+      }
+      };
+
+
+    }
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -50,8 +90,6 @@ const Profile = () => {
       {/* Cover Image and Profile Info Section */}
       <div className="relative h-80 overflow-hidden">
         <img
-          // src={user?.coverImage || "default-image-url"}
-
           src={"/apple.jpg" || "default-image-url"}
           alt="Cover"
           className="w-full h-full object-cover"
@@ -102,8 +140,10 @@ const Profile = () => {
               {/* Stats */}
               <div className="flex justify-between w-full mb-6">
                 <div className="text-center">
-                  {/* <p className="text-2xl font-bold text-gray-800">recipes</p>
-                  <p className="text-sm text-gray-500">Recipes</p> */}
+                  <p className="text-2xl font-bold text-gray-800">
+                    {recipes.length}
+                  </p>
+                  <p className="text-sm text-gray-500">Recipes</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold text-gray-800">
@@ -118,8 +158,6 @@ const Profile = () => {
                   <p className="text-sm text-gray-500">Following</p>
                 </div>
               </div>
-
-              {/* Achievements */}
             </div>
 
             {/* Right Column - Content */}
@@ -152,8 +190,9 @@ const Profile = () => {
                   </motion.button>
                 </div>
               </div>
+
               {/* Tabs */}
-              {/* <div className="border-b border-gray-200 mb-6">
+              <div className="border-b border-gray-200 mb-6">
                 <nav className="flex space-x-8">
                   {[
                     {
@@ -178,8 +217,9 @@ const Profile = () => {
                     </button>
                   ))}
                 </nav>
-              </div> */}
-              {/* Tab Content
+              </div>
+
+              {/* Tab Content */}
               <div className="min-h-[400px]">
                 {activeTab === "recipes" && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -201,16 +241,6 @@ const Profile = () => {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                           <div className="absolute bottom-3 left-3 right-3 flex justify-between items-end">
                             <div>
-                              <div className="flex gap-1 mb-1">
-                                {recipe.tags.map((tag, idx) => (
-                                  <span
-                                    key={idx}
-                                    className="text-xs px-2 py-1 bg-white/30 backdrop-blur-sm rounded-full text-white font-medium"
-                                  >
-                                    {tag}
-                                  </span>
-                                ))}
-                              </div>
                               <h3 className="text-white font-bold">
                                 {recipe.title}
                               </h3>
@@ -252,9 +282,9 @@ const Profile = () => {
 
                 {activeTab === "saved" && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {savedRecipes.map((recipe) => (
+                    {bookmarkedRecipes.map((recipe) => (
                       <motion.div
-                        key={recipe.id}
+                        key={recipe._id}
                         className="flex bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -305,7 +335,7 @@ const Profile = () => {
                     <p>You haven't written any reviews yet.</p>
                   </div>
                 )}
-              </div> */}
+              </div>
             </div>
           </div>
         </motion.div>

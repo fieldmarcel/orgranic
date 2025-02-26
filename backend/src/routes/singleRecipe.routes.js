@@ -3,7 +3,6 @@ import { createSingleRecipePage, getRecipe,searchRecipes,getAllRecipes,getFixedR
 import { upload } from "../middlewares/multer.middleware.js";
 import { authenticateToken } from "../middlewares/auth.middleware.js"
 
-import { addfavourites,removefavourites } from "../controllers/favourite.js";
 const router = Router();
 // router.post("/", upload.single("image"), createRecipe);
 
@@ -20,8 +19,7 @@ router.get("/cuisine/:cuisine", getCuisineRecipes);
 
 router.get("/:id", getRecipe); 
 
-router.post("/favourites", addfavourites);
-router.post("/favourites/remove", removefavourites);
+
 // router.get("/filters", getRecipeFilters);
 
 export default router;

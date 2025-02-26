@@ -69,7 +69,7 @@ const Navbar = () => {
 
             <Link to="/favourites" className="flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors">
               <Bookmark className="h-5 w-5 text-emerald-500" />
-              <span className="">Bookmark</span>
+              <span className="">Donation</span>
             </Link>
 
             <Link to="/about" className="flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors">

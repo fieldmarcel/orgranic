@@ -78,7 +78,7 @@ const getRecipe = async (req, res) => {
    if (!id) {
     return res.status(400).json({ error: "Recipe ID is missing" });
   }
-   const recipe = await Recipe.findById(id).populate("userId", "userName"); // Populate userId and select username
+   const recipe = await Recipe.findById(id).populate("userId", "userName"); 
    if (!recipe) {
     return res.status(404).json({ error: "Recipe not found" });
   }
