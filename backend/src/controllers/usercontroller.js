@@ -1,6 +1,8 @@
 import { User } from "../models/usermodel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { Recipe } from "../models/singleRecipemodel.js";
+import { UserRelationship } from "../models/userRelationmodel.js";
 
 const registerUser = async (req, res) => {
   try {
@@ -178,32 +180,29 @@ expiresIn: new Date(0)
       });
     }
 }
+
 const getUserDetails = async (req, res) => {
   try {
     const { userName } = req.params;
-    console.log("userName from URL:", userName); // Debugging line
-    // Find the user by userName
+
     const user = await User.findOne({ userName }).select("-password -refreshToken -accessToken");
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Get the count of followers
-    // const followersCount = await UserRelationship.countDocuments({ following: user._id });
+    const followersCount = await UserRelationship.countDocuments({ following: user._id });
 
-    // // Get the count of following
-    // const followingCount = await UserRelationship.countDocuments({ follower: user._id });
+    const followingCount = await UserRelationship.countDocuments({ follower: user._id });
 
-    // Return the user details with counts
     res.status(200).json({
       success: true,
       user: {
         userName: user.userName,
         fullName: user.fullName,
         bio: user.bio,
-      
-        
+        followersCount, 
+        followingCount, 
       },
     });
   } catch (error) {
@@ -211,52 +210,4 @@ const getUserDetails = async (req, res) => {
   }
 };
 
-const followUser = async (req, res) => {
-  const { userName } = req.params; // Use userName from URL params
-  const followerUserName = req.user.userName; // Use userName from the authenticated user
-
-  if (userName === followerUserName) {
-    return res.status(400).json({ message: "You cannot follow yourself" });
-  }
-
-  try {
-    const userToFollow = await User.findOne({ userName }); // Find user by userName
-    const follower = await User.findOne({ userName: followerUserName }); // Find follower by userName
-
-    if (!userToFollow || !follower) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    const isFollowing = follower.following.includes(userToFollow._id);
-
-    if (isFollowing) {
-      follower.following = follower.following.filter(
-        (id) => id.toString() !== userToFollow._id.toString()
-      );
-      userToFollow.followers = userToFollow.followers.filter(
-        (id) => id.toString() !== follower._id.toString()
-      );
-    } else {
-      follower.following.push(userToFollow._id);
-      userToFollow.followers.push(follower._id);
-    }
-
-    await follower.save();
-    await userToFollow.save();
-
-    return res.status(200).json({
-      success: true,
-      message: isFollowing ? "Unfollowed successfully" : "Followed successfully",
-      followersCount: userToFollow.followers.length, // Return updated followers count
-    });
-  } catch (error) {
-    console.error("Error during follow:", error.message);
-    return res.status(500).json({
-      success: false,
-      message: "Something went wrong during follow",
-    });
-  }
-};
-
-
-export { registerUser, loginUser ,logoutUser,getUserDetails,followUser};
+export { registerUser, loginUser ,logoutUser,getUserDetails};

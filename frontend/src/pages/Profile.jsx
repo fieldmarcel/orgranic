@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   BiEdit,
   BiBookmark,
@@ -23,9 +24,9 @@ const Profile = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]); // State for bookmarked recipes
-  const [recipes, setRecipes] = useState([]); // State for user's recipes
-  const [savedRecipes, setSavedRecipes] = useState([]); // State for saved recipes
-
+  const [recipes, setRecipes] = useState([]); 
+  const [deleteBoomarkedRecipe, setdeleteBoomarkedRecipe] = useState(false)// State for user's recipes
+   const {id}= useParams
   // Fetch user data
   useEffect(() => {
     const fetchUserData = async () => {
@@ -34,9 +35,10 @@ const Profile = () => {
           `http://localhost:8081/api/v1/users/${userName}`
         );
         setUser(response.data.user);
+        setRecipes(response.data.recipes || [])
         setLoading(false);
       } catch (error) {
-        console.error("Failed to fetch user data:", error.message);
+        console.error("Failed to fetch user data my recipes:", error.message);
         setLoading(false);
       }
     };
@@ -56,7 +58,6 @@ const Profile = () => {
         } catch (error) {
           if (error.response && error.response.status === 404) {
             console.log("No bookmarked recipes found.");
-            setBookmarkedRecipes([]); // Set to empty array if 404
           } else {
             console.error("Failed to fetch bookmarked recipes:", error.message);
           }
@@ -67,19 +68,27 @@ const Profile = () => {
     }
   }, [activeTab, userName]);
 
-  useEffect(() => {
-    if (activeTab === "recipes") {
-      const fetchUserRecipes = async () => {
-      try {
-        const res= await axios.get( ``)
-      } catch (error) {
-        console.error(error.message)
-      }
-      };
+  
+    // if (activeTab === "saved") {
+    //   const deleteBookmarkedRecipes = async () => {
+    //     try {
+    //       const response = await axios.delete(
+    //         `http://localhost:8081/api/v1/users/bookmarks`
+    //       );
+    //       setdeleteBoomarkedRecipe(response.data.deleteBoomarkedRecipe || []); // Fallback to empty array if no data
+    //     } catch (error) {
+    //       if (error.response && error.response.status === 404) {
+    //         console.log(" bookmarked recipes not deleted.");
+    //       } else {
+    //         console.error("Failed to delete bookmarked recipes:", error.message);
+    //       }
+    //     }
+    //   };
 
+    //   deleteBookmarkedRecipes();
+    // }
+  
 
-    }
-  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -221,68 +230,55 @@ const Profile = () => {
 
               {/* Tab Content */}
               <div className="min-h-[400px]">
-                {activeTab === "recipes" && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {recipes.map((recipe) => (
-                      <motion.div
-                        key={recipe.id}
-                        className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 0.1 }}
-                        whileHover={{ y: -5 }}
-                      >
-                        <div className="relative aspect-video overflow-hidden">
-                          <img
-                            src={recipe.image}
-                            alt={recipe.title}
-                            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                          <div className="absolute bottom-3 left-3 right-3 flex justify-between items-end">
-                            <div>
-                              <h3 className="text-white font-bold">
-                                {recipe.title}
-                              </h3>
-                            </div>
-                            <div className="flex items-center gap-1 text-white/90 text-sm">
-                              <BiHourglass /> {recipe.time}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="p-4">
-                          <div className="flex justify-between items-center">
-                            <div className="flex items-center gap-4 text-sm text-gray-600">
-                              <span className="flex items-center gap-1">
-                                <BiHeart className="text-red-500" />
-                                {recipe.likes}
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <BiBookmark className="text-blue-500" />
-                                {recipe.saves}
-                              </span>
-                            </div>
-                            <span
-                              className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                recipe.difficulty === "Easy"
-                                  ? "bg-green-100 text-green-800"
-                                  : recipe.difficulty === "Medium"
-                                  ? "bg-yellow-100 text-yellow-800"
-                                  : "bg-red-100 text-red-800"
-                              }`}
-                            >
-                              {recipe.difficulty}
-                            </span>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                )}
+              {activeTab === "recipes" && (
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {recipes.map((recipe) => (
+      <Link to={`/recipe/${recipe._id}`} key={recipe._id}>
+        <motion.div
+          className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+          whileHover={{ y: -5 }}
+        >
+          <div className="relative aspect-video overflow-hidden">
+            <img
+              src={recipe.image}
+              alt={recipe.title}
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div className="absolute bottom-3 left-3 right-3 flex justify-between items-end">
+              <div>
+                <h3 className="text-white font-bold">{recipe.title}</h3>
+              </div>
+              <div className="flex items-center gap-1 text-white/90 text-sm">
+                <BiHourglass /> {recipe.readyIn}
+              </div>
+            </div>
+          </div>
+          <div className="p-4">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-4 text-sm text-gray-600">
+                <span className="flex items-center gap-1 bg-green-200 px-2 rounded-full">
+                  {recipe.cuisine}
+                </span>
+              </div>
+              <span className="px-2 py-1 rounded-full text-xs font-medium bg-orange-200">
+                {recipe.mealType}
+              </span>
+            </div>
+          </div>
+        </motion.div>
+      </Link>
+    ))}
+  </div>
+)}
 
                 {activeTab === "saved" && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {bookmarkedRecipes.map((recipe) => (
+                      <Link to={`/recipe/${recipe._id}`}>
                       <motion.div
                         key={recipe._id}
                         className="flex bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
@@ -300,31 +296,29 @@ const Profile = () => {
                         </div>
                         <div className="w-2/3 p-4 flex flex-col justify-between">
                           <div>
-                            <h3 className="font-bold text-gray-800 mb-1">
+                            <h3 className="font-bold text-2xl text-gray-800 mb-1">
                               {recipe.title}
                             </h3>
-                            <p className="text-sm text-gray-500 mb-2">
-                              By {recipe.author}
+                            <p className="text-md text-gray-500 mb-2">
+                              {recipe.cuisine} 
                             </p>
                           </div>
                           <div className="flex justify-between items-center mt-2">
                             <span className="text-xs text-gray-600 flex items-center gap-1">
-                              <BiHourglass /> {recipe.time}
+                              <BiHourglass /> {recipe.readyIn}
                             </span>
                             <span
-                              className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                recipe.difficulty === "Easy"
-                                  ? "bg-green-100 text-green-800"
-                                  : recipe.difficulty === "Medium"
-                                  ? "bg-yellow-100 text-yellow-800"
-                                  : "bg-red-100 text-red-800"
-                              }`}
+                              className='px-2 py-1 rounded-full text-xs font-medium bg-orange-200'
+                               
+                              
                             >
-                              {recipe.difficulty}
+                               {recipe.mealType} 
+                             
                             </span>
                           </div>
                         </div>
                       </motion.div>
+                      </Link>
                     ))}
                   </div>
                 )}

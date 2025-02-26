@@ -3,42 +3,41 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { BorderBeam } from "../components/ui/border-beam";
 import { useParams } from "react-router-dom";
-
+import { BookMarked, Bookmark } from "lucide-react";
+import { toast } from "react-hot-toast";
 
 const Cardscontent = ({ id, image, title, rating }) => {
-  const [isBookmarked, setIsBookmarked] = useState(0)
+  const [isBookmarked, setIsBookmarked] = useState(0);
   const handlebookmark = async (e) => {
     e.preventDefault();
     try {
-      // Retrieve the data object from localStorage
       const dataString = localStorage.getItem("data");
-  
+
       if (!dataString) {
-        console.error("No data found in localStorage. User might not be logged in.");
+        console.error(
+          "No data found in localStorage. User might not be logged in."
+        );
         return;
       }
-  
-      // Parse the data object
+
       const data = JSON.parse(dataString);
-  
-      // Extract userId from the data object
-      const userId = data.id; // Replace "userId" with the actual key if it's different
-  
+
+      const userId = data.id;
+
       if (!userId) {
         console.error("userId not found in the data object.");
         return;
       }
-  
+
       const accessToken = localStorage.getItem("token");
-      const recipeId = id; // Ensure this is the correct recipeId
-  
-      console.log("Sending payload:", { userId, recipeId }); // Log the payload
-  
+      const recipeId = id;
+
+      console.log("Sending payload:", { userId, recipeId }); 
+
       if (!accessToken) {
         console.error("No access token found. User might not be logged in.");
-        return;
       }
-  
+
       const res = await axios.post(
         "http://localhost:8081/api/v1/users/bookmarks",
         { userId, recipeId },
@@ -49,9 +48,13 @@ const Cardscontent = ({ id, image, title, rating }) => {
         }
       );
       setIsBookmarked(true);
+      toast.success(response.data.message || "Your recipe is bookmarked");
+
       console.log("Bookmark response:", res.data);
     } catch (error) {
-      console.error("Error bookmarking recipe:", error);
+      toast.error(error.response.data.message || "Recipe already bookmarkd");
+
+      console.error("Recipe already bookmarkd:", error);
       if (error.response) {
         console.error("Server responded with:", error.response.data);
       }
@@ -90,7 +93,7 @@ const Cardscontent = ({ id, image, title, rating }) => {
               isBookmarked ? "bg-red-500 text-white" : "bg-white text-red-500"
             }`}
           >
-            {isBookmarked ? "Bookmarked" : "Bookmark"}
+            {isBookmarked ? <BookMarked /> : <Bookmark />}
           </button>
         </div>
 

@@ -35,7 +35,7 @@ const bookmarkRecipe = async (req, res) => {
 
   const unBookMarkRecipe = async (req, res) => {
     try {
-      const { userId, recipeId } = req.body; // Use userId instead of userName
+      const { userId, recipeId } = req.body; 
   
       const deleteBookmark = await Bookmark.findOneAndDelete({ user: userId, recipe: recipeId });
   

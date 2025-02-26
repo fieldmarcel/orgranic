@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import { 
   Clock, Users, Star, ChefHat, Check, Download, Share2, 
-  Bookmark, MoreVertical, User, Heart
+  Bookmark,BookMarked, MoreVertical, User, Heart
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -23,6 +24,60 @@ const Recipe = () => {
   const [checkedIngredients, setCheckedIngredients] = useState([]);
   const [checkedSteps, setCheckedSteps] = useState([]);
   const [isBookmarked, setIsBookmarked] = useState(false);
+
+
+  const handlebookmark = async (e) => {
+    e.preventDefault();
+    try {
+      const dataString = localStorage.getItem("data");
+
+      if (!dataString) {
+        console.error(
+          "No data found in localStorage. User might not be logged in."
+        );
+        return;
+      }
+
+      const data = JSON.parse(dataString);
+
+      const userId = data.id;
+
+      if (!userId) {
+        console.error("userId not found in the data object.");
+        return;
+      }
+
+      const accessToken = localStorage.getItem("token");
+      const recipeId = id;
+
+      console.log("Sending payload:", { userId, recipeId }); 
+
+      if (!accessToken) {
+        console.error("No access token found. User might not be logged in.");
+      }
+
+      const res = await axios.post(
+        "http://localhost:8081/api/v1/users/bookmarks",
+        { userId, recipeId },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      setIsBookmarked(true);
+      console.log("Bookmark response:", res.data);
+      toast.success(response.data.message || "Your recipe is bookmarked");
+
+    } catch (error) {
+      console.error("Recipe already Bookmarkd :", error);
+     toast.error(error.response.data.message || "Recipe already bookmarkd");
+      
+      if (error.response) {
+        console.error("Server responded with:", error.response.data);
+      }
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,12 +130,14 @@ const Recipe = () => {
                 <button className="text-blue-500 hover:text-blue-600 flex items-center gap-1">
                   <Share2 size={18} /> Share
                 </button>
-                <button 
-                  className={`${isBookmarked ? 'text-yellow-500' : 'text-gray-500'} hover:text-yellow-600`}
-                  onClick={() => setIsBookmarked(!isBookmarked)}
-                >
-                  <Bookmark size={18} />
-                </button>
+               <button
+                           onClick={handlebookmark}
+                           className={`p-2 rounded-full shadow-sm transition-colors duration-200 ${
+                             isBookmarked ? "bg-red-500 text-white" : "bg-white text-red-500"
+                           }`}
+                         >
+                           {isBookmarked ? <BookMarked /> : <Bookmark />}
+                         </button>
                 <DropdownMenu>
                   <DropdownMenuTrigger>
                     <MoreVertical size={18} className="text-gray-500 hover:text-gray-600" />
