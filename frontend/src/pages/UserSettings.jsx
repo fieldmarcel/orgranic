@@ -652,14 +652,14 @@ function UserSettings() {
     switch (activeTab) {
       case 'profile':
         return <ProfileSettings />;
-      case 'notifications':
-        return <NotificationsSettings />;
-      case 'security':
-        return <SecuritySettings />;
-      case 'language':
-        return <LanguageSettings />;
-      case 'help':
-        return <HelpSettings />;
+      // case 'notifications':
+      //   return <NotificationsSettings />;
+      // case 'security':
+      //   return <SecuritySettings />;
+      // case 'language':
+      //   return <LanguageSettings />;
+      // case 'help':
+      //   return <HelpSettings />;
       default:
         return <ProfileSettings />;
     }
@@ -670,23 +670,23 @@ function UserSettings() {
       {/* Sidebar */}
       <div className="w-64 bg-white shadow-sm p-6 space-y-8">
         <div className="flex flex-col items-center">
-          <div className="h-24 w-24 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+          <div className="h-24 w-24 rounded-full bg-indigo-100 flex items-center justify-center text-green-600">
             <User size={48} />
           </div>
-          <h2 className="mt-4 font-semibold text-lg">Jane Smith</h2>
-          <p className="text-gray-500 text-sm">jane.smith@example.com</p>
+          <h2 className="mt-4 font-semibold text-lg">Guest</h2>
+          <p className="text-gray-500 text-sm">guest@gmail.com</p>
         </div>
 
         <nav className="mt-8">
           <ul className="space-y-2">
             <li 
-              className={`px-4 py-3 rounded-lg cursor-pointer flex items-center space-x-3 ${activeTab === 'profile' ? 'bg-indigo-50 text-indigo-600' : 'hover:bg-gray-100'}`}
+              className={`px-4 py-3 rounded-lg cursor-pointer flex items-center space-x-3 ${activeTab === 'profile' ? 'bg-indigo-50 text-green-600' : 'hover:bg-gray-100'}`}
               onClick={() => setActiveTab('profile')}
             >
               <User size={18} />
               <span>Profile</span>
             </li>
-            <li 
+            {/* <li 
               className={`px-4 py-3 rounded-lg cursor-pointer flex items-center space-x-3 ${activeTab === 'notifications' ? 'bg-indigo-50 text-indigo-600' : 'hover:bg-gray-100'}`}
               onClick={() => setActiveTab('notifications')}
             >
@@ -713,15 +713,15 @@ function UserSettings() {
             >
               <HelpCircle size={18} />
               <span>Help</span>
-            </li>
+            </li> */}
           </ul>
         </nav>
 
         <div className="mt-auto pt-6 border-t">
-          <button className="flex items-center space-x-2 text-red-500 hover:text-red-600">
+          {/* <button className="flex items-center space-x-2 text-red-500 hover:text-red-600">
             <LogOut size={18} />
             <span>Log out</span>
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -741,13 +741,13 @@ function ProfileSettings() {
       
       <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
         <div className="flex items-center space-x-4 mb-6">
-          <div className="h-20 w-20 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+          <div className="h-20 w-20 rounded-full bg-indigo-100 flex items-center justify-center text-green-500">
             <User size={40} />
           </div>
           <div>
             <h2 className="font-semibold">Profile Picture</h2>
             <div className="flex space-x-3 mt-2">
-              <button className="px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100">
+              <button className="px-4 py-2 bg-indigo-50 text-green-500 rounded-lg hover:bg-indigo-100">
                 Upload New
               </button>
               <button className="px-4 py-2 text-gray-500 hover:text-gray-700">
@@ -764,7 +764,7 @@ function ProfileSettings() {
               <input 
                 type="text" 
                 defaultValue="Jane" 
-                className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" 
+                className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none" 
               />
             </div>
             <div>
@@ -772,7 +772,7 @@ function ProfileSettings() {
               <input 
                 type="text" 
                 defaultValue="Smith" 
-                className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" 
+                className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none" 
               />
             </div>
           </div>
@@ -782,7 +782,7 @@ function ProfileSettings() {
             <input 
               type="email" 
               defaultValue="jane.smith@example.com" 
-              className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" 
+              className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none" 
             />
           </div>
 
@@ -790,7 +790,7 @@ function ProfileSettings() {
             <label className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
             <textarea 
               defaultValue="I'm a UX designer passionate about creating intuitive digital experiences."
-              className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none h-24" 
+              className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none h-24" 
             />
           </div>
         </div>
@@ -804,7 +804,7 @@ function ProfileSettings() {
             <input 
               type="tel" 
               defaultValue="+1 (555) 123-4567" 
-              className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" 
+              className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none" 
             />
           </div>
 
@@ -813,7 +813,7 @@ function ProfileSettings() {
             <input 
               type="text" 
               defaultValue="San Francisco, CA" 
-              className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" 
+              className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none" 
             />
           </div>
         </div>
@@ -823,7 +823,7 @@ function ProfileSettings() {
         <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
           Cancel
         </button>
-        <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+        <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
           Save Changes
         </button>
       </div>
@@ -831,200 +831,200 @@ function ProfileSettings() {
   );
 }
 
-// Notifications Settings Component
-function NotificationsSettings() {
-  return (
-    <div className="max-w-2xl">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Notification Settings</h1>
+// // Notifications Settings Component
+// function NotificationsSettings() {
+//   return (
+//     <div className="max-w-2xl">
+//       <h1 className="text-2xl font-bold text-gray-800 mb-6">Notification Settings</h1>
       
-      <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-        <h2 className="font-semibold mb-4">Email Notifications</h2>
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="font-medium">Comments and mentions</h3>
-              <p className="text-sm text-gray-500">Get notified when someone comments or mentions you</p>
-            </div>
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" className="sr-only peer" defaultChecked />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-            </label>
-          </div>
+//       <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+//         <h2 className="font-semibold mb-4">Email Notifications</h2>
+//         <div className="space-y-4">
+//           <div className="flex items-center justify-between">
+//             <div>
+//               <h3 className="font-medium">Comments and mentions</h3>
+//               <p className="text-sm text-gray-500">Get notified when someone comments or mentions you</p>
+//             </div>
+//             <label className="relative inline-flex items-center cursor-pointer">
+//               <input type="checkbox" className="sr-only peer" defaultChecked />
+//               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+//             </label>
+//           </div>
           
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="font-medium">Project updates</h3>
-              <p className="text-sm text-gray-500">Get notified about project status changes</p>
-            </div>
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" className="sr-only peer" defaultChecked />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-            </label>
-          </div>
+//           <div className="flex items-center justify-between">
+//             <div>
+//               <h3 className="font-medium">Project updates</h3>
+//               <p className="text-sm text-gray-500">Get notified about project status changes</p>
+//             </div>
+//             <label className="relative inline-flex items-center cursor-pointer">
+//               <input type="checkbox" className="sr-only peer" defaultChecked />
+//               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+//             </label>
+//           </div>
           
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="font-medium">Newsletter</h3>
-              <p className="text-sm text-gray-500">Receive our weekly newsletter</p>
-            </div>
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" className="sr-only peer" />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-            </label>
-          </div>
-        </div>
-      </div>
+//           <div className="flex items-center justify-between">
+//             <div>
+//               <h3 className="font-medium">Newsletter</h3>
+//               <p className="text-sm text-gray-500">Receive our weekly newsletter</p>
+//             </div>
+//             <label className="relative inline-flex items-center cursor-pointer">
+//               <input type="checkbox" className="sr-only peer" />
+//               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+//             </label>
+//           </div>
+//         </div>
+//       </div>
       
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h2 className="font-semibold mb-4">Push Notifications</h2>
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="font-medium">Direct messages</h3>
-              <p className="text-sm text-gray-500">Get notified for new messages</p>
-            </div>
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" className="sr-only peer" defaultChecked />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-            </label>
-          </div>
+//       <div className="bg-white rounded-xl shadow-sm p-6">
+//         <h2 className="font-semibold mb-4">Push Notifications</h2>
+//         <div className="space-y-4">
+//           <div className="flex items-center justify-between">
+//             <div>
+//               <h3 className="font-medium">Direct messages</h3>
+//               <p className="text-sm text-gray-500">Get notified for new messages</p>
+//             </div>
+//             <label className="relative inline-flex items-center cursor-pointer">
+//               <input type="checkbox" className="sr-only peer" defaultChecked />
+//               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+//             </label>
+//           </div>
           
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="font-medium">Team activities</h3>
-              <p className="text-sm text-gray-500">Get notified about your team's activities</p>
-            </div>
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" className="sr-only peer" defaultChecked />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-            </label>
-          </div>
-        </div>
-      </div>
+//           <div className="flex items-center justify-between">
+//             <div>
+//               <h3 className="font-medium">Team activities</h3>
+//               <p className="text-sm text-gray-500">Get notified about your team's activities</p>
+//             </div>
+//             <label className="relative inline-flex items-center cursor-pointer">
+//               <input type="checkbox" className="sr-only peer" defaultChecked />
+//               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+//             </label>
+//           </div>
+//         </div>
+//       </div>
 
-      <div className="mt-6 flex justify-end space-x-3">
-        <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-          Cancel
-        </button>
-        <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
-          Save Preferences
-        </button>
-      </div>
-    </div>
-  );
-}
+//       <div className="mt-6 flex justify-end space-x-3">
+//         <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+//           Cancel
+//         </button>
+//         <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+//           Save Preferences
+//         </button>
+//       </div>
+//     </div>
+//   );
+// }
 
-function SecuritySettings() {
-  return (
-    <div className="max-w-2xl">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Security Settings</h1>
+// function SecuritySettings() {
+//   return (
+//     <div className="max-w-2xl">
+//       <h1 className="text-2xl font-bold text-gray-800 mb-6">Security Settings</h1>
       
-      <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-        <h2 className="font-semibold mb-4">Change Password</h2>
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
-            <input 
-              type="password" 
-              className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" 
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">New Password</label>
-            <input 
-              type="password" 
-              className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" 
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
-            <input 
-              type="password" 
-              className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" 
-            />
-          </div>
-          <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 mt-2">
-            Update Password
-          </button>
-        </div>
-      </div>
+//       <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+//         <h2 className="font-semibold mb-4">Change Password</h2>
+//         <div className="space-y-4">
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+//             <input 
+//               type="password" 
+//               className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" 
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+//             <input 
+//               type="password" 
+//               className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" 
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
+//             <input 
+//               type="password" 
+//               className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" 
+//             />
+//           </div>
+//           <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 mt-2">
+//             Update Password
+//           </button>
+//         </div>
+//       </div>
       
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h2 className="font-semibold mb-4">Two-Factor Authentication</h2>
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="font-medium">Enable two-factor authentication</h3>
-            <p className="text-sm text-gray-500">Additional security for your account</p>
-          </div>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" className="sr-only peer" />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-          </label>
-        </div>
-      </div>
-    </div>
-  );
-}
+//       <div className="bg-white rounded-xl shadow-sm p-6">
+//         <h2 className="font-semibold mb-4">Two-Factor Authentication</h2>
+//         <div className="flex items-center justify-between">
+//           <div>
+//             <h3 className="font-medium">Enable two-factor authentication</h3>
+//             <p className="text-sm text-gray-500">Additional security for your account</p>
+//           </div>
+//           <label className="relative inline-flex items-center cursor-pointer">
+//             <input type="checkbox" className="sr-only peer" />
+//             <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+//           </label>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
-// Language Settings Component (simplified)
-function LanguageSettings() {
-  return (
-    <div className="max-w-2xl">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Language Settings</h1>
+// // Language Settings Component (simplified)
+// function LanguageSettings() {
+//   return (
+//     <div className="max-w-2xl">
+//       <h1 className="text-2xl font-bold text-gray-800 mb-6">Language Settings</h1>
       
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h2 className="font-semibold mb-4">Select Language</h2>
-        <select className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none">
-          <option value="en">English (US)</option>
-          <option value="es">Español</option>
-          <option value="fr">Français</option>
-          <option value="de">Deutsch</option>
-          <option value="ja">日本語</option>
-        </select>
+//       <div className="bg-white rounded-xl shadow-sm p-6">
+//         <h2 className="font-semibold mb-4">Select Language</h2>
+//         <select className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none">
+//           <option value="en">English (US)</option>
+//           <option value="es">Español</option>
+//           <option value="fr">Français</option>
+//           <option value="de">Deutsch</option>
+//           <option value="ja">日本語</option>
+//         </select>
         
-        <div className="mt-6 flex justify-end">
-          <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
-            Save Preferences
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+//         <div className="mt-6 flex justify-end">
+//           <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+//             Save Preferences
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
-// Help Settings Component (simplified)
-function HelpSettings() {
-  return (
-    <div className="max-w-2xl">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Help & Support</h1>
+// // Help Settings Component (simplified)
+// function HelpSettings() {
+//   return (
+//     <div className="max-w-2xl">
+//       <h1 className="text-2xl font-bold text-gray-800 mb-6">Help & Support</h1>
       
-      <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-        <h2 className="font-semibold mb-4">Frequently Asked Questions</h2>
-        <div className="space-y-4">
-          <div className="border-b pb-3">
-            <h3 className="font-medium">How do I change my password?</h3>
-            <p className="text-sm text-gray-500 mt-1">Go to Security Settings and follow the instructions to change your password.</p>
-          </div>
-          <div className="border-b pb-3">
-            <h3 className="font-medium">Can I download my data?</h3>
-            <p className="text-sm text-gray-500 mt-1">Yes, go to Profile Settings and click on the "Download My Data" button.</p>
-          </div>
-          <div>
-            <h3 className="font-medium">How do I delete my account?</h3>
-            <p className="text-sm text-gray-500 mt-1">Account deletion can be found in Security Settings under "Account Management".</p>
-          </div>
-        </div>
-      </div>
+//       <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+//         <h2 className="font-semibold mb-4">Frequently Asked Questions</h2>
+//         <div className="space-y-4">
+//           <div className="border-b pb-3">
+//             <h3 className="font-medium">How do I change my password?</h3>
+//             <p className="text-sm text-gray-500 mt-1">Go to Security Settings and follow the instructions to change your password.</p>
+//           </div>
+//           <div className="border-b pb-3">
+//             <h3 className="font-medium">Can I download my data?</h3>
+//             <p className="text-sm text-gray-500 mt-1">Yes, go to Profile Settings and click on the "Download My Data" button.</p>
+//           </div>
+//           <div>
+//             <h3 className="font-medium">How do I delete my account?</h3>
+//             <p className="text-sm text-gray-500 mt-1">Account deletion can be found in Security Settings under "Account Management".</p>
+//           </div>
+//         </div>
+//       </div>
       
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h2 className="font-semibold mb-4">Contact Support</h2>
-        <p className="text-sm text-gray-500 mb-4">If you can't find an answer in our FAQs, please contact our support team.</p>
-        <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
-          Contact Support
-        </button>
-      </div>
-    </div>
-  );
-}
+//       <div className="bg-white rounded-xl shadow-sm p-6">
+//         <h2 className="font-semibold mb-4">Contact Support</h2>
+//         <p className="text-sm text-gray-500 mb-4">If you can't find an answer in our FAQs, please contact our support team.</p>
+//         <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+//           Contact Support
+//         </button>
+//       </div>
+//     </div>
+//   );
+// }
 
 export default UserSettings;
