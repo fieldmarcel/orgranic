@@ -5,6 +5,8 @@ import { app } from "./src/app.js";
 
 dotenv.config();
 
+// Initialize Google Gemini AI
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const startServer = async () => {
     try {
