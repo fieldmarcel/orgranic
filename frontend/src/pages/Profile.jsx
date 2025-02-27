@@ -18,7 +18,7 @@ import FollowButton from "@/components/FollowButton";
 import { logout } from "../../redux/slices/authSlice";
 
 const Profile = () => {
-  const [activeTab, setActiveTab] = useState("recipes");
+  const [activeTab, setActiveTab] = useState("saved");
   const { userName } = useParams();
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
@@ -116,9 +116,9 @@ const handleLogout = () => {
               <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-1 text-center md:text-left">
                 {user.fullName || "Admin"}
               </h1>
-              <p className="text-green-600 font-medium mb-4 text-center md:text-left">
+              {/* <p className="text-green-600 font-medium mb-4 text-center md:text-left">
                 {user.title || "No Title"}
-              </p>
+              </p> */}
 
               <p className="text-gray-600 text-sm mb-6 text-center md:text-left">
                 {user.bio || "No bio available."}
@@ -132,16 +132,16 @@ const handleLogout = () => {
                   <p className="text-sm text-gray-500">Recipes</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-gray-800">
+                  {/* <p className="text-2xl font-bold text-gray-800">
                     {user.followersCount || 0}
-                  </p>
-                  <p className="text-sm text-gray-500">Followers</p>
+                  </p> */}
+                  {/* <p className="text-sm text-gray-500">Followers</p> */}
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-gray-800">
+                  {/* <p className="text-2xl font-bold text-gray-800">
                     {user.followingCount || 0}
-                  </p>
-                  <p className="text-sm text-gray-500">Following</p>
+                  </p> */}
+                  {/* <p className="text-sm text-gray-500">Following</p> */}
                 </div>
               </div>
             </div>
@@ -150,21 +150,21 @@ const handleLogout = () => {
             <div className="md:w-2/3 p-6 md:p-8">
 
               <div className="flex justify-between mb-8">
-                <FollowButton userId={user._id} />
+                {/* <FollowButton userId={user._id} /> */}
                 <div className="flex gap-2">
                   <motion.button
                     className="p-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <BiShare className="text-lg" />
+                    {/* <BiShare className="text-lg" /> */}
                   </motion.button>
                   <motion.button
                     className="p-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <BiCog className="text-lg" />
+                    {/* <BiCog className="text-lg" /> */}
                   </motion.button>
                 </div>
               </div>

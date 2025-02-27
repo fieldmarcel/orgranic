@@ -125,6 +125,19 @@ const getExploreRecipes = async(req,res)=>{
   }
 };
 
+const getmoreIdeasRecipe = async(req,res)=>{
+  try {
+    const recipeIds= ["67bfebadc0599fc44cbb075f","67bfede6c0599fc44cbb0793","67bfec99c0599fc44cbb078d","67bdac3f9cca3c3bbb6d8d1c","67bfe979c0599fc44cbb072e","67bfef0dc0599fc44cbb07d0"]
+    // $in operator is used to find documents where 
+    // the _id field matches any value in the recipeIds array.   
+      const recipes = await Recipe.find({ _id: { $in: recipeIds } });
+
+    res.json(recipes);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 
 const getCategoryRecipes= async(req,res)=>{
   try {
@@ -185,4 +198,4 @@ const query = String(req.query.query || "").trim();
   }
 };
 
-export { createSingleRecipePage, getRecipe,getAllRecipes,getFixedRecipes,getExploreRecipes ,searchRecipes,getCategoryRecipes, getCuisineRecipes};
+export { createSingleRecipePage,getmoreIdeasRecipe, getRecipe,getAllRecipes,getFixedRecipes,getExploreRecipes ,searchRecipes,getCategoryRecipes, getCuisineRecipes};

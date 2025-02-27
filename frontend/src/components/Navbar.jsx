@@ -56,7 +56,7 @@ const Navbar = () => {
                 <ChevronDown className="h-4 w-4 mt-0.5 text-emerald-500 group-hover:rotate-180 transition-transform" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="min-w-[240px] border border-emerald-50 bg-white shadow-xl rounded-xl p-3 mt-3">
-                {["Indian", "Mexican", "Italian", "Thai"].map((cuisine) => (
+                {["Indian", "Mexican", "Italian", "Pan-Asian"].map((cuisine) => (
                   <DropdownMenuItem key={cuisine} className="p-0 hover:bg-emerald-50 rounded-lg">
                     <Link to={`/cuisine/${cuisine}`} className="flex items-center gap-3 w-full px-4 py-2.5 text-gray-700">
                       <span className="text-lg">{cuisine === 'Indian' ? '🇮🇳' : cuisine === 'Mexican' ? '🇲🇽' : cuisine === 'Italian' ? '🇮🇹' : '🇹🇭'}</span>
@@ -69,12 +69,12 @@ const Navbar = () => {
 
             <Link to="/favourites" className="flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors">
               <Bookmark className="h-5 w-5 text-emerald-500" />
-              <span className="">Donation</span>
+              <span className="">Support Us</span>
             </Link>
 
             <Link to="/about" className="flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors">
               <Info className="h-5 w-5 text-emerald-500" />
-              <span className="">About</span>
+              <span className="">Community</span>
             </Link>
           </div>
 
@@ -97,24 +97,24 @@ const Navbar = () => {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-gray-100" />
                   <DropdownMenuItem className="p-0 hover:bg-emerald-50 rounded-lg">
-                    <Link to={`/profile/${userId}`} className="flex items-center gap-3 w-full px-4 py-2.5 text-gray-700">
-                      <User className="h-5 w-5 text-emerald-500" />
+                    <Link to={`/profile/${userId}`} className="flex items-center gap-3 hover:bg-green-400 rounded-full w-full px-4 py-2.5 text-gray-700 hover:text-white">
+                      <User className="h-5 w-5 text-emerald-500 hover:text-white" />
                       <span>Profile</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="p-0 hover:bg-emerald-50 rounded-lg">
-                    <Link to="/addRecipe" className="flex items-center gap-3 w-full px-4 py-2.5 text-gray-700">
+                    <Link to="/addRecipe" className="flex items-center hover:bg-green-400 rounded-full gap-3 w-full px-4 py-2.5 text-gray-700 hover:text-white">
                       <Plus className="h-5 w-5 text-emerald-500" />
                       <span>Add Recipe</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="p-0 hover:bg-emerald-50 rounded-lg">
-                    <Link to="/userSettings" className="flex items-center gap-3 w-full px-4 py-2.5 text-gray-700">
-                      <Settings className="h-5 w-5 text-emerald-500" />
+                    <Link to="/userSettings" className="flex items-center gap-3 hover:bg-green-400 rounded-full w-full px-4 py-2.5 text-gray-700 hover:text-white">
+                      <Settings className="h-5 w-5 text-emerald-500 hover:text-white " />
                       <span>Settings</span>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-gray-100" />
+                  <DropdownMenuSeparator className="bg-gray-100 hover:text-white" />
                   <DropdownMenuItem 
                     onClick={handleLogout}
                     className="flex items-center gap-3 px-4 py-2.5 text-red-500 hover:bg-red-50 rounded-lg cursor-pointer"

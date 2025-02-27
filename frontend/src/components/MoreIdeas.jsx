@@ -1,53 +1,104 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext
-} from "@/components/ui/carousel";
+import { cn } from "@/lib/utils"; // Assuming you have a utility function for conditional classes
 
 const MoreIdeas = () => {
-  const ideas = [
-    { title: "Chicken Tikka Masala", image: "/abc.jpg" },
-    { title: "Vegan Bacon", image: "/apple.jpg" },
-    { title: "Copycat McDonald's Big Mac Sauce", image: "/emoji.png" },
-    { title: "Crock-Pot Beef Roast", image: "/abc.jpg" }
-  ];
+  const [recipes, setRecipes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch(
+          "http://localhost:8081/api/v1/recipes/moreideas"
+        );
+
+        if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        setRecipes(data);
+      } catch (err) {
+        setError(err.message);
+        console.error("Error fetching recipes:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchRecipes();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="w-full p-4 md:p-8 rounded-3xl animate-pulse">
+        <div className="flex justify-center items-center h-40">
+          <p className="text-gray-600">Loading recipes...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="w-full p-4 md:p-8 bg-red-50 rounded-3xl shadow-md">
+        <div className="flex justify-center items-center h-40">
+          <p className="text-red-600">
+            Failed to load recipes. Please try again later.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="w-full p-4 md:p-8 rounded-2xl shadow-sm">
+    <div className="w-full p-4 md:p-8">
       <div className="flex justify-between items-center mb-6 md:mb-8">
-        <h2 className="text-xl md:text-2xl font-bold text-gray-900">More Ideas</h2>
-        <button className="px-3 py-1 md:px-4 md:py-2 bg-blue-50 text-blue-600 text-sm md:text-base font-medium rounded-full hover:bg-blue-100 transition-colors">
+        <h2 className="text-xl md:text-2xl font-bold text-gray-900">
+          More Ideas
+        </h2>
+        <Link
+          to={"/search"}
+          className="px-3 py-1 md:px-4 md:py-2 bg-green-600 text-white text-sm md:text-base font-medium rounded-full hover:bg-green-700 transition-colors duration-300"
+        >
           View All
-        </button>
+        </Link>
       </div>
-      
-      <Carousel className="w-full">
-        <CarouselContent className="-ml-2 md:-ml-4">
-          {ideas.map((idea, index) => (
-            <CarouselItem key={index} className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
-              <Card className="overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow duration-300">
-                <div className="relative h-32 md:h-64 overflow-hidden">
-                  <img 
-                    src={idea.image} 
-                    alt={idea.title} 
-                    className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500" 
-                  />
-                </div>
-                <CardContent className="p-3 md:p-4">
-                  <h3 className="text-base md:text-lg font-medium text-gray-800">{idea.title}</h3>
-                </CardContent>
-              </Card>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="hidden sm:flex" />
-        <CarouselNext className="hidden sm:flex" />
-      </Carousel>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10">
+        {recipes.map((recipe) => (
+          <Link
+            key={recipe._id}
+            to={`/recipe/${recipe._id}`}
+            className="block hover:scale-105 transition-transform duration-300"
+          >
+            <Card
+              className={cn(
+                "overflow-hidden hover:shadow-2xl bg-white transition-shadow duration-300 rounded-3xl border-none",
+                ""
+              )}
+            >
+              <div className="relative h-48 overflow-hidden rounded-t-3xl"> {/* Increased height */}
+                <img
+                  src={recipe.image || "/default-recipe.jpg"}
+                  alt={recipe.title}
+                  className="w-full h-full object-cover transform transition-transform duration-500"
+                  style={{ filter: "brightness(95%)" }}
+                />
+              </div>
+              <CardContent className="p-3 md:p-4">
+                <h3 className="text-base md:text-lg font-medium text-gray-800 line-clamp-1">
+                  {recipe.title}
+                </h3>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };

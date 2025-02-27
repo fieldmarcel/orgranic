@@ -5,7 +5,7 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 // import RecipeDetail from "./pages/RecipeDetail";
 import { Toaster } from "react-hot-toast";
-import Favourites from "./pages/Favourites";
+import Favourites from "./pages/SupportUs.jsx";
 import Signup from "./pages/Signup";
 import Navbar from "./components/Navbar";
 import { Provider } from "react-redux";

@@ -1,146 +1,97 @@
 import React from 'react';
-import { useRef } from 'react';
-import Autoplay from "embla-carousel-autoplay";
+import { motion } from 'framer-motion';
 import { Card, CardContent } from "../components/ui/card";
-import { Star } from 'lucide-react';
-// import { BorderBeam } from "../components/ui/border-beam";
+import { Shuffle } from 'lucide-react'; // Icon for shuffling
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+const images = [
+  { src: "/api/placeholder/400/300", alt: "Delicious Food 1", ratio: "3:2" },
+  { src: "/api/placeholder/600/400", alt: "Delicious Food 2", ratio: "3:2" },
+  { src: "/api/placeholder/300/400", alt: "Delicious Food 3", ratio: "3:4" },
+  { src: "/api/placeholder/500/500", alt: "Delicious Food 4", ratio: "1:1" },
+  { src: "/api/placeholder/400/600", alt: "Delicious Food 5", ratio: "2:3" },
+  { src: "/api/placeholder/800/400", alt: "Delicious Food 6", ratio: "2:1" },
+  { src: "/api/placeholder/350/500", alt: "Delicious Food 7", ratio: "7:10" },
+  { src: "/api/placeholder/600/300", alt: "Delicious Food 8", ratio: "2:1" },
+  { src: "/api/placeholder/500/400", alt: "Delicious Food 9", ratio: "5:4" },
+];
 
-const reviews = [
-    {
-      name: "Sarah Johnson",
-      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
-      rating: 5,
+const Gallery = () => {
+  const [shuffledImages, setShuffledImages] = React.useState([...images]); // Initialize with a copy
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1, // Delay between each child animation
+      },
     },
-    {
-      name: "Sarah Johnson",
-      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
-      rating: 5,
-    },
-    {
-      name: "Sarah Johnson",
-      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
-      rating: 5,
-    },
-    {
-      name: "Sarah Johnson",
-      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
-      rating: 5,
-    },
-    {
-      name: "Sarah Johnson",
-      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
-      rating: 5,
-    },
-    {
-      name: "Sarah Johnson",
-      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
-      rating: 5,
-    },
-    {
-      name: "Sarah Johnson",
-      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
-      rating: 5,
-    },
-    {
-      name: "Sarah Johnson",
-      text: "Absolutely loved this recipe! The flavors were incredible and it was surprisingly easy to make. Will definitely cook this again!",
-      rating: 5,
-    },
-    {
-      name: "Mike Chen",
-      text: "A great weeknight meal option. The instructions were clear and the result was restaurant-quality. Highly recommend!",
-      rating: 4,
-    },
-    {
-      name: "Emma Wilson",
-      text: "This has become a family favorite. The perfect balance of spices and textures. Kids couldn't get enough!",
-      rating: 5,
-    },
-    {
-      name: "David Smith",
-      text: "Impressive recipe that's perfect for special occasions. Took a bit longer than expected but worth every minute.",
-      rating: 4,
-    },]
-    
-const Review = () => {
-  const plugin = useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: true, loop: true })
-  );
+  };
 
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 ">
-      <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">
-        What Our Foodies Say
-      </h2>
-      
-      <Carousel
-        plugins={[plugin.current]}
-        className="w-full overflow-hidden "
-        onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}
-      >
-        <CarouselContent>
-          {reviews.map((review, index) => (
-            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 ">
-              <div className="p-4">
-                <Card className="bg-white rounded-xl   shadow-md hover:shadow-lg transition-all duration-300 h-full flex flex-col">
-                         
-                    
-                  <CardContent className="p-6 flex flex-col flex-grow">
-                
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="w-14 h-14 bg-gradient-to-r from-rose-100 to-orange-200 rounded-full flex items-center justify-center">
-                      <span className="font-bold text-gray-700 text-xl">
-                          {review.name[0]}
-                        </span>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-lg text-gray-900">{review.name}</h3>
-                        <div className="flex gap-1 mt-1">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              className={`w-5 h-5 ${
-                                i < review.rating
-                                  ? 'fill-amber-400 text-amber-400'
-                                  : 'fill-gray-200 text-gray-200'
-                              }`}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <p className="text-gray-600 text-base leading-relaxed mb-6 flex-grow">
-                      "{review.text}"
-                    </p>
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeInOut",
+      },
+    },
+    hover: {
+      scale: 1.05,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
 
-                    <div className="border-t border-gray-100 pt-4 mt-auto">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500">Recipe Review</span>
-                        <span className="text-sm text-amber-600">★ {review.rating}/5</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
+  // Function to shuffle the images
+  const shuffleImagesArray = () => {
+    setShuffledImages([...shuffledImages].sort(() => Math.random() - 0.5));
+  };
 
-        {/* <CarouselPrevious className="absolute bottom-0 right-12 bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 hover:text-gray-900 rounded-full shadow-md w-10 h-10 transform translate-y-1/2 hover:scale-105 transition-all" />
-        <CarouselNext className="absolute bottom-0 right-0 bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 hover:text-gray-900 rounded-full shadow-md w-10 h-10 transform translate-y-1/2 hover:scale-105 transition-all" /> */}
-      </Carousel>
-    </div>
-  );
+  // return (
+    // <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+    //   <div className="flex justify-between items-center mb-8">
+    //     <h2 className="text-4xl font-extrabold text-gray-900">
+    //       Culinary Gallery
+    //     </h2>
+    //     <button
+    //       onClick={shuffleImagesArray}
+    //       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center"
+    //     >
+    //       <Shuffle className="mr-2" /> Shuffle
+    //     </button>
+    //   </div>
+    //   <p className="text-lg text-gray-600 mb-8">
+    //     Explore a delightful collection of culinary masterpieces. Share your own
+    //     and inspire the community!
+    //   </p>
+
+    //   <motion.div
+    //     className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+    //     variants={containerVariants}
+    //     initial="hidden"
+    //     animate="visible"
+    //   >
+    //     {shuffledImages.map((image, index) => (
+    //       <motion.div
+    //         key={index}
+    //         variants={cardVariants}
+    //         whileHover="hover"
+    //         className={`relative overflow-hidden rounded-xl shadow-md`} 
+    //         style={{ aspectRatio: image.ratio }}
+    //       >
+    //         <img
+    //           src={image.src}
+    //           alt={image.alt}
+    //           className="w-full h-full object-cover block"
+    //         />
+    //       </motion.div>
+    //     ))}
+    //   </motion.div>
+    // </div>
+  // );
 };
 
-export default Review;
+export default Gallery;
