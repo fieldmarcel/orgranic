@@ -1,14 +1,14 @@
-import { UserRelationship } from "../models/userRelationmodel";
+import { UserRelationship } from "../models/userRelationmodel.js";
 import { User } from "../models/usermodel.js";
 
 
 
 const followUser = async (req, res) => {
-    const { userName } = req.params; // The user being followed
-    const followerUserName = req.user.userName; // The authenticated user (follower)
+    const { userName } = req.params; 
+    const followerUserName = req.user.userName; 
   
     if (userName === followerUserName) {
-      return res.status(400).json({ message: "You cannot follow yourself" });
+      return res.status(400).json({ message: "You cant follow yourself" });
     }
   
     try {
@@ -19,14 +19,12 @@ const followUser = async (req, res) => {
         return res.status(404).json({ message: "User not found" });
       }
   
-      // Check if the relationship already exists
       const existingRelationship = await UserRelationship.findOne({
         follower: follower._id,
         following: userToFollow._id,
       });
   
       if (existingRelationship) {
-        // Unfollow: Delete the relationship
         await UserRelationship.deleteOne({ _id: existingRelationship._id });
         return res.status(200).json({
           success: true,

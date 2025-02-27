@@ -1,61 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const FollowButton = ({ userName, isFollowing }) => {
-  const [following, setFollowing] = useState(isFollowing);
-  const [loading, setLoading] = useState(false); // Add loading state
+const FollowButton = () => {
+  const { userName } = useParams(); // Get userName from the URL
+  const [isFollowing, setIsFollowing] = useState(false);
 
+  // Retrieve the access token from localStorage
+  const accessToken = localStorage.getItem("token");
+
+  // Check if the authenticated user is following the profile user
+ 
+  // Handle follow/unfollow
   const handleFollow = async () => {
-    setLoading(true); 
     try {
-      await axios.post(
-        `http://localhost:8081/api/v1/users/${userName}/follow`,
-        null,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
-      setFollowing(true); 
-    } catch (error) {
-      console.error("Error during follow:", error.message);
-    } finally {
-      setLoading(false); 
-    }
-  };
+      if (!accessToken) {
+        console.error("User not authenticated");
+        return;
+      }
 
-  const handleUnfollow = async () => {
-    setLoading(true); 
-    try {
-      await axios.post(
-        `http://localhost:8081/api/v1/users/${userName}/unfollow`,
-        null,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
-      setFollowing(false); 
+      if (isFollowing) {
+        await axios.post(
+          `http://localhost:8081/api/v1/users/${userName}/unfollow`,
+          {}, // No need to send userId in the body since it's extracted from the token
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`, // Include the access token
+            },
+          }
+        );
+      } else {
+        await axios.post(
+          `http://localhost:8081/api/v1/users/${userName}/follow`,
+          {}, // No need to send userId in the body since it's extracted from the token
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`, // Include the access token
+            },
+          }
+        );
+      }
+      setIsFollowing(!isFollowing); 
     } catch (error) {
-      console.error("Error during unfollow:", error.message);
-    } finally {
-      setLoading(false); 
+      console.error("Failed to update follow status:", error.message);
     }
   };
 
   return (
     <button
-      onClick={following ? handleUnfollow : handleFollow}
-      disabled={loading} 
-      className={`px-4 py-2 rounded-full font-medium transition-colors ${
-        following
-          ? "bg-green-400 hover:bg-green-500 text-gray-700"
-          : "bg-blue-500 hover:bg-blue-600 text-white" 
-      }`}
+      onClick={handleFollow}
+      className={`px-4 py-2 ${
+        isFollowing ? "bg-red-500" : "bg-green-500"
+      } text-white rounded-full font-medium flex items-center gap-2 shadow-md hover:bg-${
+        isFollowing ? "red-600" : "green-600"
+      } transition-all`}
     >
-      {loading ? "Loading..." : following ? "Following" : "Follow"}
+      {isFollowing ? "Unfollow" : "Follow"}
     </button>
   );
 };

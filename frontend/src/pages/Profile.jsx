@@ -1,32 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useParams ,useNavigate} from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
-  BiEdit,
   BiBookmark,
   BiHeart,
   BiShare,
   BiCog,
   BiLogOut,
   BiCheckCircle,
-  BiStar,
-  BiTrophy,
   BiRestaurant,
   BiHourglass,
   BiUserVoice,
 } from "react-icons/bi";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import FollowButton from "@/components/FollowButton";
+import { logout } from "../../redux/slices/authSlice";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState("recipes");
   const { userName } = useParams();
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
-  const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]); // State for bookmarked recipes
-  const [recipes, setRecipes] = useState([]); 
-  const [deleteBoomarkedRecipe, setdeleteBoomarkedRecipe] = useState(false)// State for user's recipes
-   const {id}= useParams
+  const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]);
+  const [recipes, setRecipes] = useState([]);
+  const username = localStorage.getItem("userName")?.replace(/"/g, "") ?? "Guest";
+  const dispatch = useDispatch();
+  const navigate= useNavigate()
+const handleLogout = () => {
+    localStorage.removeItem("data");
+    dispatch(logout());
+    navigate("/login")}
   // Fetch user data
   useEffect(() => {
     const fetchUserData = async () => {
@@ -35,10 +39,10 @@ const Profile = () => {
           `http://localhost:8081/api/v1/users/${userName}`
         );
         setUser(response.data.user);
-        setRecipes(response.data.recipes || [])
+        setRecipes(response.data.recipes || []); // Fallback to empty array
         setLoading(false);
       } catch (error) {
-        console.error("Failed to fetch user data my recipes:", error.message);
+        console.error("Failed to fetch user data:", error.message);
         setLoading(false);
       }
     };
@@ -54,41 +58,15 @@ const Profile = () => {
           const response = await axios.get(
             `http://localhost:8081/api/v1/users/${userName}/bookmarks`
           );
-          setBookmarkedRecipes(response.data.bookmarkedRecipes || []); // Fallback to empty array if no data
+          setBookmarkedRecipes(response.data.bookmarkedRecipes || []); // Fallback to empty array
         } catch (error) {
-          if (error.response && error.response.status === 404) {
-            console.log("No bookmarked recipes found.");
-          } else {
-            console.error("Failed to fetch bookmarked recipes:", error.message);
-          }
+          console.error("Failed to fetch bookmarked recipes:", error.message);
         }
       };
 
       fetchBookmarkedRecipes();
     }
   }, [activeTab, userName]);
-
-  
-    // if (activeTab === "saved") {
-    //   const deleteBookmarkedRecipes = async () => {
-    //     try {
-    //       const response = await axios.delete(
-    //         `http://localhost:8081/api/v1/users/bookmarks`
-    //       );
-    //       setdeleteBoomarkedRecipe(response.data.deleteBoomarkedRecipe || []); // Fallback to empty array if no data
-    //     } catch (error) {
-    //       if (error.response && error.response.status === 404) {
-    //         console.log(" bookmarked recipes not deleted.");
-    //       } else {
-    //         console.error("Failed to delete bookmarked recipes:", error.message);
-    //       }
-    //     }
-    //   };
-
-    //   deleteBookmarkedRecipes();
-    // }
-  
-
 
   if (loading) {
     return <div>Loading...</div>;
@@ -121,7 +99,7 @@ const Profile = () => {
                 <div className="w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden">
                   <img
                     src="/cook.gif"
-                    alt={user.name}
+                    alt={user.fullName || "User"}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -136,33 +114,32 @@ const Profile = () => {
               </div>
 
               <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-1 text-center md:text-left">
-                {user?.fullName || "Admin"}
+                {user.fullName || "Admin"}
               </h1>
               <p className="text-green-600 font-medium mb-4 text-center md:text-left">
-                {user.title}
+                {user.title || "No Title"}
               </p>
 
               <p className="text-gray-600 text-sm mb-6 text-center md:text-left">
-                {user.bio}
+                {user.bio || "No bio available."}
               </p>
 
-              {/* Stats */}
               <div className="flex justify-between w-full mb-6">
                 <div className="text-center">
                   <p className="text-2xl font-bold text-gray-800">
-                    {recipes.length}
+                    {recipes.length ||0}
                   </p>
                   <p className="text-sm text-gray-500">Recipes</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold text-gray-800">
-                    {user.followers}
+                    {user.followersCount || 0}
                   </p>
                   <p className="text-sm text-gray-500">Followers</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold text-gray-800">
-                    {user.following}
+                    {user.followingCount || 0}
                   </p>
                   <p className="text-sm text-gray-500">Following</p>
                 </div>
@@ -171,17 +148,9 @@ const Profile = () => {
 
             {/* Right Column - Content */}
             <div className="md:w-2/3 p-6 md:p-8">
-              {/* Action buttons */}
-              <div className="flex justify-between mb-8">
-                <motion.button
-                  className="px-4 py-2 bg-green-500 text-white rounded-full font-medium flex items-center gap-2 shadow-md hover:bg-green-600 transition-all"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <BiHeart className="text-lg" />
-                  Follow
-                </motion.button>
 
+              <div className="flex justify-between mb-8">
+                <FollowButton userId={user._id} />
                 <div className="flex gap-2">
                   <motion.button
                     className="p-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all"
@@ -230,94 +199,89 @@ const Profile = () => {
 
               {/* Tab Content */}
               <div className="min-h-[400px]">
-              {activeTab === "recipes" && (
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-    {recipes.map((recipe) => (
-      <Link to={`/recipe/${recipe._id}`} key={recipe._id}>
-        <motion.div
-          className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          whileHover={{ y: -5 }}
-        >
-          <div className="relative aspect-video overflow-hidden">
-            <img
-              src={recipe.image}
-              alt={recipe.title}
-              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-            <div className="absolute bottom-3 left-3 right-3 flex justify-between items-end">
-              <div>
-                <h3 className="text-white font-bold">{recipe.title}</h3>
-              </div>
-              <div className="flex items-center gap-1 text-white/90 text-sm">
-                <BiHourglass /> {recipe.readyIn}
-              </div>
-            </div>
-          </div>
-          <div className="p-4">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-4 text-sm text-gray-600">
-                <span className="flex items-center gap-1 bg-green-200 px-2 rounded-full">
-                  {recipe.cuisine}
-                </span>
-              </div>
-              <span className="px-2 py-1 rounded-full text-xs font-medium bg-orange-200">
-                {recipe.mealType}
-              </span>
-            </div>
-          </div>
-        </motion.div>
-      </Link>
-    ))}
-  </div>
-)}
+                {activeTab === "recipes" && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {recipes.map((recipe) => (
+                      <Link to={`/recipe/${recipe._id}`} key={recipe._id}>
+                        <motion.div
+                          className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3, delay: 0.1 }}
+                          whileHover={{ y: -5 }}
+                        >
+                          <div className="relative aspect-video overflow-hidden">
+                            <img
+                              src={recipe.image || "default-image-url"}
+                              alt={recipe.title}
+                              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-3 left-3 right-3 flex justify-between items-end">
+                              <div>
+                                <h3 className="text-white font-bold">{recipe.title}</h3>
+                              </div>
+                              <div className="flex items-center gap-1 text-white/90 text-sm">
+                                <BiHourglass /> {recipe.readyIn}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="p-4">
+                            <div className="flex justify-between items-center">
+                              <div className="flex items-center gap-4 text-sm text-gray-600">
+                                <span className="flex items-center gap-1 bg-green-200 px-2 rounded-full">
+                                  {recipe.cuisine}
+                                </span>
+                              </div>
+                              <span className="px-2 py-1 rounded-full text-xs font-medium bg-orange-200">
+                                {recipe.mealType}
+                              </span>
+                            </div>
+                          </div>
+                        </motion.div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
 
                 {activeTab === "saved" && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {bookmarkedRecipes.map((recipe) => (
-                      <Link to={`/recipe/${recipe._id}`}>
-                      <motion.div
-                        key={recipe._id}
-                        className="flex bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 0.1 }}
-                        whileHover={{ y: -5 }}
-                      >
-                        <div className="w-1/3 overflow-hidden">
-                          <img
-                            src={recipe.image}
-                            alt={recipe.title}
-                            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                          />
-                        </div>
-                        <div className="w-2/3 p-4 flex flex-col justify-between">
-                          <div>
-                            <h3 className="font-bold text-2xl text-gray-800 mb-1">
-                              {recipe.title}
-                            </h3>
-                            <p className="text-md text-gray-500 mb-2">
-                              {recipe.cuisine} 
-                            </p>
+                      <Link to={`/recipe/${recipe._id}`} key={recipe._id}>
+                        <motion.div
+                          key={recipe._id}
+                          className="flex bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3, delay: 0.1 }}
+                          whileHover={{ y: -5 }}
+                        >
+                          <div className="w-1/3 overflow-hidden">
+                            <img
+                              src={recipe.image || "default-image-url"}
+                              alt={recipe.title}
+                              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                            />
                           </div>
-                          <div className="flex justify-between items-center mt-2">
-                            <span className="text-xs text-gray-600 flex items-center gap-1">
-                              <BiHourglass /> {recipe.readyIn}
-                            </span>
-                            <span
-                              className='px-2 py-1 rounded-full text-xs font-medium bg-orange-200'
-                               
-                              
-                            >
-                               {recipe.mealType} 
-                             
-                            </span>
+                          <div className="w-2/3 p-4 flex flex-col justify-between">
+                            <div>
+                              <h3 className="font-bold sm:text-2xl text-gray-800 mb-1">
+                                {recipe.title}
+                              </h3>
+                              <p className="text-md text-gray-500 mb-2">
+                                {recipe.cuisine}
+                              </p>
+                            </div>
+                            <div className="flex justify-between items-center mt-2">
+                              <span className="text-xs text-gray-600 flex items-center gap-1">
+                                <BiHourglass /> {recipe.readyIn}
+                              </span>
+                              <span className="px-2 py-1 rounded-full text-xs font-medium bg-orange-200">
+                                {recipe.mealType}
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      </motion.div>
+                        </motion.div>
                       </Link>
                     ))}
                   </div>
@@ -350,7 +314,8 @@ const Profile = () => {
             whileTap={{ scale: 0.95 }}
           >
             <BiLogOut className="text-lg" />
-            Sign Out
+            <button onClick={handleLogout}>            Sign Out
+            </button>
           </motion.button>
         </motion.div>
       </div>

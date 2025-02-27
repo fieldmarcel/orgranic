@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createSingleRecipePage, getRecipe,searchRecipes,getAllRecipes,getFixedRecipes ,getCategoryRecipes,getCuisineRecipes} from "../controllers/singleRecipecontroller.js";
+import { createSingleRecipePage, getRecipe,searchRecipes,getAllRecipes,getFixedRecipes ,getCategoryRecipes,getCuisineRecipes,getExploreRecipes} from "../controllers/singleRecipecontroller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { authenticateToken } from "../middlewares/auth.middleware.js"
 
@@ -12,6 +12,7 @@ router.post("/", authenticateToken, upload.single("image"), createSingleRecipePa
 // If the authentication fails, the request is terminated early, preventing unauthorized access
 router.get("/",getAllRecipes)
 router.get("/fixed",getFixedRecipes)
+router.get("/explore",getExploreRecipes);
 router.get("/search",searchRecipes)
 
 router.get("/subCategory/:subCategory",getCategoryRecipes)

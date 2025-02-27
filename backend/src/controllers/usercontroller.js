@@ -1,9 +1,8 @@
 import { User } from "../models/usermodel.js";
+import { Recipe } from "../models/singleRecipemodel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { Recipe } from "../models/singleRecipemodel.js";
 import { UserRelationship } from "../models/userRelationmodel.js";
-
 const registerUser = async (req, res) => {
   try {
     const { userName, email, password, fullName } = req.body;
@@ -191,9 +190,10 @@ const getUserDetails = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const followersCount = await UserRelationship.countDocuments({ following: user._id });
+     const followersCount = await UserRelationship.countDocuments({ following: user._id });
 
-    const followingCount = await UserRelationship.countDocuments({ follower: user._id });
+     const followingCount = await UserRelationship.countDocuments({ follower: user._id });
+    const recipes = await Recipe.find({ userId: user._id });
 
     res.status(200).json({
       success: true,
@@ -201,9 +201,11 @@ const getUserDetails = async (req, res) => {
         userName: user.userName,
         fullName: user.fullName,
         bio: user.bio,
-        followersCount, 
-        followingCount, 
+        
       },
+      recipes,
+       followingCount,
+       followersCount
     });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong", error: error.message });

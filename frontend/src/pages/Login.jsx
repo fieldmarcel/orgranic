@@ -55,7 +55,8 @@ const Login = () => {
       if (error.response && error.response.data) {
         toast.error(error.response.data.message || "Login failed.");
       } else {
-        toast.error("An unexpected error occurred. Please try again.");
+        console.log(error.message)
+        toast.error(error.response.data.message || "Login failed.");
       }
     } finally {
       setIsLoading(false);
