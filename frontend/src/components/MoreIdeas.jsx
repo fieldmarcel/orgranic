@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils"; // Assuming you have a utility function for conditional classes
+import { cn } from "@/lib/utils"; 
 
 const MoreIdeas = () => {
   const [recipes, setRecipes] = useState([]);
@@ -82,7 +82,7 @@ const MoreIdeas = () => {
                 ""
               )}
             >
-              <div className="relative h-48 overflow-hidden rounded-t-3xl"> {/* Increased height */}
+              <div className="relative h-48 overflow-hidden rounded-t-3xl"> 
                 <img
                   src={recipe.image || "/default-recipe.jpg"}
                   alt={recipe.title}

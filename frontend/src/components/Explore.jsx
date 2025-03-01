@@ -9,7 +9,7 @@ import Autoplay from "embla-carousel-autoplay";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { BookMarked, Bookmark } from "lucide-react";
-import toast from "react-hot-toast"; // Import toast for notifications
+import toast from "react-hot-toast"; 
 
 const CuisineSection = ({ title, subTitle, cuisine, className }) => {
   const [recipes, setRecipes] = useState([]);
@@ -41,7 +41,7 @@ const CuisineSection = ({ title, subTitle, cuisine, className }) => {
       const accessToken = localStorage.getItem("token");
       const recipeId = id;
 
-      console.log("Sending payload:", { userId, recipeId }); 
+      console.log("Sending payload: ", { userId, recipeId }); 
 
       if (!accessToken) {
         console.error("No access token found. User might not be logged in.");

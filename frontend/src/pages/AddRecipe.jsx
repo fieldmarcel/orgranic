@@ -77,7 +77,7 @@ export default function AddRecipe() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Title */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+              <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                 <FileText className="w-4 h-4 text-green-600" />
                 Title
               </label>
@@ -92,7 +92,7 @@ export default function AddRecipe() {
 
             {/* Sub Category */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+              <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                 <List className="w-4 h-4 text-green-600" />
                 Sub Category
               </label>
@@ -106,7 +106,7 @@ export default function AddRecipe() {
 
             {/* Rating */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+              <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                 <Heart className="w-4 h-4 text-green-600" />
                 Rating (0-5)
               </label>
@@ -123,7 +123,7 @@ export default function AddRecipe() {
 
             {/* Description */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+              <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                 <FileText className="w-4 h-4 text-green-600" />
                 Description
               </label>
@@ -139,7 +139,7 @@ export default function AddRecipe() {
 
             {/* Cook Time */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+              <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                 <Clock className="w-4 h-4 text-green-600" />
                 Cook Time (mins)
               </label>
@@ -155,7 +155,7 @@ export default function AddRecipe() {
 
             {/* Ready In */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+              <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                 <Clock className="w-4 h-4 text-green-600" />
                 Ready In (mins)
               </label>
@@ -170,7 +170,7 @@ export default function AddRecipe() {
 
             {/* Serving */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+              <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                 <Utensils className="w-4 h-4 text-green-600" />
                 Serving
               </label>
@@ -186,7 +186,7 @@ export default function AddRecipe() {
 
             {/* Ingredients */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+              <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                 <List className="w-4 h-4 text-green-600" />
                 Ingredients (comma-separated)
               </label>
@@ -201,7 +201,7 @@ export default function AddRecipe() {
 
             {/* Cuisine */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+              <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                 <Globe className="w-4 h-4 text-green-600" />
                 Cuisine
               </label>
@@ -216,7 +216,7 @@ export default function AddRecipe() {
 
             {/* Meal Type */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+              <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                 <Soup className="w-4 h-4 text-green-600" />
                 Meal Type
               </label>
@@ -231,7 +231,7 @@ export default function AddRecipe() {
 
             {/* Steps */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+              <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                 <List className="w-4 h-4 text-green-600" />
                 Steps (comma-separated)
               </label>
@@ -309,9 +309,9 @@ export default function AddRecipe() {
 
             {/* Image URL */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+              <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                 <Image className="w-4 h-4 text-green-600" />
-                Image URL
+                Image URL 
               </label>
               <input
                 name="image"
