@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchRecipeCards = createAsyncThunk(
   "fetchRecipeCards",
   async () => {
-    const response = await fetch("http://localhost:8081/api/v1/recipes");
+    const response = await fetch(process.env.REACT_BASE_URL + "api/v1/recipes");
     return response.json();
   }
 );
