@@ -16,7 +16,7 @@ const {id}= useParams();
     const fetchRecipe = async () => {
       try {
         const recipeId=  id  || "67bff003c0599fc44cbb07fa";
-        const response = await axios.get(`http://localhost:8081/api/v1/recipes/${recipeId}`);
+        const response = await axios.get(process.env.REACT_BASE_URL + `/api/v1/recipes/${recipeId}`);
         setRecipe(response.data);
       } catch (error) {
         setError(error.message);
@@ -31,7 +31,7 @@ const {id}= useParams();
 
 
   useEffect(() => {
-    // Retrieve userName from localStorage on component mount
+    // Retrieving userName from localStorage 
     const storedUserName = localStorage.getItem("userName")?.replace(/"/g, "") ?? "Guest";
     if (storedUserName) {
       setUserName(storedUserName);
@@ -163,7 +163,6 @@ const {id}= useParams();
             </motion.div>
           </motion.div>
 
-          {/* Right side image */}
           <motion.div
             className="lg:w-1/2 flex justify-center items-center z-10"
             initial={{ opacity: 0, scale: 0.8 }}
@@ -284,7 +283,6 @@ const {id}= useParams();
         </div>
       </motion.div>
 
-      {/* People who love this recipe */}
       <motion.div
         className="w-full max-w-7xl mx-auto mt-12 px-4 md:px-6 lg:px-8"
         initial={{ opacity: 0 }}
@@ -292,7 +290,6 @@ const {id}= useParams();
         transition={{ duration: 0.8, delay: 2.2 }}
       >
 
-        {/* <People /> */}
       </motion.div>
     </div>
   );

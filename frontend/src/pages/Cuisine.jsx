@@ -7,12 +7,12 @@ import { Link } from "react-router-dom";
 
 const Cuisine = () => {
   const [cuisineRecipes, setCuisineRecipes] = useState([]);
-  const { cuisine } = useParams(); // Only extract `cuisine` from the route
+  const { cuisine } = useParams(); 
 
   const fetchCuisineRecipes = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8081/api/v1/recipes/cuisine/${cuisine}`
+        process.env.REACT_BASE_URL + `api/v1/recipes/cuisine/${cuisine}`
       );
       setCuisineRecipes(res.data);
       console.log("Cuisine Recipes:", res.data);
@@ -42,7 +42,6 @@ const Cuisine = () => {
         {cuisine} Cuisine
       </motion.h2>
 
-      {/* Recipe Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {cuisineRecipes.length === 0 ? (
           <motion.p

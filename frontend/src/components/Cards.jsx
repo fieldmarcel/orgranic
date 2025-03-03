@@ -23,7 +23,7 @@ const Cards = () => {
 const featuredrecipes= async()=>{
   setLoading(true)
   try {
-    const recipes= await axios.get(`http://localhost:8081/api/v1/recipes/fixed?limit=3`)
+    const recipes= await axios.get(process.env.REACT_BASE_URL + `api/v1/recipes/fixed?limit=3`)
     console.log("API Response:", recipes.data);
     setrecipe(recipes.data);
      return recipes.data;
@@ -81,8 +81,7 @@ if (error) return <p className="text-center text-red-500">{error}</p>;
         )}
 
       </div>
-{/* //max-w-xs */}
-      {/* Mobile */}
+
       <div className="sm:hidden w-[22rem]  sm:mt-6 mb-6 relative">
         <Carousel>
           <CarouselContent>

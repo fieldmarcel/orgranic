@@ -32,7 +32,6 @@ const SearchPage = () => {
     }
   };
 
-  // Loading and Error States
   if (isLoading) return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-green-50 to-green-100">
       <div className="animate-pulse">
@@ -86,26 +85,19 @@ const SearchPage = () => {
               </div>
              </div>
             
-             {/* Advanced Filters */}
              {filterOpen && (
               <div className="bg-green-50 p-4 border-t">
                 <div className="grid grid-cols-3 gap-4">
-                  {/* Cuisine Filter */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Cuisine</label>
-                    {/* Add cuisine filter checkboxes */}
                   </div>
                   
-                  {/* Dietary Restrictions */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Diet</label>
-                    {/* Add diet filter checkboxes */}
                   </div>
                   
-                  {/* Cook Time */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Cook Time</label>
-                    {/* Add cook time slider or select */}
                   </div>
                 </div>
               </div>
@@ -113,7 +105,6 @@ const SearchPage = () => {
           </div>
         </form>
 
-        {/* Results Header */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-3xl font-bold text-gray-800">
             {searchTerm.trim() 
@@ -121,7 +112,6 @@ const SearchPage = () => {
               : `${recipe.length} Recipes`}
           </h2>
           
-          {/* View Mode Toggle */}
           <div className="flex items-center space-x-2">
             <button 
               onClick={() => setViewMode('grid')}
@@ -138,7 +128,6 @@ const SearchPage = () => {
           </div>
         </div>
 
-        {/* Results Grid/List */}
         {searchTerm.trim() && searchRecipe.length === 0 ? (
           <div className="text-center py-12 bg-white rounded-2xl shadow-lg">
             <p className="text-gray-500 text-xl">No recipes found. Try different keywords!</p>

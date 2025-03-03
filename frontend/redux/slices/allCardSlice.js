@@ -11,7 +11,7 @@ export const fetchRecipeCards = createAsyncThunk(
 
 export const fetchSearchRecipe= createAsyncThunk("fetchSearchRecipe",
   async (searchTerm) =>{
-    const response = await fetch (`http://localhost:8081/api/v1/recipes/search?query=${encodeURIComponent(searchTerm)}`)
+    const response = await fetch (process.env.REACT_BASE_URL + `api/v1/recipes/search?query=${encodeURIComponent(searchTerm)}`)
 
     const data = await response.json();
     console.log("API Response:", data); 

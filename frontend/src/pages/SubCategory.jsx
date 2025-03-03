@@ -12,7 +12,7 @@ const SubCategory = () => {
   const fetchSubcategoryRecipes = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8081/api/v1/recipes/subCategory/${subCategory}`);
+        process.env.REACT_BASE_URL + `api/v1/recipes/subCategory/${subCategory}`);
 
       setSubcategoryRecipes(res.data);
       console.log("Subcategory Recipes:", res.data);
@@ -32,7 +32,6 @@ const SubCategory = () => {
 
   return (
     <div className="min-h-screen p-6">
-      {/* Page Header */}
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -42,7 +41,6 @@ const SubCategory = () => {
         {subCategory} recipes
       </motion.h2>
 
-      {/* Recipe Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {subcategoryRecipes.length === 0 ? (
           <motion.p

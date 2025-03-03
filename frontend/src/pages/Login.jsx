@@ -22,7 +22,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8081/api/v1/users/login",
+        process.env.REACT_BASE_URL + "/api/v1/users/login",
         {
           email,
           password,
@@ -70,13 +70,12 @@ const Login = () => {
 
   return (
     <div className="flex min-h-screen bg-slate-50">
-      {/* Background decorative elements */}
+
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-gradient-to-br from-pink-200 to-indigo-200 rounded-full opacity-20 blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-white to-transparent opacity-80"></div>
       </div>
 
-      {/* Image Section with overlay */}
       <div className="hidden lg:block w-1/2 relative overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -126,7 +125,6 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Form Section */}
       <div className="w-full lg:w-1/2 flex items-center justify-center relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

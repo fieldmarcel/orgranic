@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { User, MessageCircle, Trash2, CornerDownLeft } from "lucide-react"; // Icons for logo and actions
+import { User, MessageCircle, Trash2, CornerDownLeft } from "lucide-react"; 
 
 const Comments = () => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const { id } = useParams(); // Recipe ID from URL
-  const [userId, setuserId] = useState(null); // Only keep userId
+  const [userId, setuserId] = useState(null); 
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8081/api/v1/comments/${id}`
+          process.env.REACT_BASE_URL + `api/v1/comments/${id}`
         );
         setComments(res.data);
       } catch (error) {
@@ -25,7 +25,7 @@ const Comments = () => {
     if (storedUser) {
       try {
         if (storedUser && storedUser.id) {
-          setuserId(storedUser.id); // Set userId
+          setuserId(storedUser.id); 
         } else {
           console.error("User ID not found in parsed localStorage data");
         }
@@ -50,10 +50,10 @@ const Comments = () => {
 
     try {
       const res = await axios.post(
-        `http://localhost:8081/api/v1/comments/${id}`,
+        process.env.REACT_BASE_URL + `api/v1/comments/${id}`,
         {
           comment,
-          userId, // Only send userId
+          userId, 
         }
       );
 
@@ -70,7 +70,7 @@ const Comments = () => {
 
   const handleDelete = async (commentId) => {
     try {
-      await axios.delete(`http://localhost:8081/api/v1/comments/${commentId}`);
+      await axios.delete(process.env.REACT_BASE_URL + `api/v1/comments/${commentId}`);
       setComments(comments.filter((c) => c._id !== commentId)); // Remove deleted comment
       console.log("Comment deleted:", commentId);
     } catch (error) {
@@ -84,11 +84,10 @@ const Comments = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white/90 backdrop-blur-lg shadow-2xl ">
-      {/* Comment Input Form */}
       <form onSubmit={handleSubmit} className="mb-8">
         <div className="flex gap-3">
           <div className="flex items-center justify-center w-10 h-10 bg-emerald-100 rounded-full">
-            <MessageCircle className="w-5 h-5 text-emerald-600" /> {/* Icon for input */}
+            <MessageCircle className="w-5 h-5 text-emerald-600" /> 
           </div>
           <input
             type="text"
@@ -108,10 +107,10 @@ const Comments = () => {
         </div>
       </form>
 
-      {/* Comments List */}
+      
       <div>
         <h3 className="text-2xl font-bold text-emerald-800 mb-6 flex items-center gap-2">
-          <MessageCircle className="w-6 h-6 text-emerald-600" /> {/* Icon for comments header */}
+          <MessageCircle className="w-6 h-6 text-emerald-600" /> 
           Comments
         </h3>
         {comments.length > 0 ? (
@@ -123,7 +122,7 @@ const Comments = () => {
               <div className="flex justify-between items-center mb-3">
                 <div className="flex items-center gap-3">
                   <div className="flex items-center justify-center w-8 h-8 bg-emerald-100 rounded-full">
-                    <User className="w-4 h-4 text-emerald-600" /> {/* User icon */}
+                    <User className="w-4 h-4 text-emerald-600" /> 
                   </div>
                   <strong className="text-emerald-700 text-xl">{c.userId?.userName}</strong>
                 </div>
@@ -132,12 +131,12 @@ const Comments = () => {
                     onClick={() => handleDelete(c._id)}
                     className="text-emerald-600 hover:text-emerald-800 transition-colors flex items-center gap-1"
                   >
-                    <Trash2 className="w-4 h-4" /> {/* Delete icon */}
+                    <Trash2 className="w-4 h-4" /> 
                     <span>Delete</span>
                   </button>
                 )}
               </div>
-              <p className="text-gray-800 pl-11">{c.comment}</p> {/* Comment text */}
+              <p className="text-gray-800 pl-11">{c.comment}</p> 
               <div className="mt-3 pl-11">
                 
               </div>

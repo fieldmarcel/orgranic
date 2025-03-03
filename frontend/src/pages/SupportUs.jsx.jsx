@@ -10,13 +10,11 @@ const SupportUs = () => {
             Your support helps us create more delicious recipes, improve our services, and keep the FoodChef community thriving!
           </p>
 
-          {/* Payment System Down Announcement */}
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-8" role="alert">
             <strong className="font-bold">Payment System Temporarily Down</strong>
             <span className="block sm:inline"> We are currently experiencing technical difficulties with our payment system. We apologize for any inconvenience. Please try again later.</span>
           </div>
 
-          {/* Donation Options (Disabled) */}
           <div className="mb-8 opacity-50 cursor-not-allowed">
             <h3 className="text-xl font-semibold mb-4 text-gray-700">Choose an Amount:</h3>
             <div className="flex justify-center space-x-4">
@@ -27,7 +25,6 @@ const SupportUs = () => {
             </div>
           </div>
 
-          {/* Custom Amount (Disabled) */}
           <div className="mb-8 opacity-50 cursor-not-allowed">
             <h3 className="text-xl font-semibold mb-4 text-gray-700">Enter Custom Amount:</h3>
             <div className="flex justify-center">
@@ -43,17 +40,14 @@ const SupportUs = () => {
             </div>
           </div>
 
-          {/* Payment Options (Disabled) */}
           <div className="mb-8 opacity-50 cursor-not-allowed">
             <h3 className="text-xl font-semibold mb-4 text-gray-700">Payment Options:</h3>
             <div className="flex justify-center space-x-4">
               <button disabled className="px-6 py-3 bg-gray-400 text-white font-semibold rounded-lg shadow-md cursor-not-allowed">PayPal</button>
               <button disabled className="px-6 py-3 bg-gray-400 text-white font-semibold rounded-lg shadow-md cursor-not-allowed">Credit Card</button>
-              {/* Add more payment options as needed */}
             </div>
           </div>
 
-          {/* Thank You Message */}
           <p className="text-lg text-green-600 font-semibold">
             Thank you for your patience! 🙏
           </p>

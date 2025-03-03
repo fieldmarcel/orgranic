@@ -3,15 +3,12 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const FollowButton = () => {
-  const { userName } = useParams(); // Get userName from the URL
+  const { userName } = useParams(); 
   const [isFollowing, setIsFollowing] = useState(false);
 
-  // Retrieve the access token from localStorage
   const accessToken = localStorage.getItem("token");
 
-  // Check if the authenticated user is following the profile user
- 
-  // Handle follow/unfollow
+  
   const handleFollow = async () => {
     try {
       if (!accessToken) {
@@ -21,21 +18,21 @@ const FollowButton = () => {
 
       if (isFollowing) {
         await axios.post(
-          `http://localhost:8081/api/v1/users/${userName}/unfollow`,
-          {}, // No need to send userId in the body since it's extracted from the token
+          process.env.REACT_BASE_URL + `api/v1/users/${userName}/unfollow`,
+        
           {
             headers: {
-              Authorization: `Bearer ${accessToken}`, // Include the access token
+              Authorization: `Bearer ${accessToken}`, 
             },
           }
         );
       } else {
         await axios.post(
-          `http://localhost:8081/api/v1/users/${userName}/follow`,
-          {}, // No need to send userId in the body since it's extracted from the token
+          process.env.REACT_BASE_URL + `/api/v1/users/${userName}/follow`,
+          
           {
             headers: {
-              Authorization: `Bearer ${accessToken}`, // Include the access token
+              Authorization: `Bearer ${accessToken}`, 
             },
           }
         );

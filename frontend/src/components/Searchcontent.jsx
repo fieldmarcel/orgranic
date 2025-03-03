@@ -11,7 +11,7 @@ const FoodSearchCard = ({ id, subCategory,image, readyIn, rating, title }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Link to={`/recipe/${id}`} className="block">
-        {/* Image Container */}
+
         <div className="relative w-full pt-[66%] overflow-hidden">
           <img 
             src={image || "/placeholder-food.jpg"} 
@@ -19,7 +19,6 @@ const FoodSearchCard = ({ id, subCategory,image, readyIn, rating, title }) => {
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
           
-          {/* Share Overlay */}
           {isHovered && (
             <div className="absolute inset-0 bg-black/30 flex items-center justify-center space-x-4 z-10">
               <button className="bg-white/80 p-3 rounded-full hover:bg-white transition-colors">
@@ -31,17 +30,13 @@ const FoodSearchCard = ({ id, subCategory,image, readyIn, rating, title }) => {
           )}
         </div>
 
-        {/* Content Container */}
         <div className="p-4 ">
-          {/* Recipe Title */}
 <h4 className="text-gray-800 line-clamp-2">{subCategory}</h4>
           <h3 className="text-2xl font-bold text-gray-800 line-clamp-2 mb-3">
             {title}
           </h3>
 
-          {/* Additional Info */}
           <div className="flex items-center justify-between">
-            {/* Time and Rating */}
             <div className="flex items-center space-x-3">
               <span className="flex items-center space-x-1 text-gray-600">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -59,7 +54,6 @@ const FoodSearchCard = ({ id, subCategory,image, readyIn, rating, title }) => {
               </span>
             </div>
 
-            {/* Favorite Button */}
             <button className="bg-red-50 p-2.5 rounded-full hover:bg-red-100 transition-colors">
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Link, useParams ,useNavigate} from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   BiBookmark,
@@ -24,19 +24,20 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]);
   const [recipes, setRecipes] = useState([]);
-  const username = localStorage.getItem("userName")?.replace(/"/g, "") ?? "Guest";
+  const username =
+    localStorage.getItem("userName")?.replace(/"/g, "") ?? "Guest";
   const dispatch = useDispatch();
-  const navigate= useNavigate()
-const handleLogout = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
     localStorage.removeItem("data");
     dispatch(logout());
-    navigate("/login")}
-  // Fetch user data
+    navigate("/login");
+  };
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8081/api/v1/users/${userName}`
+          process.env.REACT_BASE_URL + `api/v1/users/${userName}`
         );
         setUser(response.data.user);
         setRecipes(response.data.recipes || []); // Fallback to empty array
@@ -56,9 +57,9 @@ const handleLogout = () => {
       const fetchBookmarkedRecipes = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:8081/api/v1/users/${userName}/bookmarks`
+            process.env.REACT_BASE_URL + `api/v1/users/${userName}/bookmarks`
           );
-          setBookmarkedRecipes(response.data.bookmarkedRecipes || []); // Fallback to empty array
+          setBookmarkedRecipes(response.data.bookmarkedRecipes || []);
         } catch (error) {
           console.error("Failed to fetch bookmarked recipes:", error.message);
         }
@@ -74,7 +75,6 @@ const handleLogout = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Cover Image and Profile Info Section */}
       <div className="relative h-80 overflow-hidden">
         <img
           src={"/apple.jpg" || "default-image-url"}
@@ -84,7 +84,6 @@ const handleLogout = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/70"></div>
       </div>
 
-      {/* Profile Card */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-10">
         <motion.div
           className="bg-white rounded-3xl shadow-xl overflow-hidden"
@@ -93,7 +92,6 @@ const handleLogout = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="md:flex">
-            {/* Left Column - Avatar & Info */}
             <div className="md:w-1/3 p-6 md:p-8 flex flex-col items-center md:items-start border-b md:border-b-0 md:border-r border-gray-100">
               <div className="relative mb-4">
                 <div className="w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden">
@@ -127,7 +125,7 @@ const handleLogout = () => {
               <div className="flex justify-between w-full mb-6">
                 <div className="text-center">
                   <p className="text-2xl font-bold text-gray-800">
-                    {recipes.length ||0}
+                    {recipes.length || 0}
                   </p>
                   <p className="text-sm text-gray-500">Recipes</p>
                 </div>
@@ -146,9 +144,7 @@ const handleLogout = () => {
               </div>
             </div>
 
-            {/* Right Column - Content */}
             <div className="md:w-2/3 p-6 md:p-8">
-
               <div className="flex justify-between mb-8">
                 {/* <FollowButton userId={user._id} /> */}
                 <div className="flex gap-2">
@@ -156,20 +152,15 @@ const handleLogout = () => {
                     className="p-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                  >
-                    {/* <BiShare className="text-lg" /> */}
-                  </motion.button>
+                  ></motion.button>
                   <motion.button
                     className="p-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                  >
-                    {/* <BiCog className="text-lg" /> */}
-                  </motion.button>
+                  ></motion.button>
                 </div>
               </div>
 
-              {/* Tabs */}
               <div className="border-b border-gray-200 mb-6">
                 <nav className="flex space-x-8">
                   {[
@@ -197,7 +188,6 @@ const handleLogout = () => {
                 </nav>
               </div>
 
-              {/* Tab Content */}
               <div className="min-h-[400px]">
                 {activeTab === "recipes" && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -219,7 +209,9 @@ const handleLogout = () => {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                             <div className="absolute bottom-3 left-3 right-3 flex justify-between items-end">
                               <div>
-                                <h3 className="text-white font-bold">{recipe.title}</h3>
+                                <h3 className="text-white font-bold">
+                                  {recipe.title}
+                                </h3>
                               </div>
                               <div className="flex items-center gap-1 text-white/90 text-sm">
                                 <BiHourglass /> {recipe.readyIn}
@@ -299,7 +291,6 @@ const handleLogout = () => {
         </motion.div>
       </div>
 
-      {/* Bottom Actions */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <motion.div
           className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md p-4 flex justify-between items-center"
@@ -314,8 +305,7 @@ const handleLogout = () => {
             whileTap={{ scale: 0.95 }}
           >
             <BiLogOut className="text-lg" />
-            <button onClick={handleLogout}>            Sign Out
-            </button>
+            <button onClick={handleLogout}> Sign Out</button>
           </motion.button>
         </motion.div>
       </div>

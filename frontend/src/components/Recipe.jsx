@@ -57,7 +57,7 @@ const Recipe = () => {
       }
 
       const res = await axios.post(
-        "http://localhost:8081/api/v1/users/bookmarks",
+        process.env.REACT_BASE_URL + "/api/v1/users/bookmarks",
         { userId, recipeId },
         {
           headers: {
@@ -82,7 +82,7 @@ const Recipe = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:8081/api/v1/recipes/${id}`);
+        const { data } = await axios.get(process.env.REACT_BASE_URL + `/api/v1/recipes/${id}`);
         setRecipe(data);
       } catch (err) {
         setError("Error fetching recipe details");
@@ -114,7 +114,6 @@ const Recipe = () => {
   return (
     <div className="max-w-6xl mx-auto p-2 md:p-4 bg-white/90">
       <div className="flex flex-col md:flex-row gap-4 mb-6">
-        {/* Left column with image and quick actions */}
         <div className="md:w-1/3">
           <Card className="overflow-hidden">
             <img
@@ -157,7 +156,6 @@ const Recipe = () => {
           </Card>
         </div>
 
-        {/* Right column with title and quick info */}
         <div className="md:w-2/3">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">{recipe.title}</h1>
           <div className="flex items-center gap-2 mb-4">
@@ -193,7 +191,6 @@ const Recipe = () => {
         </div>
       </div>
 
-      {/* Description */}
       <Card className="mb-4 hover:shadow-md transition-shadow">
         <CardContent className="p-4">
           <h2 className="text-xl font-semibold mb-3 flex items-center"></h2>
@@ -202,9 +199,8 @@ const Recipe = () => {
         </CardContent>
       </Card>
 
-      {/* Ingredients and Instructions side by side */}
       <div className="grid md:grid-cols-2 gap-4 mb-4">
-        {/* Ingredients */}
+        {/* //ingredient */}
         <Card className="hover:shadow-md transition-shadow">
           <CardContent className="p-4">
             <h2 className="text-xl font-semibold mb-3 flex items-center">
@@ -242,7 +238,6 @@ const Recipe = () => {
           </CardContent>
         </Card>
 
-        {/* Instructions */}
         <Card className="hover:shadow-md transition-shadow">
           <CardContent className="p-4">
             <h2 className="text-xl font-semibold mb-3 flex items-center">
@@ -281,7 +276,6 @@ const Recipe = () => {
         </Card>
       </div>
 
-      {/* Nutrition Facts */}
       <Card className="mb-4 hover:shadow-md transition-shadow">
         <CardContent className="p-4">
           <h2 className="text-xl font-semibold mb-3 flex items-center">

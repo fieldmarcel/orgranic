@@ -39,7 +39,7 @@ const Cardscontent = ({ id, image, title, rating }) => {
       }
 
       const res = await axios.post(
-        "http://localhost:8081/api/v1/users/bookmarks",
+        process.env.REACT_BASE_URL + "api/v1/users/bookmarks",
         { userId, recipeId },
         {
           headers: {
