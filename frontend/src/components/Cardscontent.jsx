@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -39,7 +40,7 @@ const Cardscontent = ({ id, image, title, rating }) => {
       }
 
       const res = await axios.post(
-        "http://localhost:8081/api/v1/users/bookmarks",
+        import.meta.env.VITE_BASE_URL + "/api/v1/users/bookmarks",
         { userId, recipeId },
         {
           headers: {

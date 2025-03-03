@@ -1,7 +1,8 @@
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:8081/api/v1/recipes/favourites"; // Backend URL
+const API_URL = import.meta.env.VITE_BASE_URL + "/api/v1/recipes/favourites"; // Backend URL
 
 // 1️⃣ Add to favourites (POST)
 export const addToFavourites = createAsyncThunk(
@@ -21,7 +22,7 @@ export const removeFromFavourites = createAsyncThunk(
     "favourites/remove",
     async (id, { rejectWithValue }) => {
         try {
-            await axios.post(`http://localhost:8081/api/v1/recipes/favourites/remove/${id}`);
+            await axios.post(import.meta.env.VITE_BASE_URL + `/api/v1/recipes/favourites/remove/${id}`);
             return id;
         } catch (error) {
             return rejectWithValue("Failed to remove favourite");

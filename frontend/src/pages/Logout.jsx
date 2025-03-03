@@ -1,3 +1,4 @@
+
 import React from 'react'
 import useNavigate from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -11,7 +12,7 @@ const navigate= useNavigate();
     try {
       
    const logout=    await axios.post(
-        "http://localhost:8081/api/v1/users/logout",
+        import.meta.env.VITE_BASE_URL + "/api/v1/users/logout",
         {},
         {
           withCredentials: true,

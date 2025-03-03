@@ -1,3 +1,4 @@
+
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -12,7 +13,7 @@ const SubCategory = () => {
   const fetchSubcategoryRecipes = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8081/api/v1/recipes/subCategory/${subCategory}`);
+        import.meta.env.VITE_BASE_URL + `/api/v1/recipes/subCategory/${subCategory}`);
 
       setSubcategoryRecipes(res.data);
       console.log("Subcategory Recipes:", res.data);

@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -21,7 +23,7 @@ const FollowButton = () => {
 
       if (isFollowing) {
         await axios.post(
-          `http://localhost:8081/api/v1/users/${userName}/unfollow`,
+          import.meta.env.VITE_BASE_URL + `/api/v1/users/${userName}/unfollow`,
           {}, // No need to send userId in the body since it's extracted from the token
           {
             headers: {

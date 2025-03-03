@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useParams ,useNavigate} from "react-router-dom";
@@ -36,7 +38,7 @@ const handleLogout = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8081/api/v1/users/${userName}`
+          import.meta.env.VITE_BASE_URL + `/api/v1/users/${userName}`
         );
         setUser(response.data.user);
         setRecipes(response.data.recipes || []); // Fallback to empty array
@@ -56,7 +58,7 @@ const handleLogout = () => {
       const fetchBookmarkedRecipes = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:8081/api/v1/users/${userName}/bookmarks`
+            import.meta.env.VITE_BASE_URL + `/api/v1/users/${userName}/bookmarks`
           );
           setBookmarkedRecipes(response.data.bookmarkedRecipes || []); // Fallback to empty array
         } catch (error) {

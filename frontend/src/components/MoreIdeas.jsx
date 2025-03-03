@@ -13,7 +13,8 @@ const MoreIdeas = () => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          "http://localhost:8081/api/v1/recipes/moreideas"
+
+          import.meta.env.VITE_BASE_URL + "/api/v1/recipes/moreideas"
         );
 
         if (!response.ok) {

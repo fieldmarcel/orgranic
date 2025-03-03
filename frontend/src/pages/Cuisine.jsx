@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -12,7 +13,7 @@ const Cuisine = () => {
   const fetchCuisineRecipes = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8081/api/v1/recipes/cuisine/${cuisine}`
+        import.meta.env.VITE_BASE_URL + `/api/v1/recipes/cuisine/${cuisine}`
       );
       setCuisineRecipes(res.data);
       console.log("Cuisine Recipes:", res.data);

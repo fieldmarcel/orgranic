@@ -1,5 +1,4 @@
 
-"use client";
 
 import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -48,7 +47,7 @@ const CuisineSection = ({ title, subTitle, cuisine, className }) => {
       }
 
       const res = await axios.post(
-        "http://localhost:8081/api/v1/users/bookmarks",
+        import.meta.env.VITE_BASE_URL + "/api/v1/users/bookmarks",
         { userId, recipeId },
         {
           headers: {
@@ -83,7 +82,7 @@ const CuisineSection = ({ title, subTitle, cuisine, className }) => {
     const fetchRecipes = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(`http://localhost:8081/api/v1/recipes/explore`);
+        const res = await axios.get(import.meta.env.VITE_BASE_URL + `/api/v1/recipes/explore`);
         const data = res.data;
         const filteredRecipes = data.filter(recipe => 
           recipe.cuisine && recipe.cuisine.toLowerCase().includes(cuisine.toLowerCase())
@@ -145,7 +144,6 @@ const CuisineSection = ({ title, subTitle, cuisine, className }) => {
                                       {isBookmarked ? <BookMarked /> : <Bookmark />}
                                     </button>
                             
-                          {/* Tags */}
                           <div className="absolute bottom-0 left-0 right-0 p-3 z-20">
                             <div className="flex gap-2">
                               {(recipe.tags || [recipe.category, recipe.cuisine]).filter(Boolean).map((tag, idx) => (
@@ -228,9 +226,4 @@ export default CuisineExplorer;
 
 
 
- {/* <CuisineSection 
-          title="Pan Asian Cuisine" 
-          subTitle="Explore global culinary delights" 
-          cuisine="Pan-Asian"
-          className="md:w-1/2" 
-        /> */}
+ 

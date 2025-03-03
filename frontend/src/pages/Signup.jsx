@@ -20,7 +20,7 @@ const Signup = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8081/api/v1/users/register",
+        process.env.REACT_BASE_URL + "api/v1/users/register",
         {
           userName,
           email,
@@ -53,7 +53,6 @@ const Signup = () => {
 
   return (
     <div className="flex min-h-screen overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Left Section with Image and Overlay */}
       <div className="relative flex-1 hidden lg:block">
         <img
           src="/abc.jpg"
@@ -62,7 +61,6 @@ const Signup = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-br from-black/60 to-gray-900/70"></div>
         
-        {/* Left Side Content */}
         <div className="absolute inset-0 flex flex-col justify-between p-12 text-white">
           <div>
             <h1 className="text-3xl font-bold">HomeChef</h1>
@@ -90,7 +88,6 @@ const Signup = () => {
         </div>
       </div>
 
-      {/* Form Section */}
       <div className="flex-1 flex items-center justify-center px-6 py-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -106,7 +103,6 @@ const Signup = () => {
           </div>
           
           <form onSubmit={handleSignup} className="bg-white rounded-xl shadow-xl p-8 space-y-6 border border-gray-100">
-            {/* Full Name Input */}
             <div className="space-y-2">
               <label
                 htmlFor="fullName"
@@ -127,7 +123,6 @@ const Signup = () => {
               />
             </div>
 
-            {/* Username Input */}
             <div className="space-y-2">
               <label
                 htmlFor="userName"
@@ -148,7 +143,6 @@ const Signup = () => {
               />
             </div>
 
-            {/* Email Input */}
             <div className="space-y-2">
               <label
                 htmlFor="email"
@@ -169,7 +163,6 @@ const Signup = () => {
               />
             </div>
 
-            {/* Password Input */}
             <div className="space-y-2">
               <label
                 htmlFor="password"
@@ -206,7 +199,6 @@ const Signup = () => {
               </p>
             </div>
 
-            {/* Signup Button */}
             <div className="pt-2">
               <motion.button
                 whileHover={{ scale: 1.02 }}
@@ -229,7 +221,6 @@ const Signup = () => {
               </motion.button>
             </div>
             
-            {/* Social Signup Options */}
             <div className="relative mt-8">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-200"></div>
@@ -264,7 +255,6 @@ const Signup = () => {
             </div>
           </form>
           
-          {/* Link to Login */}
           <p className="mt-6 text-center text-sm text-gray-600">
             Already have an account?{" "}
             <Link to="/login" className="text-green-600 hover:text-green-700 font-medium transition-colors duration-200">
@@ -288,4 +278,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signup;  

@@ -28,7 +28,7 @@ const App = () => {
     <div className="">
       <Provider store={store}>
         <BrowserRouter>
-          {/* If I want to show the navbar on top of each page, I can place it here above routes */}
+          {/* // If I want to show the navbar on top of each page, I can place it here above routes */} 
           <Navbar />
           <Toaster />
 

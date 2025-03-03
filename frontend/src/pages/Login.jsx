@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -22,7 +23,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8081/api/v1/users/login",
+        import.meta.env.VITE_BASE_URL + "/api/v1/users/login",
         {
           email,
           password,
@@ -47,16 +48,16 @@ const Login = () => {
           console.error("User data is missing in API response");
         }
       } else {
-        console.error("Login failed:", data.message);
+        console.error("Login failed:", data?.message);
       }
     } catch (error) {
       console.error("Login error: ", error);
 
       if (error.response && error.response.data) {
-        toast.error(error.response.data.message || "Login failed.");
+        toast.error(error?.response?.data.message || "Login failed.");
       } else {
         console.log(error.message)
-        toast.error(error.response.data.message || "Login failed.");
+        toast.error(error?.response?.data.message || "Login failed.");
       }
     } finally {
       setIsLoading(false);

@@ -16,13 +16,13 @@ const images = [
 ];
 
 const Gallery = () => {
-  const [shuffledImages, setShuffledImages] = React.useState([...images]); // Initialize with a copy
+  const [shuffledImages, setShuffledImages] = React.useState([...images]); 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1, // Delay between each child animation
+        staggerChildren: 0.1, 
       },
     },
   };

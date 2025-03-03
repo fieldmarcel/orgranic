@@ -23,12 +23,10 @@ const Navbar = () => {
     <nav className="sticky top-0 ml-5 mr-5 rounded-full  bg-white/55 backdrop-blur-xl border-b border-gray-100 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <Link to="/" className="flex-shrink-0 hover:opacity-90 transition-opacity">
             <img src="/Group 22 (6).svg" alt="logo" className="h-12 w-auto text-emerald-600" />
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 text-gray-600 hover:text-emerald-600 transition-colors group">
@@ -78,7 +76,6 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Right Section */}
           <div className="flex items-center gap-6">
             <Link to="/search" className="p-2.5 hover:bg-emerald-50 rounded-full transition-colors">
               <Search className="h-6 w-6 text-brown-600" />
@@ -130,7 +127,6 @@ const Navbar = () => {
               </Link>
             )}
 
-            {/* Mobile Menu Toggle */}
             <button
               onClick={toggleMobileMenu}
               className="lg:hidden p-2.5 hover:bg-emerald-50 rounded-full transition-colors"
@@ -144,7 +140,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden absolute top-20 left-0 right-0 bg-white border-t border-gray-100 shadow-lg animate-slideDown">
             <div className="px-4 py-6 space-y-4">

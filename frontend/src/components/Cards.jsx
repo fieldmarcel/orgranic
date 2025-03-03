@@ -1,3 +1,6 @@
+
+
+
 import React, { useState,useEffect } from "react";
 import Cardscontent from "./Cardscontent";
 import { fetchRecipeCards } from "../../redux/slices/allCardSlice";
@@ -23,7 +26,7 @@ const Cards = () => {
 const featuredrecipes= async()=>{
   setLoading(true)
   try {
-    const recipes= await axios.get(`http://localhost:8081/api/v1/recipes/fixed?limit=3`)
+    const recipes= await axios.get(import.meta.env.VITE_BASE_URL + `/api/v1/recipes/fixed?limit=3`)
     console.log("API Response:", recipes.data);
     setrecipe(recipes.data);
      return recipes.data;

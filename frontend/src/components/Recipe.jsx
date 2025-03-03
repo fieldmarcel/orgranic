@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
@@ -57,7 +58,7 @@ const Recipe = () => {
       }
 
       const res = await axios.post(
-        "http://localhost:8081/api/v1/users/bookmarks",
+        import.meta.env.VITE_BASE_URL + "/api/v1/users/bookmarks",
         { userId, recipeId },
         {
           headers: {
@@ -82,7 +83,7 @@ const Recipe = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:8081/api/v1/recipes/${id}`);
+        const { data } = await axios.get(import.meta.env.VITE_BASE_URL + `/api/v1/recipes/${id}`);
         setRecipe(data);
       } catch (err) {
         setError("Error fetching recipe details");
@@ -202,9 +203,8 @@ const Recipe = () => {
         </CardContent>
       </Card>
 
-      {/* Ingredients and Instructions side by side */}
       <div className="grid md:grid-cols-2 gap-4 mb-4">
-        {/* Ingredients */}
+
         <Card className="hover:shadow-md transition-shadow">
           <CardContent className="p-4">
             <h2 className="text-xl font-semibold mb-3 flex items-center">
@@ -242,7 +242,6 @@ const Recipe = () => {
           </CardContent>
         </Card>
 
-        {/* Instructions */}
         <Card className="hover:shadow-md transition-shadow">
           <CardContent className="p-4">
             <h2 className="text-xl font-semibold mb-3 flex items-center">
@@ -281,7 +280,6 @@ const Recipe = () => {
         </Card>
       </div>
 
-      {/* Nutrition Facts */}
       <Card className="mb-4 hover:shadow-md transition-shadow">
         <CardContent className="p-4">
           <h2 className="text-xl font-semibold mb-3 flex items-center">

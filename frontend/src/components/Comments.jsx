@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -13,7 +14,7 @@ const Comments = () => {
     const fetchComments = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8081/api/v1/comments/${id}`
+          import.meta.env.VITE_BASE_URL + `/api/v1/comments/${id}`
         );
         setComments(res.data);
       } catch (error) {
@@ -50,7 +51,7 @@ const Comments = () => {
 
     try {
       const res = await axios.post(
-        `http://localhost:8081/api/v1/comments/${id}`,
+        import.meta.env.VITE_BASE_URL + `/api/v1/comments/${id}`,
         {
           comment,
           userId, // Only send userId
@@ -71,16 +72,16 @@ const Comments = () => {
   const handleDelete = async (commentId) => {
     try {
       await axios.delete(`http://localhost:8081/api/v1/comments/${commentId}`);
-      setComments(comments.filter((c) => c._id !== commentId)); // Remove deleted comment
+      setComments(comments.filter((c) => c._id !== commentId)); 
       console.log("Comment deleted:", commentId);
     } catch (error) {
       console.error("Error deleting comment:", error.message);
     }
   };
 
-  const handleReply = (commentId) => {
-    console.log("Replying to comment:", commentId);
-  };
+  // const handleReply = (commentId) => {
+  //   console.log("Replying to comment:", commentId);
+  // };
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white/90 backdrop-blur-lg shadow-2xl ">
@@ -111,7 +112,7 @@ const Comments = () => {
       {/* Comments List */}
       <div>
         <h3 className="text-2xl font-bold text-emerald-800 mb-6 flex items-center gap-2">
-          <MessageCircle className="w-6 h-6 text-emerald-600" /> {/* Icon for comments header */}
+          <MessageCircle className="w-6 h-6 text-emerald-600" /> 
           Comments
         </h3>
         {comments.length > 0 ? (
