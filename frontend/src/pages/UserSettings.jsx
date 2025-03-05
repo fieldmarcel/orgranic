@@ -43,6 +43,9 @@ function UserSettings() {
       </div>
 
       <div className="flex-1 p-8">{renderContent()}</div>
+      <div className="flex-1 p-8">
+        {renderContent()}
+      </div>
     </div>
   );
 }
