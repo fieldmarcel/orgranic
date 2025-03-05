@@ -86,7 +86,6 @@ const handleLogout = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/70"></div>
       </div>
 
-      {/* Profile Card */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-10">
         <motion.div
           className="bg-white rounded-3xl shadow-xl overflow-hidden"
