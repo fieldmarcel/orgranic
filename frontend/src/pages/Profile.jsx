@@ -94,7 +94,6 @@ const handleLogout = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="md:flex">
-            {/* Left Column - Avatar & Info */}
             <div className="md:w-1/3 p-6 md:p-8 flex flex-col items-center md:items-start border-b md:border-b-0 md:border-r border-gray-100">
               <div className="relative mb-4">
                 <div className="w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden">
