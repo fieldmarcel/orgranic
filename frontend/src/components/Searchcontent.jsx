@@ -37,9 +37,7 @@ const FoodSearchCard = ({ id, subCategory,image, readyIn, rating, title }) => {
             {title}
           </h3>
 
-          {/* Additional Info */}
           <div className="flex items-center justify-between">
-            {/* Time and Rating */}
             <div className="flex items-center space-x-3">
               <span className="flex items-center space-x-1 text-gray-600">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -57,7 +55,6 @@ const FoodSearchCard = ({ id, subCategory,image, readyIn, rating, title }) => {
               </span>
             </div>
 
-            {/* Favorite Button */}
             <button className="bg-red-50 p-2.5 rounded-full hover:bg-red-100 transition-colors">
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 

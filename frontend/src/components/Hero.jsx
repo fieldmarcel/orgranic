@@ -16,7 +16,7 @@ const {id}= useParams();
     const fetchRecipe = async () => {
       try {
         const recipeId=  id  || "67bff003c0599fc44cbb07fa";
-        const response = await axios.get(process.env.REACT_BASE_URL + `/api/v1/recipes/${recipeId}`);
+        const response = await axios.get(import.meta.env.VITE_BASE_URL + `/api/v1/recipes/${recipeId}`);
         setRecipe(response.data);
       } catch (error) {
         setError(error.message);
