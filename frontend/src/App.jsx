@@ -23,6 +23,7 @@ import SubCategory from "./pages/SubCategory";
 import Cuisine from "./pages/Cuisine";
 import Explore from "./components/Explore";
 import MoreIdeas from "./components/MoreIdeas";
+import LiveFeed from "./components/LiveFeed";
 const App = () => {
   return (
     <div className="">
@@ -39,6 +40,8 @@ const App = () => {
               element={
                 <>
                   <Hero />
+                 <LiveFeed />
+
                   <Cards />
 
                   <Explore/>

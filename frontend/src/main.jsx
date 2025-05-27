@@ -5,8 +5,6 @@ import './index.css'
 import store from '../redux/store.js'
 
 import { Provider } from 'react-redux'
-//provider is from redux- toolkit
-// import * as serviceWorker from './serviceWorker';
 
 
 createRoot(document.getElementById('root')).render(
@@ -17,6 +15,4 @@ createRoot(document.getElementById('root')).render(
     
   </StrictMode>,
 )
-// serviceWorker.register();
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls
+//

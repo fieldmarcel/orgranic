@@ -1,16 +1,17 @@
 import express from "express";
  import cors from "cors"
  import cookieParser from "cookie-parser";
+// import { Socket } from "socket.io";
 
  const app= express();
-
- const allowedOrigins = ["http://localhost:5173",process.env.CORS_ORIGIN];
+// const io= new Socket();
+//  const allowedOrigins = ["http://localhost:5173",process.env.CORS_ORIGIN];
 
  app.use(
    cors({
-     origin: allowedOrigins, // Specify allowed origin
+    //  origin: allowedOrigins, // Specify allowed origin
      credentials: true, // Allow credentials (cookies, authorization headers)
-   })
+   })                                                             
  )
  
 
