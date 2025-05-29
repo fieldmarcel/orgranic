@@ -17,14 +17,20 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+const api = axios.create({
+  baseURL: import.meta.env.VITE_BASE_URL,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  }
+});
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const res = await axios.post(
-        import.meta.env.VITE_BASE_URL + "/api/v1/users/login",
-        {
+      
+const res = await api.post("/api/v1/users/login",         {
           email,
           password,
         },

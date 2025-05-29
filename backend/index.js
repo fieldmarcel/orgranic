@@ -1,4 +1,6 @@
 import dotenv from "dotenv";
+dotenv.config();
+
 import connectDB from "./src/db/index.js";
 import { app } from "./src/app.js";
 import { Server } from "socket.io";
@@ -6,8 +8,7 @@ import { createServer } from "http";
 import { registerFeedSocketHandlers } from "./src/controllers/socketController.js";
 
 import cors from "cors";
-dotenv.config();
-const allowedOrigins = process.env.CORS_ORIGIN.split(",");
+const allowedOrigins = process.env.CORS_ORIGIN?.split(",") || ["http://localhost:5173"]; // Default to Vite origin
 
 const PORT = process.env.PORT || 8081;
 app.use(
@@ -27,20 +28,20 @@ const server = createServer(app);
 });
 registerFeedSocketHandlers(io);
 
-// io.on("connection",(socket)=>{
-//   console.log("New client connected", socket.id);
+io.on("connection",(socket)=>{
+  console.log("New client connected", socket.id);
 
 
-//   socket.on("sendPost",(data) =>{
-//     console.log("New post received:", data);
-//     // Broadcast the new post to all connected clients
-//     io.emit("receivePost", data);
-//   })   
+  socket.on("sendPost",(data) =>{
+    console.log("New post received:", data);
+    // Broadcast the new post to all connected clients
+    io.emit("receivePost", data);
+  })   
   
-//    socket.on("disconnect", () => {
-//     console.log("User disconnected: ", socket.id);
-//   });
-// })
+   socket.on("disconnect", () => {
+    console.log("User disconnected: ", socket.id);
+  });
+})
 
 
 
