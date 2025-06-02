@@ -100,7 +100,7 @@ const loginUser = async (req, res) => {
     }
 
     const isPasswordCorrect = await bcrypt.compare(
-      password,
+      String(password),
       verifiedUser.password
     );
     if (!isPasswordCorrect) {
@@ -122,13 +122,16 @@ const loginUser = async (req, res) => {
     const options = {
         refreshToken,
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",  // Ensure data transfer over HTTPS
+      secure: process.env.NODE_ENV === "production",  // Ensureing data transfer over HTTPS
       sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax", // Protect against CSRF
       maxAge: 7 * 24 * 60 * 60 * 1000,
     };
 
     const { password: removedPassword, ...userWithoutPassword } =
       verifiedUser.toObject();
+      
+res.cookie('accessToken', accessToken, options);
+res.cookie('refreshToken', refreshToken, options);
 
     return res.status(200).json({
       success: true,
@@ -139,7 +142,6 @@ const loginUser = async (req, res) => {
         email: userWithoutPassword.email,
         fullName: userWithoutPassword.fullName,
       },
-      accessToken,
     //   refreshToken,  it should not be provided in response ..only to https cookie
     });
 

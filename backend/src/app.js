@@ -4,12 +4,13 @@ import express from "express";
 // import { Socket } from "socket.io";
 
  const app= express();
-// const io= new Socket();
-//  const allowedOrigins = ["http://localhost:5173",process.env.CORS_ORIGIN];
-
+const allowedOrigins = process.env.CORS_ORIGIN?.split(",") || [
+  "http://localhost:5173",
+  "http://127.0.0.1:5173" 
+];
  app.use(
    cors({
-    //  origin: allowedOrigins, // Specify allowed origin
+      origin: allowedOrigins, // Specify allowed origin
      credentials: true, // Allow credentials (cookies, authorization headers)
    })                                                             
  )

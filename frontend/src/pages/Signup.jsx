@@ -20,7 +20,7 @@ const Signup = () => {
 
     try {
       const res = await axios.post(
-        process.env.REACT_BASE_URL + "api/v1/users/register",
+       import.meta.env.VITE_BASE_URL + "api/v1/users/register",
         {
           userName,
           email,

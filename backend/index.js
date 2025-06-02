@@ -8,17 +8,31 @@ import { createServer } from "http";
 import { registerFeedSocketHandlers } from "./src/controllers/socketController.js";
 
 import cors from "cors";
-const allowedOrigins = process.env.CORS_ORIGIN?.split(",") || ["http://localhost:5173"]; // Default to Vite origin
-
+const allowedOrigins = process.env.CORS_ORIGIN?.split(",") || [
+  "http://localhost:5173",
+  "http://127.0.0.1:5173" 
+];
 const PORT = process.env.PORT || 8081;
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
+app.options('*', cors());
+
 const server = createServer(app);
+
  export const io = new Server(server, {
   cors: {
     origin: allowedOrigins,
@@ -34,7 +48,7 @@ io.on("connection",(socket)=>{
 
   socket.on("sendPost",(data) =>{
     console.log("New post received:", data);
-    // Broadcast the new post to all connected clients
+
     io.emit("receivePost", data);
   })   
   

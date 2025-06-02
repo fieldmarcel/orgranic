@@ -52,7 +52,7 @@ export default function AddRecipe() {
     console.log("Access Token:", accessToken);
 
     try {
-      const response = await axios.post( import.meta.env.VITE_BASE_URL +  "api/v1/recipes", recipe, {
+      const response = await axios.post( import.meta.env.VITE_BASE_URL +  "/api/v1/recipes", recipe, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,

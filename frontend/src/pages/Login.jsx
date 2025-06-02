@@ -57,7 +57,7 @@ const res = await api.post("/api/v1/users/login",         {
         console.error("Login failed:", data?.message);
       }
     } catch (error) {
-      console.error("Login error: ", error);
+      console.error("Login error: ", error?.message);
 
       if (error.response && error.response.data) {
         toast.error(error?.response?.data.message || "Login failed.");
@@ -77,19 +77,19 @@ const res = await api.post("/api/v1/users/login",         {
 
   return (
     <div className="flex min-h-screen bg-slate-50">
-      {/* Background decorative elements */}
+
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-gradient-to-br from-pink-200 to-indigo-200 rounded-full opacity-20 blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-white to-transparent opacity-80"></div>
       </div>
 
-      {/* Image Section with overlay */}
       <div className="hidden lg:block w-1/2 relative overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: "url('/abc.jpg')",
           }}
+
         ></div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30"></div>
         <div className="absolute inset-0 flex flex-col justify-center items-center text-white p-12">
@@ -133,7 +133,6 @@ const res = await api.post("/api/v1/users/login",         {
         </div>
       </div>
 
-      {/* Form Section */}
       <div className="w-full lg:w-1/2 flex items-center justify-center relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
