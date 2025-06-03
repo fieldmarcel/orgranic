@@ -20,7 +20,7 @@ import FollowButton from "@/components/FollowButton";
 import { logout } from "../../redux/slices/authSlice";
 
 const Profile = () => {
-  const [activeTab, setActiveTab] = useState("saved");
+  const [activeTab, setActiveTab] = useState("recipes");
   const { userName } = useParams();
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);

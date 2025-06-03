@@ -142,7 +142,7 @@ res.cookie('refreshToken', refreshToken, options);
         email: userWithoutPassword.email,
         fullName: userWithoutPassword.fullName,
       },
-    //   refreshToken,  it should not be provided in response ..only to https cookie
+      accessToken
     });
 
     // Uncomment if you want to use cookies
