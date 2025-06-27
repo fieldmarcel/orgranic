@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { BorderBeam } from "../components/ui/border-beam";
-import { useParams } from "react-router-dom";
 import { BookMarked, Bookmark } from "lucide-react";
 import { toast } from "react-hot-toast";
 
@@ -76,17 +75,15 @@ const Cardscontent = ({ id, image, title, rating }) => {
         colorTo="#F7DCB9"
       />
       <div className="relative w-full h-full rounded-3xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 z-10">
-        {/* Image Container */}
         <img
           src={image || "/placeholder-food.jpg"}
           alt={title}
           className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
         />
 
-        {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
 
-        {/* Top Icons */}
+
         <div className="absolute top-3 right-3 flex gap-2">
           <button
             onClick={handlebookmark}
@@ -98,7 +95,6 @@ const Cardscontent = ({ id, image, title, rating }) => {
           </button>
         </div>
 
-        {/* Bottom Content */}
         <div className="absolute bottom-0 left-0 right-0 p-4 space-y-2 text-white">
           <div className="flex justify-between items-start">
             <h3 className="text-xl font-bold line-clamp-2 leading-tight">
@@ -109,7 +105,6 @@ const Cardscontent = ({ id, image, title, rating }) => {
             </span>
           </div>
 
-          {/* View Button */}
           <div className="">
             <button className="opacity-0 hover:opacity-100 transition-opacity-colors duration-300 w-full py-2 bg-white/90 text-gray-900 rounded-3xl font-semibold hover:bg-white">
               View Recipe
